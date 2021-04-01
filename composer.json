@@ -1,0 +1,10 @@
+{
+    "name": "florent/projet5",
+    "authors": [
+        {
+            "name": "Florent THOMAS",
+            "email": "florentthomas78@gmail.com"
+        }
+    ],
+    "require": {}
+}
