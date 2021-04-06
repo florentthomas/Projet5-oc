@@ -4,6 +4,8 @@ namespace App\Models;
 
 class ArticleModel{
 
+    use Hydrate;
+
     private $_id,
             $_title,
             $_author,
@@ -11,6 +13,10 @@ class ArticleModel{
             $_slug,
             $_date_create,
             $_date_update;
+
+    public function __construct($data){
+        $this->hydrate($data);
+    }
 
     public function set_id($id){
         if(is_numeric($id) && $id > 0){
