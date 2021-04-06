@@ -2,9 +2,14 @@
 
 require ("vendor/autoload.php");
 
-$router=new Router($url);
+use App\Router\Router;
+
+$router=new Router($_GET['url']);
+
 
 $router->get("/","BlogController@index");
 $router->get("/blog/:slug-:id","BlogController@show");
+
+$router->run();
 
 
