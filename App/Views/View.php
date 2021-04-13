@@ -7,8 +7,9 @@ class View{
 
     public function generate_view($file,$data=[]){
 
-        $loader = new FilesystemLoader(__DIR__.'/Views');
-        $twig = new Environment($loader, [
+        $loader = new \Twig\Loader\FilesystemLoader(__DIR__);
+
+        $twig = new \Twig\Environment($loader, [
             'cache' => false,
         ]);
 

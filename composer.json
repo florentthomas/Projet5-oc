@@ -12,5 +12,7 @@
             "App\\":"App/"
         }
     },
-    "require": {}
+    "require": {
+        "twig/twig": "3.0"
+    }
 }
