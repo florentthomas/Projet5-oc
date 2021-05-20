@@ -12,8 +12,16 @@ class ArticleManager extends Manager{
         $query=$this->connect_bdd()->prepare($sql);
         $query->execute(Array("id" => $id));
 
-        $data=$query->fetch(\PDO::FETCH_CLASS, "ArticleModel");
+        $data=$query->fetch();
 
-        return $data;
+        if($data){
+
+            $article=new ArticleModel($data);
+            return $data;
+        }
+    
+        return false;
+
+        
     }
 }

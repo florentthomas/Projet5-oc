@@ -12,7 +12,8 @@ class ArticleModel{
             $_content,
             $_slug,
             $_date_create,
-            $_date_update;
+            $_date_update,
+            $_url_image;
 
     public function __construct($data){
         $this->hydrate($data);
@@ -56,6 +57,12 @@ class ArticleModel{
         $this->_date_update=new \DateTime($date_update);
     }
 
+    public function set_url_image($url_image){
+        if(is_string($url_image)){
+            $this->_url_image=$url_image;
+        }
+    }
+
     public function get_id(){
         return $this->_id;
     }
@@ -82,5 +89,9 @@ class ArticleModel{
 
     public function get_date_update(){
         return $this->_date_update;
+    }
+
+    public function get_url_image(){
+        return $this->_url_image;
     }
 }
