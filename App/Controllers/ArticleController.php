@@ -9,15 +9,22 @@ class ArticleController{
 
 
 
-    public function index(){
-
+    public function index($params){
+        $id=$params[1];
 
         $articleManager=new ArticleManager;
 
-        $articles=$articleManager->getArticle();
+        $articles=$articleManager->getArticle($id);
 
-        $view=new View;
-        $view->generate_View("Article",array("titre" => $article->title()));
+        if($articles->exists()){
+            $view=new View;
+            $view->generate_View("Article",array("titre" => $article->title()));
+        }
+
+        else{
+            header('HTTP/1.0 404 Not Found');   
+        }
+
     }
 
 }
