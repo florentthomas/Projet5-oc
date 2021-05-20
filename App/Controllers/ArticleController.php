@@ -15,8 +15,9 @@ class ArticleController{
         $articleManager=new ArticleManager;
 
         $articles=$articleManager->getArticle($id);
+
     
-        if($articles->exists()){
+        if($articles){
 
             $commentManager=new CommentManager;
             $comments=$commentManager->get_comments_by_article($id);
