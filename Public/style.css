@@ -146,3 +146,9 @@ header a{
     text-align: justify;
     margin-bottom: 1rem;
 }
+
+/* page article */
+
+article{
+    padding:3rem;
+}

@@ -2,20 +2,40 @@
 
 
 {% block title %}
-    <title>Titre article</title>
+    <title>{{article.title}}</title>
 {% endblock %}
 
 
 
 {% block description %}
-    <meta name="description" content=""/>
+    <meta name="description" content="{{article.content}}"/>
 {% endblock %}
 
 
 
 {% block content %}
 
+<article>
+
+<h1>{{article.title}}</h1>
+
+<img src="{{article.url_image}}" alt=""/>
+
+<div>{{article.content}}</div>
 
 
+
+</article>
+
+<div id="form_comment">
+    
+    <form action="/blog/{{article.slug}}-{{article.id}}" method="post">
+    
+        <label for="comment_area">Commentaire:</label>
+        <textarea id="comment_area" name="comment"></textarea>
+        <input type="submit"/>
+    </form>
+
+</div>
 
 {% endblock %}
