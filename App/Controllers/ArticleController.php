@@ -7,18 +7,21 @@ use App\Models\ArticleManager;
 
 class ArticleController extends Controller{
 
+    public $articleManager;
+
+    public function __construct(){
+
+        $this->articleManager= $this->model_manager("ArticleManager");
+    }
+
    
     public function index($params){
 
         $id=$params[1];
 
-        $articleManager=$this->model("ArticleManager");
+        $article=$this->model("ArticleModel",$this->articleManager->getArticle($id));
 
-        $article=$articleManager->getArticle($id);
-    
         if($article){
-
-             
             $this->view("Article",array("article" => $article));
         }
 

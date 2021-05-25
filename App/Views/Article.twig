@@ -2,13 +2,13 @@
 
 
 {% block title %}
-    <title>{{article.title}}</title>
+    <title>{{article._title}}</title>
 {% endblock %}
 
 
 
 {% block description %}
-    <meta name="description" content="{{article.content}}"/>
+    <meta name="description" content="{{article._content}}"/>
 {% endblock %}
 
 
@@ -17,11 +17,11 @@
 
 <article>
 
-<h1>{{article.title}}</h1>
+<h1>{{article._title}}</h1>
 
-<img src="{{article.url_image}}" alt=""/>
+<img src="{{article._url_image}}" alt=""/>
 
-<div>{{article.content}}</div>
+<div>{{article._content}}</div>
 
 
 
@@ -29,7 +29,7 @@
 
 <div id="form_comment">
     
-    <form action="/blog/{{article.slug}}-{{article.id}}" method="post">
+    <form action="/blog/{{article._slug}}-{{article._id}}" method="post">
     
         <label for="comment_area">Commentaire:</label>
         <textarea id="comment_area" name="comment"></textarea>
