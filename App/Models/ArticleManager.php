@@ -9,8 +9,15 @@ class ArticleManager extends Manager{
 
         $sql="SELECT * FROM articles WHERE id = :id";
 
-        $query=$this->connect_bdd()->prepare($sql);
-        $query->execute(Array("id" => $id));
+        // $query=$this->connect_bdd()->prepare($sql);
+        // $query->execute(Array("id" => $id));
+
+        $this->prepare("SELECT * FROM articles WHERE id =:id");
+        $this->execute_query_prepared(["id" => $id]);
+
+        $test=$this->get_one();
+
+        var_dump($test);
 
         $data=$query->fetch();
 
