@@ -19,14 +19,15 @@ class ArticleController extends Controller{
 
         $id=$params[1];
 
-        $article=$this->model("ArticleModel",$this->articleManager->getArticle($id));
+        $article=$this->articleManager->getArticle($id);
 
         if($article){
-            $this->view("Article",array("article" => $article));
+            $this->view("Article",array("article" => $this->model("ArticleModel",$article)));
         }
 
         else{
-            header('HTTP/1.0 404 Not Found');   
+            header('HTTP/1.0 404 Not Found');  
+            $this->view("404"); 
         }
 
     }

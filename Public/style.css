@@ -6,6 +6,15 @@
     font-family: sans-serif;
 }
 
+button{
+    background-color: #0984e3;
+    border:0;
+    border-radius: 30px;
+    padding: 0.5rem 2rem;
+    cursor:pointer;
+    color:white;
+}
+
 
 /*header*/
 header{
@@ -91,14 +100,7 @@ header a{
     grid-row-gap: 1rem ;
 }
 
-#posts button{
-    background-color: #0984e3;
-    border:0;
-    border-radius: 30px;
-    padding: 1rem;
-    cursor:pointer;
-    color:white;
-}
+
 
 #posts button:hover{
     box-shadow: 5px 2px 9px black;
@@ -151,4 +153,34 @@ header a{
 
 article{
     padding:3rem;
+}
+
+
+/*Page 404*/
+
+#page_404{
+   
+    background-color: #f7f7f7;
+    height: 100vh;
+}
+
+#card_404 img {
+    width: 10%;
+    height:auto;
+} 
+
+#card_404 button{
+    margin-top:1rem;
+}
+
+#card_404{
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin:auto;
+    width: 40%;
+	box-shadow: 0px 0px 21px -1px #2B1D1D;
+    background-color: white;
 }
