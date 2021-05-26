@@ -10,9 +10,13 @@ abstract class Controller{
 
         $loader = new \Twig\Loader\FilesystemLoader(PATH_VIEWS_FOLDER);
 
+        
+
         $twig = new \Twig\Environment($loader, [
             'cache' => false,
         ]);
+
+        $twig->addGlobal("URL",URL);
             
         echo $twig->render($file.".twig", $data);
     }

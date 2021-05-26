@@ -21,6 +21,7 @@ class ArticleController extends Controller{
 
         $article=$this->articleManager->getArticle($id);
 
+
         if($article){
             $this->view("Article",array("article" => $this->model("ArticleModel",$article)));
         }
