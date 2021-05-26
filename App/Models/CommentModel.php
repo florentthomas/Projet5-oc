@@ -9,7 +9,7 @@ class CommentModel{
     private $_id,
             $_id_article,
             $_id_user,
-            $_pseudonyme,
+            $_id_parent,
             $_comment,
             $_date_comment;
 
@@ -35,11 +35,12 @@ class CommentModel{
         }
     }
 
-    public function set_pseudonyme($pseudonyme){
-        if(is_string($pseudonyme)){
-            $this->_pseudonyme=$pseudonyme;
-        }
+    public function set_id_parent($id_parent){
+        
+            $this->_id_parent=(int)$id_parent;
+        
     }
+
 
     public function set_comment($comment){
         if(is_string($comment)){
@@ -63,8 +64,8 @@ class CommentModel{
         return $this->_id_article;
     }
 
-    public function get_pseudonyme(){
-        return $this->_pseudonyme;
+    public function get_id_parent(){
+        return $this->_id_parent;
     }
 
     public function get_comment(){

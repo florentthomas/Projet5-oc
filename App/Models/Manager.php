@@ -30,7 +30,7 @@ abstract class Manager{
     }
 
     protected function query($sql){
-        $this->_query=$this->_bdd->query($sql);
+        return $this->_query=$this->_bdd->query($sql);
     }
 
     protected function prepare($sql){
