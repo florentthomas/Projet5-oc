@@ -21,14 +21,10 @@ abstract class Controller{
         echo $twig->render($file.".twig", $data);
     }
 
-    public function model($model,$data){
+    public function model($model){
 
         $class="App\\Models\\".$model;
-        return new $class($data);
-    }
-
-    public function model_manager($model_manager){
-        $class="App\\Models\\".$model_manager;
         return new $class();
     }
+
 }

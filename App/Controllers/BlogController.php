@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Views\View;
 
 class BlogController extends Controller{
 

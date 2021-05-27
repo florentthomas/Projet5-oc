@@ -2,13 +2,13 @@
 
 
 {% block title %}
-    <title>{{article._title}}</title>
+    <title>{{article.title}}</title>
 {% endblock %}
 
 
 
 {% block description %}
-    <meta name="description" content="{{article._content}}"/>
+    <meta name="description" content="{{article.content}}"/>
 {% endblock %}
 
 
@@ -17,11 +17,11 @@
 
 <article>
 
-<h1>{{article._title}}</h1>
+<h1>{{article.title}}</h1>
 
-<img src="{{article._url_image}}" alt=""/>
+<img src="{{article.url_image}}" alt=""/>
 
-<div>{{article._content}}</div>
+<div>{{article.content}}</div>
 
 
 

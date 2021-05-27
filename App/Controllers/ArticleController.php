@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Views\View;
-use App\Models\ArticleManager;
-use App\Models\CommentManager;
 
 class ArticleController extends Controller{
 
@@ -12,8 +9,8 @@ class ArticleController extends Controller{
 
     public function __construct(){
 
-        $this->articleManager= $this->model_manager("ArticleManager");
-        $this->commentManager=$this->model_manager("CommentManager");
+        $this->articleManager= $this->model("ArticleManager");
+        $this->commentManager=$this->model("CommentManager");
     }
 
    
@@ -41,7 +38,7 @@ class ArticleController extends Controller{
         
 
         if($article){
-            $this->view("Article",array("article" => $this->model("ArticleModel",$article),
+            $this->view("Article",array("article" => $article,
                                         "comments" => $comments));
         }
 
