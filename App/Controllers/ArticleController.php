@@ -32,17 +32,12 @@ class ArticleController extends Controller{
         }
        
         foreach($comments as $k => $comment){
-            // $comments[]=$this->model("CommentModel",$comment);
-            // var_dump($comment);
-            // var_dump($comment);
+        
             if($comment->id_parent != 0){
                 $commentsById[$comment->id_parent]->children[]=$comment;
                 unset($comments[$k]);
             }
-         
         }
-
-        var_dump($comments);
         
 
         if($article){
