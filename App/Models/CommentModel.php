@@ -11,6 +11,7 @@ class CommentModel{
             $_id_user,
             $_id_parent,
             $_comment,
+            $_children=[],
             $_date_comment;
 
     public function __construct($data){
@@ -21,6 +22,10 @@ class CommentModel{
         if(is_numeric($id) && $id > 0){
             $this->_id=$id;
         }
+    }
+
+    public function set_children($comment){
+        $this->children[]=$comment;
     }
 
     public function set_id_article($id_article){

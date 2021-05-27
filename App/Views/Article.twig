@@ -41,7 +41,13 @@
 <div>
     {% for comment in comments %}
 
-        {{comment._comment}}
+        <p>{{comment.comment}}</p>
+
+        {% if comment.children %}
+            {% for children in comment.children %}
+               <p> {{children.comment}}</p>
+            {% endfor %}
+        {% endif %}
         
     {% endfor %}
 
