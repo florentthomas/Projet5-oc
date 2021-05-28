@@ -15,42 +15,73 @@
 
 {% block content %}
 
-<article>
+<div id="page_article">
+    <div id="main_article">
 
-<h1>{{article.title}}</h1>
+        <article>
 
-<img src="{{article.url_image}}" alt=""/>
+            <h1>{{article.title}}</h1>
 
-<div>{{article.content}}</div>
+            <img src="{{article.url_image}}" alt=""/>
+
+            <div id="content">{{article.content}}</div>
+
+        </article>
 
 
+        <div id="form_comment">
+            
+            <form action="{{URL}}blog/{{article.slug}}-{{article.id}}" method="post">
+                <textarea id="comment_area" name="comment" placeholder="Ecricez votre commentaire"></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
 
-</article>
+        </div>
 
-<div id="form_comment">
-    
-    <form action="/blog/{{article._slug}}-{{article._id}}" method="post">
-    
-        <label for="comment_area">Commentaire:</label>
-        <textarea id="comment_area" name="comment"></textarea>
-        <input type="submit"/>
-    </form>
+        <div id="comments">
 
-</div>
+            {% for comment in comments %}
 
-<div>
-    {% for comment in comments %}
+                <div class="comment_article_card">
+                    <div class="container_comment">
+                        <div class="user">
+                            <img src="{{URL}}Public/images/photo_profil"  alt=""/>
+                            <div>pseudo</div>
+                            <div>25/01/2021 17:56</div>
+                        </div>
 
-        <p>{{comment.comment}}</p>
+                        <div class="comment">
+                            {{comment.comment}}
+                        </div>
+                    </div>
+                    <div class="btn_comment">
+                        <button class="btn_response">Répondre</button><button>Signaler</button>
+                    </div>
+                </div>
 
-        {% if comment.children %}
-            {% for children in comment.children %}
-               <p> {{children.comment}}</p>
+                
+                {% if comment.children %}
+                
+                    {% for children in comment.children %}
+                        <div class="response_comment_card">
+                            <div class="container_comment">
+                                <div class="user">
+                                    <img src="{{URL}}Public/images/photo_profil" alt=""/>
+                                    <div>pseudo</div>
+                                    <div>25/01/2021 17:56</div>
+                                </div>
+                                <div class="comment"> {{children.comment}}</div>
+                            </div>
+                            <div class="btn_comment"><button>Signaler</button></div>
+                        </div>
+                    {% endfor %}
+                
+                {% endif %}
+                
+                
             {% endfor %}
-        {% endif %}
-        
-    {% endfor %}
 
+    </div>
+    </div>
 </div>
-
 {% endblock %}

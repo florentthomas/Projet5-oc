@@ -6,6 +6,10 @@
     font-family: sans-serif;
 }
 
+input,textarea{
+    display: block;
+}
+
 button{
     background-color: #0984e3;
     border:0;
@@ -183,4 +187,94 @@ article{
     width: 40%;
 	box-shadow: 0px 0px 21px -1px #2B1D1D;
     background-color: white;
+}
+
+
+/*Page article*/
+
+#page_article{
+    background-color: #1b2426;
+}
+
+#main_article{
+    width:70%;
+    margin: auto;
+    background-color: #f7f7f7;
+}
+
+#main_article h1{
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#main_article #content{
+    margin-top: 30px;
+}
+
+img{
+    width:100%;
+    height: auto;
+}
+
+
+
+#form_comment #comment_area{
+    width:70%;
+    margin: auto;
+    padding: 15px;
+    border:none;
+    border-radius: 20px;
+}
+
+#form_comment button{
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+}
+
+#comment_area:focus{
+    outline:0;
+}
+
+.comment_article_card, .response_comment_card{
+    width:70%;
+    margin: auto;
+    margin-top: 30px ;
+    background-color:#fff;
+    padding:15px;
+    box-shadow: 0px 0px 21px -1px #2B1D1D;
+}
+
+#comments img{
+    max-width: 3.5rem;
+    max-height: 3.5rem;
+    border-radius: 50%;
+}
+
+.comment{
+    padding:15px;
+}
+
+.response_comment_card{
+    margin-right: 90px;
+}
+
+.user{
+    text-align: center;
+}
+
+.comment{
+    width: 100%;
+}
+
+.container_comment{
+    display: flex;
+}
+
+.btn_comment{
+    text-align: end;
+}
+
+.btn_response{
+    margin-right: 10px;
 }
