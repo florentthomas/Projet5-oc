@@ -29,20 +29,27 @@
         </article>
 
 
-        <div id="form_comment">
-            
-            <form action="{{URL}}blog/{{article.slug}}-{{article.id}}" method="post">
-                <textarea id="comment_area" name="comment" placeholder="Ecricez votre commentaire"></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-
-        </div>
+        
 
         <div id="comments">
 
+            <div id="comment_article">
+            
+            <form action="{{URL}}blog/{{article.slug}}-{{article.id}}" method="post" id="form_comment">
+                <input type="hidden" id="id_parent" name="id_parent" value="0"/>
+                <input type="hidden" id="id_article" name="id_article" value="{{article.id}}"/>
+                <textarea id="comment_area" name="comment" placeholder="Ecrivez votre commentaire"></textarea>
+                <div id="btn_form">
+                    <button type="submit">Envoyer</button>
+                    <button id="close_form">Fermer</button>
+                </div>
+            </form>
+
+            </div>
+
             {% for comment in comments %}
 
-                <div class="comment_article_card">
+                <div class="comment_article_card" id="comment-{{comment.id}}">
                     <div class="container_comment">
                         <div class="user">
                             <img src="{{URL}}Public/images/photo_profil"  alt=""/>
@@ -55,7 +62,7 @@
                         </div>
                     </div>
                     <div class="btn_comment">
-                        <button class="btn_response">Répondre</button><button>Signaler</button>
+                        <button class="btn_response" data-id="{{comment.id}}">Répondre</button><button>Signaler</button>
                     </div>
                 </div>
 
@@ -84,4 +91,7 @@
     </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{{URL}}Public/js/form-comment.js"></script>
+
 {% endblock %}

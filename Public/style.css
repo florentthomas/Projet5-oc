@@ -216,20 +216,32 @@ img{
     height: auto;
 }
 
+#comments{
+    width:70%;
+    margin: auto;
+}
+
+
+#form_comment{
+    margin-top:1rem;
+}
 
 
 #form_comment #comment_area{
-    width:70%;
+    width:95%;
     margin: auto;
     padding: 15px;
     border:none;
     border-radius: 20px;
 }
 
-#form_comment button{
-    display: block;
-    margin: auto;
+#btn_form{
     margin-top: 15px;
+    text-align: end;
+}
+
+#close_form{
+    display: none;
 }
 
 #comment_area:focus{
@@ -237,8 +249,7 @@ img{
 }
 
 .comment_article_card, .response_comment_card{
-    width:70%;
-    margin: auto;
+    
     margin-top: 30px ;
     background-color:#fff;
     padding:15px;
@@ -256,7 +267,7 @@ img{
 }
 
 .response_comment_card{
-    margin-right: 90px;
+    margin-left: 90px;
 }
 
 .user{
