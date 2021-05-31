@@ -15,16 +15,16 @@
 
 {% block content %}
 
-<div id="page_article">
-    <div id="main_article">
+<div class="wrapper">
+    <div class="container">
 
         <article>
 
-            <h1>{{article.title}}</h1>
+            <h1 class="title_article">{{article.title}}</h1>
 
-            <img src="{{article.url_image}}" alt=""/>
+            <img src="{{article.url_image}}" alt="" class="image_article"/>
 
-            <div id="content">{{article.content}}</div>
+            <div class="content_article">{{article.content}}</div>
 
         </article>
 
@@ -91,7 +91,8 @@
     </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="{{URL}}Public/js/form-comment.js"></script>
+{% endblock %}
 
+{% block script %}
+    <script src="{{URL}}Public/js/form-comment.js"></script>
 {% endblock %}

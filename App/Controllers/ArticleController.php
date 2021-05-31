@@ -16,7 +16,7 @@ class ArticleController extends Controller{
    
     public function index($params){
 
-        $id=$params[1];
+        $id=$params[2];
 
         $article=$this->articleManager->getArticle($id);
         $comments=$this->commentManager->getCommentsByArticle($id);

@@ -19,6 +19,42 @@ button{
     color:white;
 }
 
+.input_form{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.input_form input{
+    border-radius: 20px;
+    padding: 7px;
+    border:1px solid black;
+}
+
+.input_form label{
+    display: flex;
+    align-items: center;
+}
+
+textarea:focus,input:focus{
+    outline:0;
+    border:1px solid #0984e3;
+}
+
+.height_all{
+    height:100vh;
+}
+
+.btn_comment_end{
+    text-align: end;
+}
+
+.btn_form_center{
+    text-align: center;
+    margin-top: 15px;
+}
+
 
 /*header*/
 header{
@@ -192,8 +228,15 @@ article{
 
 /*Page article*/
 
-#page_article{
+.wrapper{
     background-color: #1b2426;
+}
+
+
+.container{
+    width:70%;
+    margin: auto;
+    background-color: #f7f7f7;
 }
 
 #main_article{
@@ -202,16 +245,16 @@ article{
     background-color: #f7f7f7;
 }
 
-#main_article h1{
+.title_article{
     text-align: center;
     margin-bottom: 25px;
 }
 
-#main_article #content{
+.content_article{
     margin-top: 30px;
 }
 
-img{
+.image_article{
     width:100%;
     height: auto;
 }
@@ -244,9 +287,7 @@ img{
     display: none;
 }
 
-#comment_area:focus{
-    outline:0;
-}
+
 
 .comment_article_card, .response_comment_card{
     
@@ -282,10 +323,36 @@ img{
     display: flex;
 }
 
-.btn_comment{
-    text-align: end;
-}
+
 
 .btn_response{
     margin-right: 10px;
 }
+
+/*Page inscription*/
+
+.inscription h1{
+    text-align: center;
+}
+
+.inscription{
+    transform: translateY(50%);
+}
+
+#form_inscription{
+    width: 30%;
+    margin:auto;
+}
+
+.invalid{
+    color:red;
+}
+
+.valid{
+    color:green;
+}
+
+#message_password{
+    margin-top: 15px;
+}
+

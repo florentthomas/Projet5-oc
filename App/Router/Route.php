@@ -26,9 +26,7 @@ class Route{
         if(!preg_match($regex,$url,$this->params)){
             return false;
         }
-        
-        array_shift($this->params);
-        
+     
         return true;
 
     }
@@ -36,7 +34,6 @@ class Route{
     public function execute(){
 
         $action=explode('@',$this->action);
-
         $controller="App\\Controllers\\".$action[0];
         $method=$action[1];
 

@@ -13,6 +13,8 @@ $router->get("/","BlogController@index");
 
 $router->get("/blog/:slug-:id","ArticleController@index");
 
+$router->get("/inscription","InscriptionController@index");
+
 
 $router->run();
 

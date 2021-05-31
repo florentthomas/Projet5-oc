@@ -1,0 +1,59 @@
+{% extends "Layout.twig" %}
+
+{% block title %}
+
+    <title>Créer un compte</title>
+
+{% endblock %}
+
+{% block description %}
+
+    <meta name="description" content="Inscrivez-vous sur le site du cinéma"/>
+
+{% endblock %}
+
+
+{% block content %}
+    
+            <div class="inscription">
+                <h1>Inscrivez-vous</h1>
+                <form id="form_inscription" action="" method="post">
+
+                    <div class="input_form">
+                        <label for="pseudo">Pseudo</label>
+                        <input type="text" id="pseudo" name="pseudo" required/>
+                    </div>
+
+                    <div class="input_form">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required/>
+                    </div>
+
+                    <div class="input_form">
+                        <label for="password_1">Mot de passe</label>
+                        <div>
+                        <input type="password" id="password_1" name="password_1" required/>
+                        </div>
+                    </div>
+                    
+
+                    <div class="input_form">
+                        <label for="password_2">Mot de passe </label>
+                        <input type="password" id="password_2" name="password_2" required/>
+                    </div>
+
+                    <div class="btn_form_center">
+                        <button type="submit">Valider</button>
+                    </div>
+                    <p id="message_password">Mot de passe: <span class="invalid" id="upper_case">1 lettre majuscule</span>,
+                     <span class="invalid" id="lower_case">1 lettre minuscule</span>,
+                     <span class="invalid" id="number">1 chiffre</span>,
+                      <span class="invalid" id="special_character">Caractères spéciaux</span>,
+                       <span class="invalid" id="length_password">12 caractères (@?!_%()#)</span></p>
+                </form>
+            </div>    
+{% endblock %}
+
+{% block script %}
+    <script src="{{URL}}Public/js/form_inscription.js"></script>
+{% endblock %}
