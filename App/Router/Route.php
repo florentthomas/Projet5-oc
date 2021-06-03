@@ -45,6 +45,10 @@ class Route{
                     if($_SERVER["REQUEST_METHOD"] === "GET"){
                         return isset($this->params) ? $controller->$method($this->params) : $controller->$method();
                     }
+
+                    if($_SERVER["REQUEST_METHOD"] === "POST"){
+                        return isset($_POST) ? $controller->$method($_POST) : $controller->$method();
+                    }
                 }
             }else{
                 throw new \Exception("Error Processing Request", 1);

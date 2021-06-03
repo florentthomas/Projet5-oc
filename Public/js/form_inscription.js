@@ -7,7 +7,8 @@ jQuery(document).ready(function($){
     let boolSpecialCharactere=false;
     let boolLengthPassword=false;
 
-    
+
+
 
     $("#form_inscription").submit(function(e){
         e.preventDefault();
@@ -17,13 +18,27 @@ jQuery(document).ready(function($){
         const password_2=$("#password_2").val();
         const message_password=$("#message_password");
 
-        if(password_1 !== password_2){
+        if(password_1 === password_2 && safe_password === true){
+            const url=$(this).attr("action");
+            const formData=$(this).serialize();
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data:formData
+            }).done(function(response){
+                $("#res").html(response);   
+            }).fail(function(){
+                $("#res").text("Une erreur est survenue, echec de l'envoie du formulaire");
+            });
+
+        }
+
+        else if(password_1 !== password_2){
             $("#password_2").css("border","1px solid red");
             message_password.show().css("color","red").text("Les mots de passe ne sont pas identiques");
         }
         
-        console.log(safe_password);
-
     });
 
 

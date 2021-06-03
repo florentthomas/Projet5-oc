@@ -17,7 +17,7 @@
     
             <div class="inscription">
                 <h1>Inscrivez-vous</h1>
-                <form id="form_inscription" action="" method="post">
+                <form id="form_inscription" action="{{URL}}inscription" method="post">
 
                     <div class="input_form">
                         <label for="pseudo">Pseudo</label>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="btn_form_center">
-                        <button type="submit">Valider</button>
+                        <button type="submit" name="form_submit">Valider</button>
                     </div>
                     <p id="message_password">Mot de passe: <span class="invalid" id="upper_case">1 lettre majuscule</span>,
                      <span class="invalid" id="lower_case">1 lettre minuscule</span>,
@@ -51,7 +51,8 @@
                       <span class="invalid" id="special_character">Caractères spéciaux</span>,
                        <span class="invalid" id="length_password">12 caractères (@?!_%()#)</span></p>
                 </form>
-            </div>    
+            </div>
+            <div id="res"></div>
 {% endblock %}
 
 {% block script %}

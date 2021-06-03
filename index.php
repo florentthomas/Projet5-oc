@@ -15,6 +15,8 @@ $router->get("/blog/:slug-:id","ArticleController@index");
 
 $router->get("/inscription","InscriptionController@index");
 
+$router->post("/inscription","InscriptionController@check");
+
 
 $router->run();
 
