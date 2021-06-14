@@ -27,7 +27,22 @@ jQuery(document).ready(function($){
                 type: "POST",
                 data:formData
             }).done(function(response){
-                $("#res").html(response);   
+                
+                let data=JSON.parse(response);
+
+                if(data.attribute === "error"){
+                    
+                    $("#response").addClass("error");
+                }
+                else if(data.attribute === "success"){
+                    $("input","#form_inscription").val('');
+                    $("#message_password").hide();
+                    $("#response").addClass("success");
+                }
+
+                $("#response").html(data.message).fadeIn();   
+
+                
             }).fail(function(){
                 $("#res").text("Une erreur est survenue, echec de l'envoie du formulaire");
             });
@@ -45,8 +60,6 @@ jQuery(document).ready(function($){
     
 
     $("#password_1").change(function(){
-
-        console.log("safe_password "+safe_password);
         
         const upperCase=$("#upper_case");
         const lowerCase=$("#lower_case");

@@ -26,7 +26,7 @@
 
                     <div class="input_form">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required/>
+                        <input type="text" id="email" name="email" required/>
                     </div>
 
                     <div class="input_form">
@@ -51,8 +51,10 @@
                       <span class="invalid" id="special_character">Caractères spéciaux</span>,
                        <span class="invalid" id="length_password">12 caractères (@?!_%()#)</span></p>
                 </form>
+
+                <p id="response"></p>
             </div>
-            <div id="res"></div>
+            
 {% endblock %}
 
 {% block script %}
