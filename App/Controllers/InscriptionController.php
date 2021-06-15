@@ -95,4 +95,23 @@ class InscriptionController extends Controller{
 
     }
 
+
+    public function confirm_account($key){
+
+        $key=$key[1];
+
+        $user=$this->UserManager->get_user("key_confirm",$key);
+
+        if($user->account_confirmed == 0){
+            $this->UserManager->confirm_account($user->id);
+            $this->view("Confirm_account");
+        }
+
+        else{
+            header("Location:".URL);
+        }
+
+
+    }
+
 }

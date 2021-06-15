@@ -235,6 +235,7 @@ article{
 
 .container{
     width:70%;
+    height:100vh;
     margin: auto;
     background-color: #f7f7f7;
 }
@@ -370,4 +371,10 @@ article{
 .success{
     background-color: #d4edda;
     color:#155724;
+}
+
+.confirm_inscription{
+    text-align: center;
+    position: relative;
+    top:40%;
 }
