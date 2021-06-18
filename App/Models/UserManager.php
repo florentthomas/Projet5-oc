@@ -47,6 +47,16 @@ class UserManager extends Manager{
         return $result;
     }
 
+    public function get_user_email($email){
+        
+        $this->prepare("SELECT * FROM users WHERE email = :email");
+        $this->execute_query_prepared(Array("email" => $email));
+        $result=$this->get_one();
+
+        return $result;
+
+    }
+
     public function confirm_account($id){
 
         $this->prepare("UPDATE users SET account_confirmed=1 WHERE id =:id");

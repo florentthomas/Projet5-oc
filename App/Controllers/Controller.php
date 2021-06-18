@@ -17,6 +17,7 @@ abstract class Controller{
         ]);
 
         $twig->addGlobal("URL",URL);
+        $twig->addGlobal("session", $_SESSION);
             
         echo $twig->render($file.".twig", $data);
     }

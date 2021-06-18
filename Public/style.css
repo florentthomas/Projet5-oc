@@ -368,6 +368,13 @@ article{
     color:#721c24;
 }
 
+.message{
+    text-align: center;
+    padding: 5px;
+    border-radius: 7px;
+    margin-top: 1rem;
+}
+
 .success{
     background-color: #d4edda;
     color:#155724;
@@ -377,4 +384,16 @@ article{
     text-align: center;
     position: relative;
     top:40%;
+}
+
+
+.center-vertical{
+    position: relative;
+    top:40%;
+}
+
+
+.w30{
+    width:30%;
+    margin: auto;
 }

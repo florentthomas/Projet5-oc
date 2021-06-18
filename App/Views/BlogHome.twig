@@ -17,8 +17,15 @@
         <div id="header-wrapper">
             <nav>
                 <ul>
+                    {% if session.user %}
+                    <li><a href="">{{session.user.pseudo}}</a></li>
+                    <li><a href="{{URL}}disconnect">SE DECONNECTER</a></li>
+                    {% endif %}
+
+                    {% if not session.user %}
                     <li><a href="{{URL}}inscription">S'INSCRIRE</a></li>
-                    <li><a href="#">SE CONNECTER</a></li>
+                    <li><a href="{{URL}}connection">SE CONNECTER</a></li>
+                    {% endif %}
                 </ul>
             </nav>
 
