@@ -18,7 +18,7 @@
             <nav>
                 <ul>
                     {% if session.user %}
-                    <li><a href="">{{session.user.pseudo}}</a></li>
+                    <li><a href="{{URL}}setting">{{session.user.pseudo}}</a></li>
                     <li><a href="{{URL}}disconnect">SE DECONNECTER</a></li>
                     {% endif %}
 

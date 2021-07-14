@@ -19,6 +19,19 @@ button{
     color:white;
 }
 
+.button-red{
+    background-color: #ff0000 !important;
+}
+
+.m-auto{
+    margin: auto;
+}
+
+input[type="file"]{
+    border: none !important;
+    margin: auto;
+}
+
 .input_form{
     margin-top: 15px;
     display: flex;
@@ -235,7 +248,6 @@ article{
 
 .container{
     width:70%;
-    height:100vh;
     margin: auto;
     background-color: #f7f7f7;
 }
@@ -396,4 +408,34 @@ article{
 .w30{
     width:30%;
     margin: auto;
+}
+
+
+/*User_setting*/
+
+.setting{
+    width:70%;
+    margin: auto;
+    text-align: center;
+    padding-top:3rem;
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+}
+
+.setting form{
+    width: 80%;
+    margin: auto;
+}
+
+
+.message_fixed{
+    display: none;
+    position: fixed;
+    width:60%;
+    top: 15px;
+    transform: translateX(-50%);
+    left: 50%;
+    text-align: center;
+    padding: 5px;
+    border-radius: 7px;
 }

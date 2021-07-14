@@ -15,6 +15,10 @@ $router->get("/","BlogController@index");
 
 $router->get("/connection","BlogController@connection");
 
+$router->get("/setting","UserController@index");
+
+$router->post("/setting/change_pseudo", "UserController@pseudo");
+
 $router->post("/connection","BlogController@connection");
 
 $router->get("/disconnect","BlogController@disconnect");

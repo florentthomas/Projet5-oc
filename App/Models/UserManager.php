@@ -65,4 +65,12 @@ class UserManager extends Manager{
 
     }
 
+    public function update_user($champs,$new_value,$id){
+        
+        $this->prepare("UPDATE users SET $champs = :new_value WHERE id=:id");
+
+        $this->execute_query_prepared(Array("id" => $id,
+                                            "new_value" => $new_value));
+    }
+
 }
