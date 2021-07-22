@@ -19,6 +19,8 @@ $router->get("/setting","UserController@index");
 
 $router->post("/setting/change_pseudo", "UserController@pseudo");
 
+$router->post("/setting/change_email", "UserController@email");
+
 $router->post("/connection","BlogController@connection");
 
 $router->get("/disconnect","BlogController@disconnect");
@@ -28,6 +30,8 @@ $router->get("/blog/:slug-:id","ArticleController@index");
 $router->get("/inscription","InscriptionController@index");
 
 $router->get("/confirm/:key","InscriptionController@confirm_account");
+
+$router->get("/confirm_new_email/:key", "UserController@confirm_email");
 
 $router->post("/inscription","InscriptionController@check");
 

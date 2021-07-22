@@ -38,15 +38,16 @@
 
             <section class="setting">
                 <h1>Modifier email</h1>
-                <form action=""  method="post">
+                <form id="form_email" action="{{URL}}setting/change_email"  method="post">
                     <div class="input_form">
                         <label for="email">Nouvelle adresse email</label>
                         <input type="email" id="email" name="new_email" required/>
                     </div>
                     <div class="input_form">
-                        <label for="email_confirm">Nouvelle adresse email</label>
+                        <label for="email_confirm">Confirmer nouvelle adresse email</label>
                         <input type="email" id="email_confirm" name="email_confirm" required/>
                     </div>
+                    
                     <div class="input_form">
                         <button type="submit" class="m-auto" name="email_form">Valider</button>
                     </div>
@@ -70,6 +71,11 @@
                         <label for="confirm_new_password">Confirmation du nouveau mot de passe</label>
                         <input type="password" id="confirm_new_password" name="confirm_new_password" required/>
                     </div>
+                    <p id="message_password">Mot de passe: <span class="invalid" id="upper_case">1 lettre majuscule</span>,
+                     <span class="invalid" id="lower_case">1 lettre minuscule</span>,
+                     <span class="invalid" id="number">1 chiffre</span>,
+                      <span class="invalid" id="special_character">Caractères spéciaux</span>,
+                       <span class="invalid" id="length_password">12 caractères (@?!_%()#)</span></p>
                     <div class="input_form">
                         <button type="submit" class="m-auto" name="password_form">Valider</button>
                     </div>
@@ -106,5 +112,6 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{URL}}Public/js/form-pseudo.js"></script>
+    <script src="{{URL}}Public/js/loading_ajax.js"></script>
+    <script src="{{URL}}Public/js/form_setting_user.js"></script>
 {% endblock %}

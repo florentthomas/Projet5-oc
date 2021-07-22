@@ -40,7 +40,7 @@ class Route{
         try{
             if(class_exists($controller)){
                 if(method_exists($controller,$method)){
-                    $controller=new $controller;
+                    $controller=new $controller();
 
                     if($_SERVER["REQUEST_METHOD"] === "GET"){
                         return isset($this->params) ? $controller->$method($this->params) : $controller->$method();

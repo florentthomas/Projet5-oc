@@ -41,7 +41,9 @@ class UserManager extends Manager{
 
 
     public function get_user($condition,$value){
-        $this->query("SELECT * FROM users WHERE $condition = $value");
+      
+        $this->prepare("SELECT * FROM users WHERE $condition = :value_condition");
+        $this->execute_query_prepared(Array("value_condition" => $value));
         $result=$this->get_one();
 
         return $result;
