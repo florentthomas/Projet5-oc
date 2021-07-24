@@ -56,7 +56,7 @@
 
             <section class="setting">
                 <h1>Modifier le mot de passe</h1>
-                <form action=""  method="post">
+                <form id="form_password" action="{{URL}}setting/change_password"  method="post">
                     <div class="input_form">
                         <label for="current_password">Mot de passe actuel</label>
                         <input type="password" id="current_password" name="current_password" required/>
@@ -74,8 +74,8 @@
                     <p id="message_password">Mot de passe: <span class="invalid" id="upper_case">1 lettre majuscule</span>,
                      <span class="invalid" id="lower_case">1 lettre minuscule</span>,
                      <span class="invalid" id="number">1 chiffre</span>,
-                      <span class="invalid" id="special_character">Caractères spéciaux</span>,
-                       <span class="invalid" id="length_password">12 caractères (@?!_%()#)</span></p>
+                      <span class="invalid" id="special_character">Caractères spéciaux (@?!_%()#)</span>,
+                       <span class="invalid" id="length_password">12 caractères</span></p>
                     <div class="input_form">
                         <button type="submit" class="m-auto" name="password_form">Valider</button>
                     </div>
@@ -113,5 +113,6 @@
 
 {% block script %}
     <script src="{{URL}}Public/js/loading_ajax.js"></script>
+    <script src="{{URL}}Public/js/safe_password.js"></script>
     <script src="{{URL}}Public/js/form_setting_user.js"></script>
 {% endblock %}

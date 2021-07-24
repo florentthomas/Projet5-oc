@@ -21,6 +21,8 @@ $router->post("/setting/change_pseudo", "UserController@pseudo");
 
 $router->post("/setting/change_email", "UserController@email");
 
+$router->post("/setting/change_password", "UserController@password");
+
 $router->post("/connection","BlogController@connection");
 
 $router->get("/disconnect","BlogController@disconnect");

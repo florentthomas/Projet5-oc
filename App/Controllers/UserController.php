@@ -117,4 +117,21 @@ class UserController extends Controller{
         
         }
     }
+
+
+    public function password(){
+
+        if(password_verify($_POST["current_password"], $_SESSION['user']->password_account)){
+
+            $new_password=password_hash($_POST["new_password"],PASSWORD_DEFAULT);
+            $this->userManager->update_user("password_account",$new_password,$_SESSION['user']->id);
+            $response=["attribute"=>"success","message"=>"Mot de passe modifié avec succès"];
+        }
+
+        else{
+            $response=["attribute"=>"error","message"=>"Votre mot de passe actuel n'est pas bon"];
+        }
+        
+        echo json_encode($response);
+    }
 }

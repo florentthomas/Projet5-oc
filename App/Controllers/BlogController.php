@@ -25,6 +25,7 @@ class BlogController extends Controller{
         if($_SERVER['REQUEST_METHOD'] === "POST" && !empty($_POST["email"]) && !empty($_POST["password"])){
 
             $user=$this->userManager->get_user_email($_POST["email"]);
+
             
             if($user !== false && password_verify($_POST["password"], $user->password_account)){
 
