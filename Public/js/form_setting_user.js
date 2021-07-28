@@ -3,6 +3,8 @@ jQuery(document).ready(function($){
 
     const result=$("#result");
 
+    //Changement pseudo
+
     $("#form_pseudo").submit(function(e){
 
 
@@ -33,12 +35,10 @@ jQuery(document).ready(function($){
             result.text("Une erreur est survenue");
         });
 
-
-
-
     })
 
-  
+
+  //Changement email
 
     $("#form_email").submit(function(e){
 
@@ -92,6 +92,9 @@ jQuery(document).ready(function($){
         }
     })
 
+    //Changement mot de passse
+
+    $("#new_password").keyup(safe_password);
 
     $("#form_password").submit(function(e){
         e.preventDefault();
@@ -138,6 +141,42 @@ jQuery(document).ready(function($){
             result.fadeOut(5000);
         }
     })
-})
 
-$("#new_password").keyup(safe_password);
+
+    //suppression du compte
+
+    $("#form_delete_account").submit(function(e){
+        e.preventDefault();
+
+        const url=$(this).attr("action");
+        
+        loading_ajax();
+        
+        $.ajax({
+            url: url,
+            type: "GET",
+
+        }).done(function(response){
+
+            data=JSON.parse(response);
+
+            result.addClass(data.attribute);       
+            result.text(data.message);
+            result.fadeIn("slow");
+            result.fadeOut(5000);
+
+        }).fail(function(){
+
+            result.text("Une erreur est survenue");
+
+        }).always(function(){
+
+            $("#loading").remove();
+            $("body").css("overflow","auto");
+        });
+
+
+    })
+
+
+})

@@ -41,7 +41,6 @@ class UserManager extends Manager{
 
 
     public function get_user($condition,$value){
-      
         $this->prepare("SELECT * FROM users WHERE $condition = :value_condition");
         $this->execute_query_prepared(Array("value_condition" => $value));
         $result=$this->get_one();
@@ -73,6 +72,13 @@ class UserManager extends Manager{
 
         $this->execute_query_prepared(Array("id" => $id,
                                             "new_value" => $new_value));
+    }
+
+
+    public function delete_account($id){
+        
+        $this->prepare("DELETE FROM users WHERE id=:id");
+        $this->execute_query_prepared(Array("id" => $id));
     }
 
 }

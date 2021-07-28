@@ -134,4 +134,87 @@ class UserController extends Controller{
         
         echo json_encode($response);
     }
+
+    public function delete_account($params){
+        
+        $key_account=$params[1];
+
+        $user=$this->userManager->get_user("key_confirm" , $key_account);
+
+        if($user ==! false){
+    
+            $message=["attribute" => "success", "message" => "Confirmez la suppression du compte sur le mail envoyé"];
+            $this->send_email_to_delete($_SESSION["user"]->email,$key_account);
+        }
+
+        else{
+            $message=["attribute"=>"error", "message"=>"Utilisateur introuvable"];
+        }
+
+        echo json_encode($message);
+
+    }
+
+    public function send_email_to_delete($email,$key){
+
+        $header="MIME-Version: 1.0\r\n";
+        $header.='From: "cineFilm.com" <support@cinefilm.com>'."\n";
+        $header.='Content-Type:text/html; charset="utf-8"'."\n";
+        $header.='Content-Transfer-Encoding: 8bit';
+
+        $url=URL."confirm_delete_account/".$key;
+
+        $message="
+        
+            <html>
+                <body>
+                    <div>
+                        <h1>Confirmez la suppression de votre compte</h1>
+                        <a href=".$url.">Supprimer définitivement mon compte</a>
+                        <p>La suppression du compte est irreversible, il sera impossible de le récupérer</p>
+                        <p>Si vous souhaitez conserver votre compte, ne tenez pas compte de cet email et ne cliquez surtout pas sur le lien</p>
+                    </div>
+                </body>
+            </html>
+        
+        ";
+
+        mail($email,"Suppression du compte", $message, $header);
+    }
+
+    public function confirm_delete_account($params){
+
+
+        $key=$params[1];
+
+        try{
+            if(is_numeric($key)){
+
+                $user=$this->userManager->get_user("key_confirm",$key);
+
+
+                if($user ==! false){
+
+                    $this->userManager->delete_account($user->id);
+                    $this->view("delete_account");
+                }
+                else{
+                    throw new \Exception("Le profil n'a pas été trouvé");
+                }
+            }
+
+            else{
+                throw new \Exception("Clé non valide");
+            }
+
+        }
+
+        catch(\Exception $e){
+            $message=$e->getMessage();
+            $this->view("Exception",array("message_exception" => $message));
+            header('HTTP/1.0 404 Not Found');
+        
+        }
+        
+    }
 }
