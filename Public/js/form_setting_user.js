@@ -158,13 +158,15 @@ jQuery(document).ready(function($){
 
         }).done(function(response){
 
-            data=JSON.parse(response);
+            // data=JSON.parse(response);
 
-            result.addClass(data.attribute);       
-            result.text(data.message);
-            result.fadeIn("slow");
-            result.fadeOut(5000);
+            // result.addClass(data.attribute);       
+            // result.text(data.message);
+            // result.fadeIn("slow");
+            // result.fadeOut(5000);
 
+
+            console.log(response);
         }).fail(function(){
 
             result.text("Une erreur est survenue");

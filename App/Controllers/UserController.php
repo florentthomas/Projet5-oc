@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Tools\Tools;
+
 
 class UserController extends Controller{
 
@@ -142,16 +144,22 @@ class UserController extends Controller{
         $user=$this->userManager->get_user("key_confirm" , $key_account);
 
         if($user ==! false){
-    
-            $message=["attribute" => "success", "message" => "Confirmez la suppression du compte sur le mail envoyé"];
-            $this->send_email_to_delete($_SESSION["user"]->email,$key_account);
+
+            if(Tools::sendEmail($_SESSION["user"]->email,"Suppression du compte",$content_email)){
+                $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
+            }
+
+            else{
+                $message=["attribute"=>"error", "message"=>"Problème technique"];
+            }
+
         }
 
         else{
             $message=["attribute"=>"error", "message"=>"Utilisateur introuvable"];
         }
 
-        echo json_encode($message);
+         echo json_encode($message);
 
     }
 
