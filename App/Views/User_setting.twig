@@ -85,14 +85,14 @@
 
             <section class="setting">
                 <h1>Changer d'avatar</h1>
-                <form action=""  method="post">
+                <form action="{{URL}}setting/change_photo" id="photo_profil" method="post" enctype= "multipart/form-data">
 
                     <div class="input_form">
-                        <input type="file" name="photo"/>
+                        <input type="file" name="photo" id="photo"/>
                     </div>
 
                     <div class="input_form">
-                        <button type="submit" class="m-auto" name="pseudo_form">Valider</button>
+                        <button type="submit" class="m-auto">Valider</button>
                     </div>
                 </form>
             </section>

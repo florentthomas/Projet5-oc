@@ -180,5 +180,34 @@ jQuery(document).ready(function($){
 
     })
 
+    //photo de profil
+
+    $('#photo_profil').submit(function(e){
+        e.preventDefault();
+
+        const url=$(this).attr("action");
+        const dataForm=new FormData(this);
+
+
+        $.ajax({
+            url:url,
+            type:"POST",
+            processData: false, 
+            contentType: false,
+            data:dataForm
+
+        }).done(function(response){
+            data=JSON.parse(response);
+            result.addClass(data.attribute);       
+            result.text(data.message);
+            result.fadeIn("slow");
+            result.fadeOut(5000);
+        }).fail(function(){
+            result.text("Une erreur est survenue");
+        })
+
+
+    })
+
 
 })

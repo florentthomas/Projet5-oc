@@ -14,6 +14,7 @@ class UserController extends Controller{
     public function index(){
 
         $this->view("User_setting");
+        
 
     }
 
@@ -145,6 +146,8 @@ class UserController extends Controller{
 
         if($user ==! false){
 
+            $content_email="<h1>Hello</h1>";
+
             if(Tools::sendEmail($_SESSION["user"]->email,"Suppression du compte",$content_email)){
                 $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
             }
@@ -224,5 +227,60 @@ class UserController extends Controller{
         
         }
         
+    }
+
+    public function picture_account(){
+
+        
+        if(isset($_FILES["photo"]) && !empty($_FILES["photo"]["name"])){
+
+            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+
+            $extensionFile_explode=explode('.',$_FILES["photo"]["name"]);
+
+            $extension_photo=strtolower(end($extensionFile_explode));
+
+            $maxSize=3000000;
+
+            
+
+            if(in_array($extension_photo,$extensionsValides)){
+
+                if($_FILES["photo"]["size"] < $maxSize){
+
+                    $path_photo=PATH_ROOT."Public/images/avatars/".$_SESSION["user"]->id;
+
+                    if($_FILES["photo"]["error"] =! 0){
+
+                        if(move_uploaded_file($_FILES["photo"]["tmp_name"], $path_photo)){
+                            //execute sql
+                            $url_photo=URL."Public/images/avatars/".$_SESSION["user"]->id.".".$extension_photo;
+                            $this->userManager->update_user("url_photo",$url_photo,$_SESSION["user"]->id);
+                            
+                            $response=["attribute"=>"success","message"=>"La photo de profil importée avec succès"];
+                        }
+        
+                        else{
+                            $response=["attribute"=>"error","message"=>"La photo de profil n'a pas été importée"];
+                        }
+                    }
+                    else{
+                        $response=["attribute"=>"error","message"=>"Une erreur s'est produite, l'importation de la photo echouée"];
+                    }
+                }
+                else{
+                    $response=["attribute"=>"error","message"=>"La photo doit faire moins de 3 Mo"];
+                }
+            }
+            else{
+                $response=["attribute"=>"error", "message"=>"Seuls les fichiers jpg, jpeg, gif et png sont autorisés"];
+            }
+           
+        }
+        else{
+            $response=["attribute"=>"error","message"=>"Veuillez sélectionner une photo"];
+        }
+
+        echo json_encode($response);
     }
 }
