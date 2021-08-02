@@ -38,12 +38,20 @@ class UserController extends Controller{
 
         if(filter_var($_POST["new_email"],FILTER_VALIDATE_EMAIL)){
 
-            $this->userManager->update_user("email",$_POST["new_email"],$_SESSION["user"]->id);
-            $this->userManager->update_user("account_confirmed",0,$_SESSION["user"]->id);
+            if($_POST["new_email"] !== $_SESSION["user"]->email){
 
-            $this->send_email_to_confirm($_POST["new_email"],$_SESSION["user"]->key_confirm);
+                $this->userManager->update_user("email",$_POST["new_email"],$_SESSION["user"]->id);
+                $this->userManager->update_user("account_confirmed",0,$_SESSION["user"]->id);
 
-            $response=["attribute"=>"success","message"=>"Adresse email modifiée, confirmez votre adresse dans votre boitre email"];
+                // $this->send_email_to_confirm($_POST["new_email"],$_SESSION["user"]->key_confirm);
+
+                $response=["attribute"=>"success","message"=>"Adresse email modifiée, confirmez votre adresse dans votre boitre email"];
+
+            }
+            else{
+                $response=["attribute"=>"error","message"=>"Vous avez renseigné votre adresse email actuelle"];
+            }
+            
         }
         else{
             $response=["attribute"=>"error","message"=>"Adresse email non valide"];
@@ -248,12 +256,12 @@ class UserController extends Controller{
 
                 if($_FILES["photo"]["size"] < $maxSize){
 
-                    $path_photo=PATH_ROOT."Public/images/avatars/".$_SESSION["user"]->id;
+                    $path_photo=PATH_ROOT."Public/images/avatars/".$_SESSION["user"]->id.".".$extension_photo;
 
                     if($_FILES["photo"]["error"] =! 0){
 
                         if(move_uploaded_file($_FILES["photo"]["tmp_name"], $path_photo)){
-                            //execute sql
+                        
                             $url_photo=URL."Public/images/avatars/".$_SESSION["user"]->id.".".$extension_photo;
                             $this->userManager->update_user("url_photo",$url_photo,$_SESSION["user"]->id);
                             

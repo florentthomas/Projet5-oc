@@ -1,12 +1,8 @@
 jQuery(document).ready(function($){
 
-
-    const result=$("#result");
-
     //Changement pseudo
 
     $("#form_pseudo").submit(function(e){
-
 
         e.preventDefault();
 
@@ -20,20 +16,10 @@ jQuery(document).ready(function($){
 
         }).done(function(response){
 
-            data=JSON.parse(response);
-
-            result.addClass(data.attribute);       
-            result.text(data.message);
-            result.fadeIn("slow");
-            result.fadeOut(5000);
-            
+            message_ajax(response);
             $("#pseudo").val("");
  
-
-            
-        }).fail(function(){
-            result.text("Une erreur est survenue");
-        });
+        }).fail(message_error_ajax);
 
     })
 
@@ -61,42 +47,33 @@ jQuery(document).ready(function($){
     
             }).done(function(response){
 
-                data=JSON.parse(response);
-                console.log(data);
-                result.addClass(data.attribute);       
-                result.text(data.message);
-                result.fadeIn("slow");
-                result.fadeOut(5000);
+                message_ajax(response);
                 
                 $("#email").val("");
                 $("#email_confirm").val("");
      
-    
-                
-            }).fail(function(){
-                result.text("Une erreur est survenue");
-            }).always(function(){
+            }).fail(message_error_ajax)
+            
+            .always(function(){
                 $("#loading").remove();
                 $("body").css("overflow","auto");
             });
 
-        }else{
-
-            
-            result.addClass("error"); 
-            result.text("Les adresses ne sont pas identiques");
-            result.fadeIn("slow");
-            result.fadeOut(5000);
-
-
+        }
+        
+        else{
+            message_error("Les adresses ne sont pas identiques");
         }
     })
+
+
 
     //Changement mot de passse
 
     $("#new_password").keyup(safe_password);
 
     $("#form_password").submit(function(e){
+
         e.preventDefault();
 
         const url=$(this).attr("action");
@@ -114,31 +91,22 @@ jQuery(document).ready(function($){
                 data:formData
             }).done(function(response){
 
-                data=JSON.parse(response);
-                result.addClass(data.attribute);       
-                result.text(data.message);
-                result.fadeIn("slow");
-                result.fadeOut(5000);
+                message_ajax(response);
 
                 if(data.attribute === "success"){
                     $("#form_password").find("input").val("");
                 }
                 
-            })
+            }).fail(message_error_ajax)
 
         }
+
         else if(password_conform !== true){
-            result.addClass("error"); 
-            result.text("Le mot de passe n'est pas assez sécurisé");
-            result.fadeIn("slow");
-            result.fadeOut(5000);
-
+            message_error("Le mot de passe n'est pas assez sécurisé");
         }
+
         else{
-            result.addClass("error"); 
-            result.text("Les mots de passe ne sont pas identiques");
-            result.fadeIn("slow");
-            result.fadeOut(5000);
+            message_error("Les mots de passe ne sont pas identiques");
         }
     })
 
@@ -146,6 +114,7 @@ jQuery(document).ready(function($){
     //suppression du compte
 
     $("#form_delete_account").submit(function(e){
+
         e.preventDefault();
 
         const url=$(this).attr("action");
@@ -156,27 +125,15 @@ jQuery(document).ready(function($){
             url: url,
             type: "GET",
 
-        }).done(function(response){
-
-            // data=JSON.parse(response);
-
-            // result.addClass(data.attribute);       
-            // result.text(data.message);
-            // result.fadeIn("slow");
-            // result.fadeOut(5000);
-
-
-            console.log(response);
-        }).fail(function(){
-
-            result.text("Une erreur est survenue");
-
-        }).always(function(){
+        }).done(message_ajax)
+        
+        .fail(message_error_ajax)
+        
+        .always(function(){
 
             $("#loading").remove();
             $("body").css("overflow","auto");
         });
-
 
     })
 
@@ -196,18 +153,8 @@ jQuery(document).ready(function($){
             contentType: false,
             data:dataForm
 
-        }).done(function(response){
-            data=JSON.parse(response);
-            result.addClass(data.attribute);       
-            result.text(data.message);
-            result.fadeIn("slow");
-            result.fadeOut(5000);
-        }).fail(function(){
-            result.text("Une erreur est survenue");
-        })
+        }).done(message_ajax)
 
-
+        .fail(message_error_ajax)
     })
-
-
 })
