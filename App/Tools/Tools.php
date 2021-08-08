@@ -31,8 +31,14 @@ class Tools{
         //Content
         $mail->isHTML(true);                                  
         $mail->Subject = $subject;
-        $mail->Body    = $message;
+
+        if($message !== false){
+            $mail->Body= $message;
+        }
         
+        else{
+            return false;
+        }
 
         if(!$mail->send()){
             return false;
@@ -41,6 +47,19 @@ class Tools{
         else{
             return true;
         }
+    }
+
+    public static function generate_email($file,$data){
+            $file_email=PATH_ROOT."App/Views/emails/".$file.".php";
+            if(file_exists($file_email)){
+                extract($data);
+                ob_start();
+                require $file_email;
+                return ob_get_clean();
+            }
+            else{
+                return false;
+            }
     }
 
 }

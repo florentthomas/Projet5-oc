@@ -12,17 +12,36 @@ class UserController extends Controller{
     }
 
     public function index(){
-
-        $this->view("User_setting");
         
-
+        if(isset($_SESSION["user"])){
+            $this->view("User_setting");
+        }
+        else{
+            header("Location:".URL);
+        }
     }
 
     public function pseudo(){
+        
+        if(!isset($_SESSION["user"])){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
 
-        if(!$this->userManager->pseudo_exists($_POST["new_pseudo"])){
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
-            $this->userManager->update_user("pseudo",$_POST["new_pseudo"],$_SESSION["user"]->id);
+        if($current_user == false){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+        $new_pseudo=strip_tags($_POST["new_pseudo"]);
+
+        if(!$this->userManager->pseudo_exists($new_pseudo)){
+
+            $this->userManager->update_user("pseudo",$new_pseudo,$current_user->id);
+
+            $_SESSION["user"]->pseudo=$new_pseudo;
 
             $response=["attribute"=>"success","message"=>"Pseudo modifié"];
         }
@@ -31,27 +50,50 @@ class UserController extends Controller{
         }
 
         echo json_encode($response);
-    
+
     }
+
 
     public function email(){
 
+        if(!isset($_SESSION["user"])){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+        if($current_user == false){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
         if(filter_var($_POST["new_email"],FILTER_VALIDATE_EMAIL)){
 
-            if($_POST["new_email"] !== $_SESSION["user"]->email){
+            if($_POST["new_email"] !== $current_user->email){
 
-                $this->userManager->update_user("email",$_POST["new_email"],$_SESSION["user"]->id);
-                $this->userManager->update_user("account_confirmed",0,$_SESSION["user"]->id);
+                if(!$this->userManager->email_exists($_POST["new_email"])){
 
-                // $this->send_email_to_confirm($_POST["new_email"],$_SESSION["user"]->key_confirm);
+                    $content_email=Tools::generate_email("confirm_new_email",array("key_account"=>$current_user->key_confirm));
 
-                $response=["attribute"=>"success","message"=>"Adresse email modifiée, confirmez votre adresse dans votre boitre email"];
+                    if(Tools::sendEmail($_POST["new_email"],"Confirmez votre nouvelle adresse",$content_email)){
 
+                        $this->userManager->update_user("email",$_POST["new_email"],$current_user->id);
+                        $this->userManager->update_user("account_confirmed",0,$current_user->id);
+                        $_SESSION["user"]->email=$_POST["new_email"];
+                        $response=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
+                    }
+                    else{
+                        $response=["attribute"=>"error","message"=>"Une erreur s'est produite"];
+                    }
+                }
+                else{
+                    $response=["attribute"=>"error","message"=>"Adresse email déjà utilisée par un autre compte"];
+                }
             }
             else{
                 $response=["attribute"=>"error","message"=>"Vous avez renseigné votre adresse email actuelle"];
             }
-            
         }
         else{
             $response=["attribute"=>"error","message"=>"Adresse email non valide"];
@@ -60,30 +102,6 @@ class UserController extends Controller{
         echo json_encode($response);
     }
 
-    public function send_email_to_confirm($email,$key){
-
-        $header="MIME-Version: 1.0\r\n";
-        $header.='From: "cineFilm.com" <support@cinefilm.com>'."\n";
-        $header.='Content-Type:text/html; charset="utf-8"'."\n";
-        $header.='Content-Transfer-Encoding: 8bit';
-
-        $url=URL."confirm_new_email/".$key;
-
-        $message="
-        
-            <html>
-                <body>
-                    <div>
-                        <h1>Confirmez votre nouvelle adresse email en cliquant sur le lien</h1>
-                        <a href=".$url.">Confirmer l'adresse email</a>
-                    </div>
-                </body>
-            </html>
-        
-        ";
-
-        mail($email,"Confirmation adresse email", $message, $header);
-    }
 
     public function confirm_email($key){
 
@@ -107,14 +125,10 @@ class UserController extends Controller{
                     }
 
                 }
-
                 else{
                     throw new \Exception("Le profil n'a pas été trouvé");
-                }
-
-                
+                }  
             }
-
             else{
                 throw new \Exception("Clé non valide");
             }
@@ -123,7 +137,7 @@ class UserController extends Controller{
 
         catch(\Exception $e){
             $message=$e->getMessage();
-
+            header('HTTP/1.0 404 Not Found');
             $this->view("Exception",array("message_exception" => $message));
         
         }
@@ -132,10 +146,23 @@ class UserController extends Controller{
 
     public function password(){
 
-        if(password_verify($_POST["current_password"], $_SESSION['user']->password_account)){
+        if(!isset($_SESSION["user"])){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+        if($current_user == false){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+
+        if(password_verify($_POST["current_password"], $current_user->password_account)){
 
             $new_password=password_hash($_POST["new_password"],PASSWORD_DEFAULT);
-            $this->userManager->update_user("password_account",$new_password,$_SESSION['user']->id);
+            $this->userManager->update_user("password_account",$new_password,$current_user->id);
             $response=["attribute"=>"success","message"=>"Mot de passe modifié avec succès"];
         }
 
@@ -146,17 +173,25 @@ class UserController extends Controller{
         echo json_encode($response);
     }
 
+
     public function delete_account($params){
+
         
         $key_account=$params[1];
 
-        $user=$this->userManager->get_user("key_confirm" , $key_account);
+        $current_user=$this->userManager->get_user("key_confirm",$key_account);
 
-        if($user ==! false){
+        if($current_user == false){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
 
-            $content_email="<h1>Hello</h1>";
 
-            if(Tools::sendEmail($_SESSION["user"]->email,"Suppression du compte",$content_email)){
+        if($current_user ==! false){
+
+            $content_email=Tools::generate_email("delete_account",array("key_account"=>$key_account));
+
+            if(Tools::sendEmail($current_user->email,"Suppression du compte",$content_email)){
                 $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
             }
 
@@ -174,37 +209,12 @@ class UserController extends Controller{
 
     }
 
-    public function send_email_to_delete($email,$key){
-
-        $header="MIME-Version: 1.0\r\n";
-        $header.='From: "cineFilm.com" <support@cinefilm.com>'."\n";
-        $header.='Content-Type:text/html; charset="utf-8"'."\n";
-        $header.='Content-Transfer-Encoding: 8bit';
-
-        $url=URL."confirm_delete_account/".$key;
-
-        $message="
-        
-            <html>
-                <body>
-                    <div>
-                        <h1>Confirmez la suppression de votre compte</h1>
-                        <a href=".$url.">Supprimer définitivement mon compte</a>
-                        <p>La suppression du compte est irreversible, il sera impossible de le récupérer</p>
-                        <p>Si vous souhaitez conserver votre compte, ne tenez pas compte de cet email et ne cliquez surtout pas sur le lien</p>
-                    </div>
-                </body>
-            </html>
-        
-        ";
-
-        mail($email,"Suppression du compte", $message, $header);
-    }
 
     public function confirm_delete_account($params){
 
 
         $key=$params[1];
+
 
         try{
             if(is_numeric($key)){
@@ -215,6 +225,12 @@ class UserController extends Controller{
                 if($user ==! false){
 
                     $this->userManager->delete_account($user->id);
+
+                    if(isset($_SESSION["user"])){
+                        unset($_SESSION["user"]);
+                        session_destroy();
+                    }
+
                     $this->view("delete_account");
                 }
                 else{
@@ -230,8 +246,8 @@ class UserController extends Controller{
 
         catch(\Exception $e){
             $message=$e->getMessage();
-            $this->view("Exception",array("message_exception" => $message));
             header('HTTP/1.0 404 Not Found');
+            $this->view("Exception",array("message_exception" => $message));
         
         }
         
@@ -239,6 +255,17 @@ class UserController extends Controller{
 
     public function picture_account(){
 
+        if(!isset($_SESSION["user"])){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+        if($current_user == false){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
         
         if(isset($_FILES["photo"]) && !empty($_FILES["photo"]["name"])){
 
@@ -248,22 +275,22 @@ class UserController extends Controller{
 
             $extension_photo=strtolower(end($extensionFile_explode));
 
-            $maxSize=3000000;
+            $maxSize=2097152;
 
-            
 
             if(in_array($extension_photo,$extensionsValides)){
 
                 if($_FILES["photo"]["size"] < $maxSize){
 
-                    $path_photo=PATH_ROOT."Public/images/avatars/".$_SESSION["user"]->id.".".$extension_photo;
-
-                    if($_FILES["photo"]["error"] =! 0){
+                    $path_photo=PATH_ROOT."Public/images/avatars/".$current_user->id.".".$extension_photo;
+                
+                    if($_FILES["photo"]["error"] == 0){
 
                         if(move_uploaded_file($_FILES["photo"]["tmp_name"], $path_photo)){
                         
-                            $url_photo=URL."Public/images/avatars/".$_SESSION["user"]->id.".".$extension_photo;
-                            $this->userManager->update_user("url_photo",$url_photo,$_SESSION["user"]->id);
+                            $url_photo=URL."Public/images/avatars/".$current_user->id.".".$extension_photo;
+                            $this->userManager->update_user("url_photo",$url_photo,$current_user->id);
+                            $_SESSION["user"]->url_photo= $url_photo;
                             
                             $response=["attribute"=>"success","message"=>"La photo de profil importée avec succès"];
                         }
@@ -277,7 +304,7 @@ class UserController extends Controller{
                     }
                 }
                 else{
-                    $response=["attribute"=>"error","message"=>"La photo doit faire moins de 3 Mo"];
+                    $response=["attribute"=>"error","message"=>"La photo doit faire moins de 2 Mo"];
                 }
             }
             else{

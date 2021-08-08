@@ -1,14 +1,19 @@
 
-function message_ajax(response){
+function message_ajax(data){
 
     const result=$("#result");
 
-    data=JSON.parse(response);
-    result.removeClass("error success").addClass(data.attribute);     
-    result.text(data.message);
-    result.fadeIn("slow");
-    result.fadeOut(5000);
+    if(data.location){
+        window.location.href = data.location;
+    }
 
+    else{
+        result.removeClass("error success").addClass(data.attribute);     
+        result.text(data.message);
+        result.fadeIn("slow");
+        result.fadeOut(5000);
+
+    }
 }
 
 

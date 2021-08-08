@@ -12,7 +12,8 @@ jQuery(document).ready(function($){
         $.ajax({
             url: url,
             type: "POST",
-            data:formData
+            data:formData,
+            dataType: "json"
 
         }).done(function(response){
 
@@ -43,7 +44,8 @@ jQuery(document).ready(function($){
             $.ajax({
                 url: url,
                 type: "POST",
-                data:formData
+                data:formData,
+                dataType: "json"
     
             }).done(function(response){
 
@@ -85,29 +87,37 @@ jQuery(document).ready(function($){
         
         
         if(new_password === confirm_password){
-            $.ajax({
-                url:url,
-                type:"POST",
-                data:formData
-            }).done(function(response){
 
-                message_ajax(response);
+            if(password_conform === true){
 
-                if(data.attribute === "success"){
-                    $("#form_password").find("input").val("");
-                }
-                
-            }).fail(message_error_ajax)
+                    $.ajax({
+                    url:url,
+                    type:"POST",
+                    data:formData,
+                    dataType: "json"
 
-        }
+                }).done(function(response){
 
-        else if(password_conform !== true){
-            message_error("Le mot de passe n'est pas assez sécurisé");
+                    message_ajax(response);
+
+                    if(response.attribute === "success"){
+                        $("#form_password").find("input").val("");
+                    }
+                    
+                }).fail(message_error_ajax)
+            
+            }
+
+            else{
+                message_error("Le mot de passe n'est pas assez sécurisé");
+            }
         }
 
         else{
             message_error("Les mots de passe ne sont pas identiques");
         }
+
+        
     })
 
 
@@ -124,6 +134,7 @@ jQuery(document).ready(function($){
         $.ajax({
             url: url,
             type: "GET",
+            dataType:"json"
 
         }).done(message_ajax)
         
@@ -151,7 +162,8 @@ jQuery(document).ready(function($){
             type:"POST",
             processData: false, 
             contentType: false,
-            data:dataForm
+            data:dataForm,
+            dataType:"json"
 
         }).done(message_ajax)
 
