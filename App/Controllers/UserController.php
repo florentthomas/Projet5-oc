@@ -318,4 +318,105 @@ class UserController extends Controller{
 
         echo json_encode($response);
     }
+
+    public function password_forgot(){
+
+        if(!empty($_POST["email"]) && filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)){
+            
+
+            if($this->userManager->email_exists($_POST["email"])){
+
+                $current_user=$this->userManager->get_user("email",$_POST["email"]);
+
+                $content_email=Tools::generate_email("reset_password",array("key_account"=>$current_user->key_confirm));
+
+                if(Tools::sendEmail($current_user->email,"Réinitialiser le mot de passe",$content_email)){
+                    $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
+                }
+
+                else{
+                    $message=["attribute"=>"error", "message"=>"Problème technique"];
+                }
+                    $_SESSION["flash"]["response"]=["attribute"=>"success","message"=>"Email envoyé"];
+            }
+
+            else{
+                $_SESSION["flash"]["response"]=["attribute"=>"error","message"=>"L'adresse email ne corresponds à aucun utilisateur"];
+            }
+        }
+
+        $this->view("Forgot_password");
+
+    }
+
+
+    public function reset_password($params){
+     
+        $key=$params[1];
+
+        try{
+            if(is_numeric($key)){
+
+                $user=$this->userManager->get_user("key_confirm",$key);
+
+
+                if($user ==! false){
+
+                    $this->view("reset_password",array("key_account" =>$key));
+                }
+                else{
+                    throw new \Exception("Le profil n'a pas été trouvé");
+                }
+            }
+
+            else{
+                throw new \Exception("Clé non valide");
+            }
+
+        }
+
+        catch(\Exception $e){
+            $message=$e->getMessage();
+            header('HTTP/1.0 404 Not Found');
+            $this->view("Exception",array("message_exception" => $message));
+        
+        }
+    }
+
+    public function reset_password_apply(){
+
+        if(isset($_POST["key_account"])){
+
+            
+            $current_user=$this->userManager->get_user("key_confirm",$_POST["key_account"]);
+
+            if($current_user){
+
+                if(isset($_POST["new_password"]) && isset($_POST["confirm_password"]) && $_POST["new_password"] === $_POST["confirm_password"]){
+
+                    $new_password=password_hash($_POST["new_password"], PASSWORD_DEFAULT);
+
+
+                    $this->userManager->update_user("password_account",$new_password,$current_user->id);
+                    $response=["attribute"=>"success", "message"=>"Le mot de passe est réinitialisé"];
+                }
+
+                else{
+                    $response=["attribute"=>"error", "message"=>"Modification impossible"];
+                }
+                
+            }
+
+            else{
+                $response=["attribute"=>"error", "message"=>"Utilisateur introuvable"];
+            }
+
+        }
+
+        else{
+            $response=["attribute"=>"error", "message"=>"Utilisateur introuvable"];
+        }
+
+        echo json_encode($response);
+    }
 }

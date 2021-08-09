@@ -29,6 +29,14 @@ $router->get("/confirm_delete_account/:key", "UserController@confirm_delete_acco
 
 $router->post("setting/change_photo","UserController@picture_account");
 
+$router->get("password_forgot", "UserController@password_forgot");
+
+$router->get("reset_password/:key", "UserController@reset_password");
+
+$router->post("reset_password", "UserController@reset_password_apply");
+
+$router->post("password_forgot", "UserController@password_forgot");
+
 $router->post("/connection","BlogController@connection");
 
 $router->get("/disconnect","BlogController@disconnect");
