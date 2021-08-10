@@ -48,15 +48,20 @@
                     <p id="message_password">Mot de passe: <span class="invalid" id="upper_case">1 lettre majuscule</span>,
                      <span class="invalid" id="lower_case">1 lettre minuscule</span>,
                      <span class="invalid" id="number">1 chiffre</span>,
-                      <span class="invalid" id="special_character">Caractères spéciaux</span>,
-                       <span class="invalid" id="length_password">12 caractères (@?!_%()#)</span></p>
+                      <span class="invalid" id="special_character">Caractères spéciaux (@?!_%()#)</span>,
+                       <span class="invalid" id="length_password">12 caractères</span></p>
                 </form>
 
-                <p id="response"></p>
+                <p id="result" class="message"></p>
             </div>
             
 {% endblock %}
 
 {% block script %}
+    <script src="{{URL}}Public/js/message_ajax.js"></script>
+    <script src="{{URL}}Public/js/message_error.js"></script>
+    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script src="{{URL}}Public/js/loading_ajax.js"></script>
+    <script src="{{URL}}Public/js/safe_password.js"></script>
     <script src="{{URL}}Public/js/form_inscription.js"></script>
 {% endblock %}

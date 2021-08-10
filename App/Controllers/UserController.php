@@ -324,7 +324,7 @@ class UserController extends Controller{
         if(!empty($_POST["email"]) && filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)){
             
 
-            if($this->userManager->email_exists($_POST["email"])){
+            if($this->userManager->email_exists($_POST["email"]) ==! false){
 
                 $current_user=$this->userManager->get_user("email",$_POST["email"]);
 

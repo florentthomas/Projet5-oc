@@ -49,7 +49,7 @@ $router->get("/confirm/:key","InscriptionController@confirm_account");
 
 $router->get("/confirm_new_email/:key", "UserController@confirm_email");
 
-$router->post("/inscription","InscriptionController@check");
+$router->post("/inscription","InscriptionController@create_account");
 
 
 $router->run();

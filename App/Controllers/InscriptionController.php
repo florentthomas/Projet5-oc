@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-
+use App\Tools\Tools;
 
 class InscriptionController extends Controller{
 
@@ -15,7 +15,7 @@ class InscriptionController extends Controller{
         $this->view("Inscription");
     }
 
-    public function check(){
+    public function create_account(){
         
         if(!empty($_POST["pseudo"]) && !empty($_POST["password_1"]) && !empty("email") && !empty($_POST["password_2"])){
         
@@ -36,10 +36,19 @@ class InscriptionController extends Controller{
                                 $key.= mt_rand(0,9);
                             }
 
-                         
-                            $this->UserManager->create_account($_POST["pseudo"],$_POST["email"],$password,$key);
-                            $response=["attribute"=>"success","message"=>"Compte crée, cliquez sur le lien de confirmation sur le mail envoyé"];
-                            $this->send_email($_POST["email"], $key);
+                            
+                            $content_email=Tools::generate_email("confirmation_inscription",array("key" => $key));
+
+                            if(Tools::sendEmail($_POST["email"],"Confirmez votre inscription",$content_email)){
+
+                                $this->UserManager->create_account($_POST["pseudo"],$_POST["email"],$password,$key);
+                                $response=["attribute"=>"success","message"=>"Compte crée, cliquez sur le lien de confirmation sur le mail envoyé"];
+                            }
+
+                            else{
+                                $response=["attribute"=>"error","message"=>"Une erreur s'est produite lors de l'envoie du mail"];
+                            }
+                            
                         }
                         else{
                             $response=["attribute"=>"error","message"=>"Les mot de passes ne sont pas les mêmes"];
@@ -69,49 +78,46 @@ class InscriptionController extends Controller{
         
     }
 
-    public function send_email($email,$key){
-
-        $header="MIME-Version: 1.0\r\n";
-        $header.='From: "cineFilm.com" <support@cinefilm.com>'."\n";
-        $header.='Content-Type:text/html; charset="utf-8"'."\n";
-        $header.='Content-Transfer-Encoding: 8bit';
-
-        $url=URL."confirm/".$key;
-
-        $message="
-        
-            <html>
-                <body>
-                    <div>
-                        <h1>Confirmez votre inscription en cliquant sur le lien</h1>
-                        <a href=".$url.">Confirmer l'inscription</a>
-                    </div>
-                </body>
-            </html>
-        
-        ";
-
-        mail($email,"Confirmation de compte", $message, $header);
-
-    }
-
 
     public function confirm_account($key){
 
         $key=$key[1];
 
-        $user=$this->UserManager->get_user("key_confirm",$key);
+        try{
 
-        if($user->account_confirmed == 0){
-            $this->UserManager->confirm_account($user->id);
-            $this->view("Confirm_account");
+            if(isset($key)){
+                $current_user=$this->UserManager->get_user("key_confirm", $key);
+                
+                if($current_user){
+
+                    if($current_user->account_confirmed == 0){
+                        $this->UserManager->confirm_account($current_user->id);
+                        $this->view("Confirm_account");
+                    }
+        
+                    else{
+                        header("Location:".URL);
+                    }
+
+                }
+                
+                else{
+                    throw New \exception("L'utilisateur n'existe pas");
+                }
+            }
+            
+            else{
+                throw New \exception("Aucune clé pour retrouver l'utilisateur");
+            }
+
         }
 
-        else{
-            header("Location:".URL);
+        catch(\Exception $e){
+            
+            $message=$e->getMessage();
+            header('HTTP/1.0 404 Not Found');
+            $this->view("Exception",array("message_exception" => $message));   
         }
-
-
     }
 
 }

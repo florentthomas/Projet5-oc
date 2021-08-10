@@ -30,13 +30,16 @@ class UserManager extends Manager{
 
     public function create_account($pseudo,$email,$password,$key){
 
-        $this->prepare("INSERT INTO users(pseudo,email,password_account,key_confirm) 
-                        VALUES(:pseudo,:email,:password_account,:key_confirm)");
+        $this->prepare("INSERT INTO users(pseudo,email,password_account,key_confirm,url_photo) 
+                        VALUES(:pseudo,:email,:password_account,:key_confirm,:url_photo)");
+
+        $url_photo_default=URL."Public/images/avatars/default.png";
 
         $this->execute_query_prepared(Array("pseudo" => $pseudo,
                                             "email" => $email,
                                             "password_account" =>$password,
-                                            "key_confirm" => $key));
+                                            "key_confirm" => $key,
+                                            "url_photo" => $url_photo_default));
     }
 
 
