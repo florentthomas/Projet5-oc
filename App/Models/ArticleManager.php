@@ -13,4 +13,11 @@ class ArticleManager extends Manager{
 
         return $result;
     }
+
+    public function get_all_articles(){
+        $this->query("SELECT * FROM articles");
+        $articles= $this->get_all();
+
+        return $articles;
+    }
 }

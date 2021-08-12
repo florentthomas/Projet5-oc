@@ -8,11 +8,15 @@ class BlogController extends Controller{
     public function __construct(){
 
         $this->userManager=$this->model("UserManager");
+        $this->ArticleManager=$this->model("ArticleManager");
     }
 
     public function index(){
 
-        $this->view("BlogHome",array("titre" => "titre d'un article"));
+        $articles=$this->ArticleManager->get_all_articles();
+
+
+        $this->view("BlogHome",array("articles" => $articles));
     }
 
 
