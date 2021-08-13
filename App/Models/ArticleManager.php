@@ -15,7 +15,7 @@ class ArticleManager extends Manager{
     }
 
     public function get_all_articles(){
-        $this->query("SELECT * FROM articles");
+        $this->query("SELECT * FROM articles ORDER BY date_create DESC");
         $articles= $this->get_all();
 
         return $articles;
