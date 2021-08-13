@@ -22,7 +22,9 @@
 
             <h1 class="title_article">{{article.title}}</h1>
 
-            <img src="{{article.url_image}}" alt="" class="image_article"/>
+            <div class="text_center">
+                <img src="{{article.url_image}}" alt="" class="image_article"/>
+            </div>
 
             <div class="content_article">{{article.content}}</div>
 
@@ -34,16 +36,20 @@
         <div id="comments">
 
             <div id="comment_article">
-            
-            <form action="{{URL}}blog/{{article.slug}}-{{article.id}}" method="post" id="form_comment">
-                <input type="hidden" id="id_parent" name="id_parent" value="0"/>
-                <input type="hidden" id="id_article" name="id_article" value="{{article.id}}"/>
-                <textarea id="comment_area" name="comment" placeholder="Ecrivez votre commentaire"></textarea>
-                <div id="btn_form">
-                    <button type="submit">Envoyer</button>
-                    <button id="close_form">Fermer</button>
-                </div>
-            </form>
+
+                {% if session.user.account_confirmed == 1 %}
+                
+                <form action="{{URL}}blog/{{article.slug}}-{{article.id}}" method="post" id="form_comment">
+                    <input type="hidden" id="id_parent" name="id_parent" value="0"/>
+                    <input type="hidden" id="id_article" name="id_article" value="{{article.id}}"/>
+                    <textarea id="comment_area" name="comment" placeholder="Ecrivez votre commentaire"></textarea>
+                    <div id="btn_form">
+                        <button type="submit">Envoyer</button>
+                        <button id="close_form">Fermer</button>
+                    </div>
+                </form>
+                
+                {% endif %}
 
             </div>
 
@@ -52,7 +58,7 @@
                 <div class="comment_article_card" id="comment-{{comment.id}}">
                     <div class="container_comment">
                         <div class="user">
-                            <img src="{{URL}}Public/images/photo_profil"  alt=""/>
+                            <img id="photo_profil" src="{{URL}}Public/images/photo_profil"  alt=""/>
                             <div>pseudo</div>
                             <div>25/01/2021 17:56</div>
                         </div>
@@ -61,9 +67,11 @@
                             {{comment.comment}}
                         </div>
                     </div>
+                    {% if session.user.account_confirmed == 1 %}
                     <div class="btn_comment">
                         <button class="btn_response" data-id="{{comment.id}}">Répondre</button><button>Signaler</button>
                     </div>
+                    {% endif %}
                 </div>
 
                 
@@ -79,7 +87,9 @@
                                 </div>
                                 <div class="comment"> {{children.comment}}</div>
                             </div>
+                            {% if session.user.account_confirmed == 1 %}
                             <div class="btn_comment"><button>Signaler</button></div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 

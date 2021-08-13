@@ -6,6 +6,14 @@
     font-family: sans-serif;
 }
 
+:root{
+    --borderBlack: 1px solid rgb(0,0,0,0.1);
+}
+
+.text_center{
+    text-align: center;
+}
+
 input,textarea{
     display: block;
 }
@@ -178,7 +186,7 @@ header a{
 }
 
 #posts article{
-    border: 1px solid rgb(0,0,0,0.1);
+    border: var(--borderBlack);
     padding: 1rem;
     height:min-content;
     transition: transform .1s;
@@ -238,6 +246,8 @@ article{
 }
 
 
+
+
 /*Page 404*/
 
 #page_404{
@@ -290,16 +300,13 @@ article{
 .title_article{
     text-align: center;
     margin-bottom: 25px;
+    font-size: 3rem;
 }
 
 .content_article{
     margin-top: 30px;
 }
 
-.image_article{
-    width:100%;
-    height: auto;
-}
 
 #comments{
     width:70%;
@@ -316,7 +323,7 @@ article{
     width:95%;
     margin: auto;
     padding: 15px;
-    border:none;
+    border:var(--borderBlack);
     border-radius: 20px;
 }
 
@@ -325,6 +332,10 @@ article{
     text-align: end;
 }
 
+#photo_profil{
+    width: 60px;
+    height:60px;
+}
 #close_form{
     display: none;
 }
