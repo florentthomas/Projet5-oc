@@ -11,6 +11,7 @@ class ArticleController extends Controller{
 
         $this->articleManager= $this->model("ArticleManager");
         $this->commentManager=$this->model("CommentManager");
+        $this->userManager=$this->model("UserManager");
     }
 
    
@@ -21,12 +22,22 @@ class ArticleController extends Controller{
         $article=$this->articleManager->getArticle($id);
         $comments=$this->commentManager->getCommentsByArticle($id);
 
-        
 
         foreach($comments as $comment){
-            $commentsById[$comment->id]=$comment;    
+            $commentsById[$comment->id]=$comment;
+        
+            $users_id[]=$comment->id_user;    
             
         }
+
+        if(isset($users_id) && $users_id ==! null){
+
+            $users_id=array_unique($users_id);
+            foreach($users_id as $user){
+                $users[]=$this->userManager->get_user("id",$user);
+            }
+
+        } 
        
         foreach($comments as $k => $comment){
         
@@ -36,11 +47,15 @@ class ArticleController extends Controller{
             }
         }
         
+        
 
         if($article){
             $this->view("Article",array("article" => $article,
-                                        "comments" => $comments));
+                                        "comments" => $comments,
+                                        "users" => $users));
         }
+
+        
 
         else{
             header('HTTP/1.0 404 Not Found');  
