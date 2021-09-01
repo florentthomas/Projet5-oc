@@ -73,8 +73,8 @@
                         </div>
                     </div>
                     {% if session.user.account_confirmed == 1 %}
-                    <div class="btn_comment">
-                        <button class="btn_response" data-id="{{comment.id}}">Répondre</button><button>Signaler</button>
+                    <div class="btn_comment_end">
+                        <button class="btn_response" data-id="{{comment.id}}">Répondre</button><button class="button-red">Signaler</button>
                     </div>
                     {% endif %}
                 </div>
@@ -99,7 +99,7 @@
                                 <div class="comment"> {{children.comment}}</div>
                             </div>
                             {% if session.user.account_confirmed == 1 %}
-                            <div class="btn_comment"><button>Signaler</button></div>
+                            <div class="btn_comment_end"><button class="button-red">Signaler</button></div>
                             {% endif %}
                         </div>
                     {% endfor %}
