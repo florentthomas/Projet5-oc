@@ -43,6 +43,8 @@ $router->get("/disconnect","BlogController@disconnect");
 
 $router->get("/blog/:slug-:id","ArticleController@index");
 
+$router->post("/blog/:slug-:id/comment","ArticleController@add_comment_article");
+
 $router->get("/inscription","InscriptionController@index");
 
 $router->get("/confirm/:key","InscriptionController@confirm_account");

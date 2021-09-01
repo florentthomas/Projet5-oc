@@ -21,6 +21,7 @@ class ArticleController extends Controller{
 
         $article=$this->articleManager->getArticle($id);
         $comments=$this->commentManager->getCommentsByArticle($id);
+        $users=[];
 
 
         foreach($comments as $comment){
@@ -47,7 +48,6 @@ class ArticleController extends Controller{
             }
         }
         
-        
 
         if($article){
             $this->view("Article",array("article" => $article,
@@ -62,6 +62,37 @@ class ArticleController extends Controller{
             $this->view("404"); 
         }
 
+    }
+
+    public function add_comment_article(){
+
+        if(isset($_SESSION['user'])){
+
+            if(isset($_POST["comment"]) && !empty($_POST["comment"])){
+
+                $comment=strip_tags($_POST["comment"]);
+                $id_user=$_SESSION["user"]->id;
+                $url_photo=$_SESSION["user"]->url_photo;
+                $pseudo_user=$_SESSION["user"]->pseudo;
+               
+                $this->commentManager->add_comment($comment,$_POST["id_parent"],$id_user,$_POST["id_article"]);
+    
+                    $response=["attribute" => "success", "message" => "commentaire envoyé", "url_photo"=>$url_photo,"pseudo_user"=>$pseudo_user];
+                
+            }
+
+            else{
+                $response=["attribute"=>"error","message" => "Le champs commentaire est vide"];
+            }
+        }
+        
+        else{
+            $response=["attribute"=>"error","message" => "commentaire non envoyé"];
+        }
+        
+        
+
+        echo json_encode($response);
     }
 
 }

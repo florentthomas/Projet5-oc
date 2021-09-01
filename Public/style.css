@@ -332,7 +332,7 @@ article{
     text-align: end;
 }
 
-#photo_profil{
+.photo_profil{
     width: 60px;
     height:60px;
 }

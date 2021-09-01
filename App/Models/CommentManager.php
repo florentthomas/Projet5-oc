@@ -16,4 +16,17 @@ class CommentManager extends Manager{
 
     }
 
+    public function add_comment($comment,$id_parent,$id_user,$id_article){
+
+        $this->prepare("INSERT INTO comments_articles (comment,id_parent,date_comment,id_user,id_article)
+                        VALUES (:comment,:id_parent,NOW(),:id_user,:id_article)");
+
+        $values=array("comment" => $comment,
+                        "id_parent"=> $id_parent,
+                        "id_user" => $id_user,
+                        "id_article" => $id_article);
+
+        $this->execute_query_prepared($values);
+    }
+
 }

@@ -17,7 +17,7 @@
 
 <div class="wrapper">
     <div class="container">
-
+        <p id="result" class="message_fixed"></p>
         <article>
 
             <h1 class="title_article">{{article.title}}</h1>
@@ -39,7 +39,7 @@
 
                 {% if session.user.account_confirmed == 1 %}
                 
-                <form action="{{URL}}blog/{{article.slug}}-{{article.id}}" method="post" id="form_comment">
+                <form action="{{URL}}blog/{{article.slug}}-{{article.id}}/comment" method="post" id="form_comment">
                     <input type="hidden" id="id_parent" name="id_parent" value="0"/>
                     <input type="hidden" id="id_article" name="id_article" value="{{article.id}}"/>
                     <textarea id="comment_area" name="comment" placeholder="Ecrivez votre commentaire"></textarea>
@@ -61,7 +61,7 @@
 
                             {% for user in users %}
                                 {% if comment.id_user == user.id %}
-                                    <img id="photo_profil" src="{{user.url_photo}}"  alt=""/>
+                                    <img class="photo_profil" src="{{user.url_photo}}"  alt=""/>
                                     <div>{{user.pseudo}}</div>
                                     <div>{{comment.date_comment|date("d/m/y")}}</div>
                                 {% endif %}
@@ -89,12 +89,12 @@
 
                                     {% for user in users %}
                                         {% if children.id_user == user.id %}
-                                            <img id="photo_profil" src="{{user.url_photo}}" alt=""/>
+                                            <img class="photo_profil" src="{{user.url_photo}}" alt=""/>
                                             <div>{{user.pseudo}}</div>
                                             <div>{{children.date_comment|date("d/m/y")}}</div>
                                         {% endif %}
                                     {% endfor %}
-                                    
+
                                 </div>
                                 <div class="comment"> {{children.comment}}</div>
                             </div>
@@ -116,4 +116,8 @@
 
 {% block script %}
     <script src="{{URL}}Public/js/form-comment.js"></script>
+    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script src="{{URL}}Public/js/message_error.js"></script>
+    <script src="{{URL}}Public/js/message_ajax.js"></script>
+    <script src="{{URL}}Public/js/add_comment.js"></script>
 {% endblock %}
