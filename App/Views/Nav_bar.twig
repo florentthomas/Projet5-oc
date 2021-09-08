@@ -1,0 +1,14 @@
+
+    <nav class="nav_bar">
+        <ul>
+            {% if session.user %}
+            <li><a href="{{URL}}setting"><img src="{{session.user.url_photo}}" alt="photo de profil" class="photo_profil" id="photo_navbar"/>{{session.user.pseudo}}</a></li>
+            <li><a href="{{URL}}disconnect"><i class="fas fa-sign-out-alt"></i>SE DECONNECTER</a></li>
+            {% endif %}
+
+            {% if not session.user %}
+            <li><a href="{{URL}}inscription">S'INSCRIRE</a></li>
+            <li><a href="{{URL}}connection">SE CONNECTER</a></li>
+            {% endif %}
+        </ul>
+    </nav>

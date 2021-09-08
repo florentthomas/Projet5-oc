@@ -15,9 +15,16 @@
 
 {% block content %}
 
+
+
 <div class="wrapper">
+
+    {% include ("Nav_bar.twig") %}
+    
     <div class="container">
+
         <p id="result" class="message_fixed"></p>
+
         <article>
 
             <h1 class="title_article">{{article.title}}</h1>
