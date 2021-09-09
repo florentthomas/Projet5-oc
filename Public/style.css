@@ -6,9 +6,17 @@
     font-family: sans-serif;
 }
 
+
+
 :root{
     --borderBlack: 1px solid rgb(0,0,0,0.1);
 }
+
+/* body,html{
+    height:100%;
+} */
+
+
 
 .text_center{
     text-align: center;
@@ -279,10 +287,12 @@ article{
 
 .wrapper{
     background-color: #1b2426;
+    min-height:100vh;
 }
 
 
 .container{
+    min-height:100vh;
     width:70%;
     margin: auto;
     background-color: #f7f7f7;
@@ -442,12 +452,13 @@ article{
 .center-vertical{
     position: relative;
     top:40%;
+    transform: translateY(50%);
 }
 
 
 .w30{
     width:30%;
-    margin: auto;
+    margin:auto;
 }
 
 
