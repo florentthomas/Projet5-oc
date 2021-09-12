@@ -16,11 +16,13 @@
 {% block content %}
 
     <div class="wrapper">
-    
+
+    {% include ("Nav_bar.twig") %}   
+     
         <div class="container">
 
 
-            <div class="center-vertical w30">
+            <div class="block_form">
                 <h1>Connectez-vous</h1>
 
                 <form action="{{URL}}connection" method="post">

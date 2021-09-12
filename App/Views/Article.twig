@@ -29,7 +29,7 @@
 
             <h1 class="title_article">{{article.title}}</h1>
 
-            <div class="text_center">
+            <div class="image_article">
                 <img src="{{article.url_image}}" alt="" class="image_article"/>
             </div>
 
@@ -51,8 +51,8 @@
                     <input type="hidden" id="id_article" name="id_article" value="{{article.id}}"/>
                     <textarea id="comment_area" name="comment" placeholder="Ecrivez votre commentaire"></textarea>
                     <div id="btn_form">
-                        <button type="submit">Envoyer</button>
-                        <button id="close_form">Fermer</button>
+                        <button type="submit" class="button-blue">Envoyer</button>
+                        <button id="close_form" class="button-red">Fermer</button>
                     </div>
                 </form>
                 
@@ -81,7 +81,7 @@
                     </div>
                     {% if session.user.account_confirmed == 1 %}
                     <div class="btn_comment_end">
-                        <button class="btn_response" data-id="{{comment.id}}">Répondre</button><button class="button-red">Signaler</button>
+                        <button class="btn_response button-blue" data-id="{{comment.id}}">Répondre</button><button class="button-red">Signaler</button>
                     </div>
                     {% endif %}
                 </div>

@@ -1,5 +1,7 @@
 
     <nav class="nav_bar">
+        <a href="{{URL}}"><img src="{{URL}}Public/images/clap.svg" class="logo" alt="logo"/></a>
+
         <ul>
             {% if session.user %}
             <li><a href="{{URL}}setting"><img src="{{session.user.url_photo}}" alt="photo de profil" class="photo_profil" id="photo_navbar"/>{{session.user.pseudo}}</a></li>

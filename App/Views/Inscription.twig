@@ -16,9 +16,13 @@
 {% block content %}
 
         <div class="wrapper">
+
+        {% include ("Nav_bar.twig") %}
+
+        
             <div class="container">
     
-                <div class="inscription">
+                <div class="block_form">
                     <h1>Inscrivez-vous</h1>
                     <form id="form_inscription" action="{{URL}}inscription" method="post">
 

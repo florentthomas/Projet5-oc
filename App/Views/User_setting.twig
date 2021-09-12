@@ -17,6 +17,9 @@
 
     
     <div class="wrapper">
+
+    {% include ("Nav_bar.twig") %}
+    
         <div class="container">
 
         <p id="result" class="message_fixed"></p>
@@ -30,7 +33,7 @@
                         <input type="text" id="pseudo" name="new_pseudo" required/>
                     </div>
                     <div class="input_form">
-                        <button type="submit" class="m-auto" name="pseudo_form">Valider</button>
+                        <button type="submit" class="button-blue" name="pseudo_form">Valider</button>
                     </div>
                 </form>
             </section>
@@ -49,7 +52,7 @@
                     </div>
                     
                     <div class="input_form">
-                        <button type="submit" class="m-auto" name="email_form">Valider</button>
+                        <button type="submit" class="button-blue" name="email_form">Valider</button>
                     </div>
                 </form>
             </section>
@@ -77,7 +80,7 @@
                       <span class="invalid" id="special_character">Caractères spéciaux (@?!_%()#)</span>,
                        <span class="invalid" id="length_password">12 caractères</span></p>
                     <div class="input_form">
-                        <button type="submit" class="m-auto" name="password_form">Valider</button>
+                        <button type="submit" class="button-blue" name="password_form">Valider</button>
                     </div>
                 </form>
             </section>
@@ -92,7 +95,7 @@
                     </div>
 
                     <div class="input_form">
-                        <button type="submit" class="m-auto">Valider</button>
+                        <button type="submit" class="button-blue">Valider</button>
                     </div>
                 </form>
             </section>
@@ -102,7 +105,7 @@
                 <h1>Supprimer le compte</h1>
                 <form id="form_delete_account" action="{{URL}}setting/delete/{{session.user.key_confirm}}" method="GET">
                     <div class="input_form">
-                        <button type="submit" class="button-red m-auto">Supprimer</button>
+                        <button type="submit" class="button-red">Supprimer</button>
                     </div>
                 </form>
             </section>
