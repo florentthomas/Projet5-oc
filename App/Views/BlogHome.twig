@@ -20,7 +20,9 @@
 
             <div class="intro_blog">
                 <p>BLOG</p>
-                <a href="#" id="chevron"><i class="fa fa-chevron-down"></i></a>
+                {# <a href="#" id="chevron"> #}
+                <i class="fa fa-chevron-down" id="chevron"></i>
+                {# </a> #}
             </div>
             
         
@@ -49,4 +51,8 @@
     </section>
 
     
+{% endblock %}
+
+{% block script %}
+    <script src="{{URL}}Public/js/scroll_to_blog.js"></script>
 {% endblock %}

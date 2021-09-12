@@ -103,11 +103,12 @@ header{
     height: 100vh;
 }
 
-#chevron i{
+#chevron {
     text-align: center;
     animation: slide_down 2s infinite;
     font-size: 3rem;
     color:white;
+    cursor: pointer;
 }
 
 .intro_blog{
