@@ -29,6 +29,10 @@
     background-color: var(--bgColor_container);
 }
 
+h1{
+    text-align: center;
+}
+
 
 input,textarea{
     display: block;
@@ -492,3 +496,68 @@ article{
     padding: 5px;
     border-radius: 7px;
 }
+
+/*Admin_blog*/
+
+.admin{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 65px;
+}
+
+.panel{
+    width:90%;
+    padding: 1rem;
+    
+}
+
+.panel input[type="text"]{
+    width: 60%;
+}
+.group_input{
+    width:70%;
+    margin: 15px auto;
+}
+
+.btn_form{
+    text-align: center;
+    margin-top: 30px;
+}
+
+label[for="image_article"]{
+    border:0;
+    border-radius: 30px;
+    padding: 0.5rem 2rem;
+    cursor:pointer;
+    color:white;
+    background-color:var(--color_blue_btn);
+}
+
+#image_article{
+    display: none;
+}
+
+.list_menu_admin{
+    padding: 10px;
+}
+
+.list_menu_admin li{
+    margin-bottom: 15px;
+}
+
+.list_menu_admin li:hover{
+    transform: scale(1.08)
+}
+
+
+
+/* .panel .input_form{
+    width: 50%;
+    margin: auto;
+}
+
+.panel input[type="text"]{
+    width: 70%;
+} */
+
+

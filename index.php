@@ -53,6 +53,10 @@ $router->get("/confirm_new_email/:key", "UserController@confirm_email");
 
 $router->post("/inscription","InscriptionController@create_account");
 
+$router->get("/admin_blog","AdminController@index");
+
+$router->get("/admin_blog/creer_article","AdminController@create_article");
+
 
 $router->run();
 

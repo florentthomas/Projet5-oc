@@ -1,0 +1,36 @@
+
+{% extends "Layout.twig" %}
+
+
+{% block title %}
+    <title>Administration blog</title>
+{% endblock %}
+
+{% block description %}
+    <meta name="description" content=""/>
+{% endblock %}
+
+{% block content %}
+
+    {% include("nav_bar.twig") %}
+
+    <main class="admin">
+
+        <ul class="list_menu_admin">
+            <li><a href="#">Modifier ou supprimer un article</a></li>
+            <li><a href="{{URL}}admin_blog/creer_article">Créer un nouvel article</a></li>
+            <li><a href="#">Commentaire signalés</a></li>
+            <li><a href="#">Utilisateurs</a></li>
+        </ul>
+        
+        
+        <div class="panel">
+            {% block admin %}
+
+            {% endblock %}
+
+        </div>
+    </main>
+
+{% endblock %}
+
