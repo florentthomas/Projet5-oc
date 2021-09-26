@@ -512,7 +512,7 @@ article{
 }
 
 .panel input[type="text"]{
-    width: 60%;
+    width: 100%;
 }
 .group_input{
     width:70%;
@@ -537,6 +537,15 @@ label[for="image_article"]{
     display: none;
 }
 
+#prev_image{
+    width: 150px;
+    height: auto;
+}
+
+.prev_image{
+    margin-top:15px;
+    text-align: center;
+}
 .list_menu_admin{
     padding: 10px;
 }

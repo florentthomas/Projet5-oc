@@ -21,13 +21,18 @@
         <div class="group_input">
 
             <div class="input_form">
-                <label for="title_article">Titre de l'article</label>
-                <input type="text" name="title_article" id="title_article" required/>
+                <input type="text" name="title_article" id="title_article" placeholder="Titre de l'article" required/>
             </div>
 
             <div class="btn_form">
                 <label for="image_article">Selectionner une image</label>
                 <input type="file" name="image_article" id="image_article"/>
+            </div>
+
+            <div class="prev_image">
+
+                <img src="" id="prev_image"/>
+
             </div>
 
         </div>
@@ -45,4 +50,5 @@
 {% block script %}
     <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script src="{{URL}}Public/js/CKEditor.js"></script>
+    <script src="{{URL}}Public/js/image_create_article.js"></script>
 {% endblock %}
