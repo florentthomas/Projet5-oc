@@ -1,0 +1,50 @@
+{% extends "admin_blog.twig" %}
+
+{% block title %}
+
+    <title>Créer un article</title>
+
+{% endblock %}
+
+{% block description %}
+
+    <meta name="description" content=""/>
+
+{% endblock %}
+
+{% block admin %}
+
+    {% for article in articles %}
+
+        <div class="article_card">
+
+            <div class="content_card">
+
+                <div><img class="image" src="{{article.url_image}}"/></div>
+
+                <div class="content_card_article">
+                    <h3>{{article.title}}</h3>
+                    <p>{{article.content}}</p>
+
+                    <div class="info_article">
+                        <div>Date de publication: {{article.date_create|date("d/m/Y")}}</div>
+                        {% if article.date_create != article.date_update %}
+                            <div>Date de modification: {{article.date_update|date("d/m/Y")}}</div>
+                        {% endif %}
+                        <div>Auteur: {{article.author}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn_edit">
+                <button class="button-blue">Modifier</button>
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

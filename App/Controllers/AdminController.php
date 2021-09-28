@@ -5,6 +5,10 @@ namespace App\Controllers;
 
 class AdminController extends Controller{
 
+    public function __construct(){
+        $this->articleManager= $this->model("ArticleManager");
+    }
+
     public function index(){
 
         if($_SESSION["user"]->type_user === "admin"){
@@ -22,5 +26,14 @@ class AdminController extends Controller{
 
         $this->view("create_article");
     
+    }
+
+
+    public function edit_article(){
+
+        $articles=$this->articleManager->get_all_articles();
+
+
+        $this->view("list_article_edit", ["articles" => $articles]);
     }
 }

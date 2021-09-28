@@ -57,6 +57,8 @@ $router->get("/admin_blog","AdminController@index");
 
 $router->get("/admin_blog/creer_article","AdminController@create_article");
 
+$router->get("/admin_blog/modifier_article","AdminController@edit_article");
+
 
 $router->run();
 

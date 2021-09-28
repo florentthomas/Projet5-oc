@@ -514,6 +514,8 @@ article{
 .panel input[type="text"]{
     width: 100%;
 }
+
+
 .group_input{
     width:70%;
     margin: 15px auto;
@@ -531,6 +533,38 @@ label[for="image_article"]{
     cursor:pointer;
     color:white;
     background-color:var(--color_blue_btn);
+}
+
+.image{
+    width: 150px;
+    height: auto;
+}
+
+.article_card{
+    margin-bottom: 20px;
+    border: #f7f7f7 solid 1px;
+    padding: 5px;
+    box-shadow: 0px 0px 21px -1px #2b1d1d;
+
+}
+
+.btn_edit{
+    text-align: end;
+}
+
+
+.content_card{
+    display: flex;
+}
+
+.content_card_article{
+    margin-left: 10px;
+}
+
+.info_article{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 #image_article{
