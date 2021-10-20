@@ -1,0 +1,44 @@
+{% extends "admin_blog.twig" %}
+
+{% block title %}
+
+    <title>Utilisateurs</title>
+
+{% endblock %}
+
+{% block description %}
+
+    <meta name="description" content=""/>
+
+{% endblock %}
+
+{% block admin %}
+
+    <h1>Rechercher un utilisateur</h1>
+
+    
+    <form id="search_user" action="{{URL}}admin_blog/recuperer_utilisateur">
+
+        <div class="input_form search">
+            <input id="search_user_input" type="text" placeholder="Saisir le pseudo de l'utilisateur" data-search-url="{{URL}}admin_blog/recherche_utilisateur"/> 
+        </div>
+
+   
+        <div id="search_result">
+
+            
+            
+        </div>
+
+    </form>
+
+    <div id="user_info">
+
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{{URL}}Public/js/search_user.js"></script>
+{% endblock %}

@@ -59,6 +59,12 @@ $router->get("/admin_blog/creer_article","AdminController@create_article");
 
 $router->get("/admin_blog/modifier_article","AdminController@edit_article");
 
+$router->get("/admin_blog/utilisateur","AdminController@user");
+
+$router->get("/admin_blog/recherche_utilisateur","AdminController@search_user");
+
+$router->post("/admin_blog/recuperer_utilisateur","AdminController@get_user");
+
 
 $router->run();
 

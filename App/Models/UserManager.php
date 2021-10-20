@@ -51,6 +51,16 @@ class UserManager extends Manager{
         return $result;
     }
 
+    public function search($value_input){
+
+        $this->prepare("SELECT * FROM users WHERE pseudo LIKE :value_input LIMIT 15");
+        $value_input=$value_input."%";
+        $this->execute_query_prepared(Array("value_input" => $value_input));
+        $result=$this->get_all();
+
+        return $result;
+    }
+
     public function get_user_email($email){
         
         $this->prepare("SELECT * FROM users WHERE email = :email");
