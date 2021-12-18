@@ -619,13 +619,28 @@ label[for="image_article"]{
 
 }
 
-/* .panel .input_form{
-    width: 50%;
-    margin: auto;
+
+/* user_admin */
+
+#photo_user{
+    max-width: 20vw;
+
 }
 
-.panel input[type="text"]{
-    width: 70%;
-} */
+#user_info{
+    text-align: center;
+}
 
 
+#forms{
+    text-align: center;
+    display: none;
+}
+
+#forms form{
+    margin-top: 35px;
+}
+
+#forms button{
+    margin-top: 10px;
+}
