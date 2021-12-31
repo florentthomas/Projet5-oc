@@ -29,24 +29,4 @@ abstract class Manager{
         }
     }
 
-    // protected function query($sql){
-    //     return $this->_query=$this->_bdd->query($sql);
-    // }
-
-    // protected function prepare($sql){
-    //     $this->_query=$this->_bdd->prepare($sql);
-    // }
-
-    // protected function execute_query_prepared($data){
-    //     $this->_query->execute($data);
-    // }
-
-    // protected function get_all(){
-    //     return $this->_query->fetchAll();
-    // }
-
-    // protected function get_one(){
-    //     return $this->_query->fetch();
-    // }
-
 }
