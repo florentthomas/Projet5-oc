@@ -14,6 +14,8 @@
 
 {% block admin %}
 
+    <p id="result" class="message_fixed"></p>
+
     <h1>Rechercher un utilisateur</h1>
 
     
@@ -41,11 +43,11 @@
 
     <div id="forms">
 
-        <form id="form_type_user" action="{{URL}}admin_blog/type_user">
+        <form id="form_type_user" action="{{URL}}admin_blog/type_user" method="POST">
             <input type="hidden" name="id_user" value=""/>
             <div>
                 <label>Changer le type de cet utilisateur</label>
-                <select name="type_user">
+                <select name="type_user" id="form_select_type">
                     <option value="user">Utilisateur</option>
                     <option value="editor">Rédacteur</option>
                     <option value="Admin">Admin</option>
@@ -82,5 +84,8 @@
     <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'message_user' );
-    </script
+    </script>
+    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script src="{{URL}}Public/js/message_ajax.js"></script>
+    <script src="{{URL}}Public/js/change_type_user.js"></script>
 {% endblock %}

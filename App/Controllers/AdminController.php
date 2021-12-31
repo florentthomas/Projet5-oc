@@ -67,4 +67,50 @@ class AdminController extends Controller{
             echo json_encode ($test);
         }
     }
+
+    public function change_type_user(){
+
+        if(isset($_POST["type_user"]) && isset($_POST["id_user"])){
+
+            $type_user=$_POST["type_user"];
+
+            $user=$this->userManager->get_user("id",$_POST['id_user']);
+
+        
+            if($type_user == "user" || $type_user == "editor" || $type_user="admin"){
+
+                if($user !== false){
+
+                    $request_update_user=$this->userManager->update_user("type_user",$type_user,$_POST["id_user"]);
+                    
+                    if($request_update_user){
+
+                        $response=["attribute" => "success", "message" => "Changement effectué"];
+                    }
+
+                    else{
+                        $response=["attribute" => "error", "message" => "Une erreur est survenue lors de l'execution de la requête"];
+                    }
+
+                    
+                }
+
+                else{
+                    $response=["attribute"=>"error","message" => "L'utilisateur n'existe pas"];
+                }
+            }
+
+            else{
+                $response=["attribute"=> "error", "message" => "Type utilisateur non conforme"];
+            }
+
+        }
+
+        else{
+            $response=["attribute"=> "error", "message" => "Erreur dans le traitement des données"];
+        }
+        
+
+        echo json_encode($response);
+    }
 }
