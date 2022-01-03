@@ -57,9 +57,12 @@
         </form>
 
 
-        <form id="send_message" action="{{URL}}admin_blog/contact_user">
-            <input type="hidden" name="id_user" value=""/>
-            <textarea id="message_user"></textarea>
+        <form id="send_message" action="{{URL}}admin_blog/contact_user" method="POST">
+            <input type="hidden" name="id_user" id="id_user" value=""/>
+            <div class="input_form">
+                <input type="text" id="subject" required name="subject" placeholder="Sujet du message"/>
+            </div>
+            <textarea id="message_user" required name="message"></textarea>
             <button class="button-blue">Envoyer le message</button>
 
         </form>
@@ -85,7 +88,9 @@
     <script>
         CKEDITOR.replace( 'message_user' );
     </script>
+    <script src="{{URL}}Public/js/loading_ajax.js"></script>
     <script src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script src="{{URL}}Public/js/message_ajax.js"></script>
     <script src="{{URL}}Public/js/change_type_user.js"></script>
+    <script src="{{URL}}Public/js/send_email.js"></script>
 {% endblock %}

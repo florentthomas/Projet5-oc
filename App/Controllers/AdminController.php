@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Tools\Tools;
+
 
 class AdminController extends Controller{
 
@@ -110,6 +112,42 @@ class AdminController extends Controller{
             $response=["attribute"=> "error", "message" => "Erreur dans le traitement des données"];
         }
         
+
+        echo json_encode($response);
+    }
+
+
+    public function send_email_to_user(){
+
+        if(isset($_POST["message"]) && !empty($_POST["message"]) && isset($_POST["id_user"]) && isset($_POST["subject"]) && !empty($_POST["subject"])){
+
+            $user=$this->userManager->get_user("id",$_POST['id_user']);
+            
+            if($user != false){
+
+                $email_user=$user->email;
+
+                if(Tools::sendEmail($email_user,$_POST["subject"],$_POST["message"])){
+                    $response=["attribute" => "success" , "message" => "Message envoyé", "email" => $email_user];
+                }
+
+                else{
+                    $response=["attribute" => "error" , "message" => "Une erreur s'est produite lors de l'envoi", "email" => $email_user];
+                }
+
+            }
+
+            else{
+
+                $response=["attribute"=> "error", "message" => "Cet utilisateur n'existe pas"];
+            }
+
+        }
+
+        else{
+
+            $response=["attribute"=> "error", "message" => "Impossible d'envoyer ce message"];
+        }
 
         echo json_encode($response);
     }

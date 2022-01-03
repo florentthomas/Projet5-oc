@@ -67,6 +67,8 @@ $router->post("/admin_blog/recuperer_utilisateur","AdminController@get_user");
 
 $router->post("/admin_blog/type_user","AdminController@change_type_user");
 
+$router->post("/admin_blog/contact_user","AdminController@send_email_to_user");
+
 
 $router->run();
 

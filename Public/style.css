@@ -644,3 +644,7 @@ label[for="image_article"]{
 #forms button{
     margin-top: 10px;
 }
+
+#cke_message_user{
+    margin-top: 15px;
+}
