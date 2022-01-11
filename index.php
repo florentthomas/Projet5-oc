@@ -69,6 +69,7 @@ $router->post("/admin_blog/type_user","AdminController@change_type_user");
 
 $router->post("/admin_blog/contact_user","AdminController@send_email_to_user");
 
+$router->post("/admin_blog/delete_user","AdminController@delete_user");
 
 $router->run();
 

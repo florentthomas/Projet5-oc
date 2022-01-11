@@ -67,7 +67,7 @@
 
         </form>
 
-        <form id="delete_user" action="{{URL}}admin_blog/delete_user">
+        <form id="delete_user" method="POST" action="{{URL}}admin_blog/delete_user">
             <input type="hidden" name="id_user" value=""/>
             <button class="button-red">Supprimer cet utilisateur</button>
         </form>
@@ -93,4 +93,5 @@
     <script src="{{URL}}Public/js/message_ajax.js"></script>
     <script src="{{URL}}Public/js/change_type_user.js"></script>
     <script src="{{URL}}Public/js/send_email.js"></script>
+    <script src="{{URL}}Public/js/delete_user.js"></script>
 {% endblock %}

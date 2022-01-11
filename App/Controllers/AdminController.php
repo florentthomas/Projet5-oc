@@ -151,4 +151,38 @@ class AdminController extends Controller{
 
         echo json_encode($response);
     }
+
+
+    public function delete_user(){
+
+        if(isset($_POST["id_user"])){
+            $user=$this->userManager->get_user("id",$_POST['id_user']);
+
+            if($user != false){
+
+                if($this->userManager->delete_account($_POST["id_user"]) > 0){
+
+                    $response=["attribute" => "success", "message" => "Le compte de cet utilisateur a été supprimé"];
+                    $content_email=Tools::generate_email("supression_du_compte",["pseudo" => $user->pseudo]);
+                    Tools::sendEmail($user->email,"Suppression du compte",$content_email);
+                }
+
+               else{
+                    $response=["attribute" => "error" , "message" => "L'utilisateur n'as pas été supprimé suite à un problème technique"];
+                }
+            }
+
+            else{
+                $response=["attribute" => "error" , "message" => "Cet utilisateur n'existe pas"];
+            }
+        }
+
+        else{
+            $response=["attribute"=> "error","message" => "Impossible d'executer cette action"];
+        }
+
+       
+
+        echo json_encode($response);
+    }
 }

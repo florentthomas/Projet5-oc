@@ -105,6 +105,8 @@ class UserManager extends Manager{
         
         $sth=$this->bdd->prepare("DELETE FROM users WHERE id=:id");
         $sth->execute(Array("id" => $id));
+
+        return $sth->rowCount();
     }
 
 }
