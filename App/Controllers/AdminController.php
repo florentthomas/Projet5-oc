@@ -185,4 +185,20 @@ class AdminController extends Controller{
 
         echo json_encode($response);
     }
+
+
+    public function show_edit_article($params){
+
+        $id=$params[1];
+
+        $article=$this->articleManager->getArticle($id);
+
+        if( $article != null){
+
+            $this->view("article_edit", ["article" => $article]);
+
+        }
+        
+
+    }
 }

@@ -1,0 +1,65 @@
+
+{% extends "admin_blog.twig" %}
+
+
+{% block title %}
+    <title>Modifier l'article</title>
+{% endblock %}
+
+{% block description %}
+    <meta name="description" content=""/>
+{% endblock %}
+
+{% block admin %}
+
+    <h1>Modifier l'article</h1>
+
+    <form method="post" action="">
+
+        <div class="group_input">
+
+            <div class="input_form">
+                Titre de l'article
+                <input type="text" name="title_article" id="title_article" placeholder="Titre de l'article" value="{{article.title}}" required/>
+            </div>
+
+            <div class="input_form">
+                Slug
+                <input type="text" name="slug_article" id="slug_article" placeholder="slug" value="{{article.slug}}" required/>
+            </div>
+
+            <div class="btn_form">
+                <p>image actuelle</p>
+                <img src="{{article.url_image}}" alt="" class="img_600"/>
+
+                <div class="btn_form">
+                    <label for="image_article">Selectionner une nouvelle image</label>
+                    <input type="file" name="image_article" id="image_article"/>
+                </div>
+            </div>
+
+            <div class="prev_image">
+
+                <img src="" id="prev_image" class="img_600"/>
+                <div class="btn_form">
+                    <button class="button-red"  id="delete_image">Supprimer l'image</button>
+                </div>
+            </div>
+
+        </div>
+
+        <textarea id="article">{{article.content}}</textarea>
+
+        <div class="btn_form">
+            <button type="submit" class="button-blue">Appliquer les modifications</button>
+        </div>
+
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="{{URL}}Public/js/CKEditor.js"></script>
+    <script src="{{URL}}Public/js/preview_image.js"></script>
+    <script src="{{URL}}Public/js/reset_photo_edit_article.js"></script>
+{% endblock %}
