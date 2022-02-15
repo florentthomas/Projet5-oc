@@ -14,8 +14,8 @@
 
     <h1>Modifier l'article</h1>
 
-    <form method="post" action="">
-
+    
+    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_title">
         <div class="group_input">
 
             <div class="input_form">
@@ -23,38 +23,81 @@
                 <input type="text" name="title_article" id="title_article" placeholder="Titre de l'article" value="{{article.title}}" required/>
             </div>
 
+            <div class="btn_form">
+                <button type="submit" class="button-blue" >Changer le titre</button>
+            </div>
+        </div>
+        
+    </form>
+
+
+    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_slug">
+        <div class="group_input">
             <div class="input_form">
                 Slug
                 <input type="text" name="slug_article" id="slug_article" placeholder="slug" value="{{article.slug}}" required/>
             </div>
 
             <div class="btn_form">
-                <p>image actuelle</p>
-                <img src="{{article.url_image}}" alt="" class="img_600"/>
-
-                <div class="btn_form">
-                    <label for="image_article">Selectionner une nouvelle image</label>
-                    <input type="file" name="image_article" id="image_article"/>
-                </div>
+                <button type="submit" class="button-blue" >Changer le slug</button>
             </div>
-
-            <div class="prev_image">
-
-                <img src="" id="prev_image" class="img_600"/>
-                <div class="btn_form">
-                    <button class="button-red"  id="delete_image">Supprimer l'image</button>
-                </div>
-            </div>
-
         </div>
+
+    </form>
+
+
+    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_photo">
+        <div class="group_input">
+        <div class="btn_form">
+            <p>image actuelle</p>
+            <img src="{{article.url_image}}" alt="" class="img_600"/>
+
+            <div class="btn_form">
+                <label for="image_article">Selectionner une nouvelle image</label>
+                <input type="file" name="image_article" id="image_article"/>
+            </div>
+        </div>
+
+        <div class="prev_image">
+
+            <img src="" id="prev_image" class="img_600"/>
+            <div class="btn_form">
+                <button class="button-blue" id="btn_form_img" type="submit">Changer l'image</button>
+                <button class="button-red"  id="delete_image">Supprimer l'image</button>
+            </div>
+        </div>
+        </div>
+
+    </form>
+
+        
+
+
+    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_description">
+        <div class="group_input">
+            <div class="input_form">
+                <textarea type="text" name="description" id="description" placeholder="Description de l'article" required>{{title.description}}</textarea>
+            </div>
+        
+
+            <div class="btn_form">
+                    <button type="submit" class="button-blue">Changer la description</button>
+            </div>
+        </div>
+    </form>
+
+
+    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_content">
 
         <textarea id="article">{{article.content}}</textarea>
 
         <div class="btn_form">
-            <button type="submit" class="button-blue">Appliquer les modifications</button>
+            <button type="submit" class="button-blue">Modifier l'article</button>
         </div>
 
     </form>
+
+    
 {% endblock %}
 
 {% block script %}
