@@ -26,6 +26,7 @@ abstract class Manager{
             
         }catch(\PDOException $e){
             echo $e->getMessage();
+            die();
         }
     }
 
