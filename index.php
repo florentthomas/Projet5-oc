@@ -105,15 +105,15 @@ $router->get("/admin_blog/edit/:id","Edit_articleController@panel_edit_article")
 
 $router->get("/admin_blog/modifier_article","Edit_articleController@index");
 
-$router->post("admin_blog/edit/:id/change_title","Edit_articleController@change_title");
+$router->post("admin_blog/edit/change_title","Edit_articleController@change_title");
 
-$router->post("admin_blog/edit/:id/change_slug","Edit_articleController@change_slug");
+$router->post("admin_blog/edit/change_slug","Edit_articleController@change_slug");
 
-$router->post("admin_blog/edit/:id/change_photo","Edit_articleController@change_photo");
+$router->post("admin_blog/edit/change_photo","Edit_articleController@change_photo");
 
-$router->post("admin_blog/edit/:id/change_description","Edit_articleController@change_description");
+$router->post("admin_blog/edit/change_description","Edit_articleController@change_description");
 
-$router->post("admin_blog/edit/:id/change_content","Edit_articleController@change_content");
+$router->post("admin_blog/edit/change_content","Edit_articleController@change_content");
 
 //-----------end-------------------//
 

@@ -12,10 +12,12 @@
 
 {% block admin %}
 
+    <p id="result" class="message_fixed"></p>
+
     <h1>Modifier l'article</h1>
 
     
-    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_title">
+    <form method="POST" action="{{URL}}admin_blog/edit/change_title" id="form_title_article">
         <div class="group_input">
 
             <div class="input_form">
@@ -26,12 +28,14 @@
             <div class="btn_form">
                 <button type="submit" class="button-blue" >Changer le titre</button>
             </div>
+
+            <input type="hidden" value="{{article.id}}" name="id_article"/>
         </div>
         
     </form>
 
 
-    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_slug">
+    <form method="POST" action="{{URL}}admin_blog/edit/change_slug" id="form_slug_article">
         <div class="group_input">
             <div class="input_form">
                 Slug
@@ -43,37 +47,39 @@
             </div>
         </div>
 
+        <input type="hidden" value="{{article.id}}" name="id_article"/>
     </form>
 
 
-    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_photo">
+    <form method="POST" action="{{URL}}admin_blog/edit/change_photo" id="form_photo_article">
         <div class="group_input">
-        <div class="btn_form">
-            <p>image actuelle</p>
-            <img src="{{article.url_image}}" alt="" class="img_600"/>
-
             <div class="btn_form">
-                <label for="image_article">Selectionner une nouvelle image</label>
-                <input type="file" name="image_article" id="image_article"/>
+                <p>image actuelle</p>
+                <img src="{{article.url_image}}" alt="" class="img_600"/>
+
+                <div class="btn_form">
+                    <label for="image_article">Selectionner une nouvelle image</label>
+                    <input type="file" name="image_article" id="image_article"/>
+                </div>
+            </div>
+
+            <div class="prev_image">
+
+                <img src="" id="prev_image" class="img_600"/>
+                <div class="btn_form">
+                    <button class="button-blue" id="btn_form_img" type="submit">Changer l'image</button>
+                    <button class="button-red"  id="delete_image">Supprimer l'image</button>
+                </div>
             </div>
         </div>
 
-        <div class="prev_image">
-
-            <img src="" id="prev_image" class="img_600"/>
-            <div class="btn_form">
-                <button class="button-blue" id="btn_form_img" type="submit">Changer l'image</button>
-                <button class="button-red"  id="delete_image">Supprimer l'image</button>
-            </div>
-        </div>
-        </div>
-
+        <input type="hidden" value="{{article.id}}" name="id_article"/>
     </form>
 
         
 
 
-    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_description">
+    <form method="POST" action="{{URL}}admin_blog/edit/change_description" id="form_description_article">
         <div class="group_input">
             <div class="input_form">
                 <textarea type="text" name="description" id="description" placeholder="Description de l'article" required>{{title.description}}</textarea>
@@ -84,17 +90,18 @@
                     <button type="submit" class="button-blue">Changer la description</button>
             </div>
         </div>
+        <input type="hidden" value="{{article.id}}" name="id_article"/>
     </form>
 
 
-    <form method="POST" action="{{URL}}admin_blog/edit/{{article.id}}/change_content">
+    <form method="POST" action="{{URL}}admin_blog/edit/change_content" id="form_content_article">
 
         <textarea id="article">{{article.content}}</textarea>
 
         <div class="btn_form">
             <button type="submit" class="button-blue">Modifier l'article</button>
         </div>
-
+        <input type="hidden" value="{{article.id}}" name="id_article"/>
     </form>
 
     
@@ -105,4 +112,8 @@
     <script src="{{URL}}Public/js/CKEditor.js"></script>
     <script src="{{URL}}Public/js/preview_image.js"></script>
     <script src="{{URL}}Public/js/reset_photo_edit_article.js"></script>
+    <script src="{{URL}}Public/js/message_ajax.js"></script>
+    <script src="{{URL}}Public/js/messag_error_ajax.js"></script>
+    <script src="{{URL}}Public/js/ajax_function.js"></script>
+    <script type="module" src="{{URL}}Public/js/edit_article.js"></script>
 {% endblock %}
