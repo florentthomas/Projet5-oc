@@ -7,8 +7,7 @@ function req_ajax(e){
     const formData=$(this).serialize();
     const url=$(this).attr("action");
     const method=$(this).attr("method");
-    
-    console.log(url);
+  
 
     $.ajax({
 
@@ -24,7 +23,7 @@ function req_ajax(e){
     })
     
     .fail(function(req){
-        console.error(req.responseText);
+        console.error(req.status);
     })
 }
 

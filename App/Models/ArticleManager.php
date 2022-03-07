@@ -21,4 +21,22 @@ class ArticleManager extends Manager{
 
         return $articles;
     }
+
+    public function edit_article($field,$new_value,$id){
+
+        $sth=$this->bdd->prepare("UPDATE articles SET $field = :new_value WHERE id=:id");
+
+        $sth->execute(Array("id" => $id,
+                            "new_value" => $new_value));
+    
+        $count=$sth->rowCount();
+
+        if($count >= 1){
+            return true;
+        }
+
+        else{
+            return false;
+        }
+    }
 }
