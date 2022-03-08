@@ -70,7 +70,7 @@ class Edit_articleController extends Controller{
     public function change_slug(){
 
         if(isset($_POST["slug_article"]) && isset($_POST["id_article"]) && !empty($_POST["slug_article"])){
-            $slug=htmlspecialchars($_POST["slug_article"]);
+            $slug=Tools::format_slug($_POST["slug_article"]);
             $article=$this->articleManager->getArticle($_POST["id_article"]);
 
             if($article != null){
