@@ -24,13 +24,30 @@ jQuery(document).ready(function($){
             method:method,
             processData: false, 
             contentType: false,
-            data: data
+            data: data,
+            dataType: "json"
         })
         . done(function(response){
             console.log(response);
+            message_ajax(response)
+
+            const img=$("#prev_image").attr("src");
+
+            const current_img=$("#current_img");
+
+            current_img.hide();
+
+            $("#prev_image_block").hide();
+
+            current_img.attr("src", img);
+
+            current_img.fadeIn();
+
+            
+
         })
         .fail(function(rq){
-            console.error(rq);
+            message_error_ajax(rq);
         })
     });
 

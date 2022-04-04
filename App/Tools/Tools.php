@@ -96,4 +96,49 @@ class Tools{
         array('', '-', ''), $slug_format));
     }
 
+
+    public static function add_picture($file,$path){
+
+        $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+
+        $extensionFile_explode=explode('.',$file["name"]);
+
+        $extension_photo=strtolower(end($extensionFile_explode));
+
+        $maxSize=2097152;
+
+
+        if(in_array($extension_photo,$extensionsValides)){
+
+            if($file["size"] < $maxSize){
+
+                $name=uniqid("",true).".".$extension_photo;
+
+                $path_photo=$path."/".$name;
+            
+                if($file["error"] == 0){
+
+                    if(move_uploaded_file($file["tmp_name"], $path_photo)){
+                    
+                        $response=["attribute" => "success", "name_photo" => $name];
+                    }
+
+                    else{
+                        $response=["attribute" => "error", "message" => "Une erreur est survenue, impossible d'envoyer l'image"];
+                    }
+                }
+            }
+            else{
+                $response=["attribute" => "error", "message" => "L'image est trop grande. 2Mo max  "];
+            }
+        }
+
+        else{
+            $response=["attribute" => "error", "message" => "Formats acceptés (JPG, JPEG, GIF, PNG)"];
+        }
+
+        return $response;
+
+    }
+
 }

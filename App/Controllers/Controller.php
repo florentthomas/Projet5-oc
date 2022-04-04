@@ -18,6 +18,8 @@ abstract class Controller{
 
         $twig->addGlobal("URL",URL);
         $twig->addGlobal("session", $_SESSION);
+        $twig->addGlobal("URL_IMG_ARTICLE", URL_IMG_ARTICLE);
+        $twig->addGlobal("URL_IMG_AVATARS", URL_IMG_AVATARS);
             
         echo $twig->render($file.".twig", $data);
     }

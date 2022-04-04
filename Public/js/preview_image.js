@@ -6,6 +6,7 @@
     function readURL(input) {
         
         if (input.files && input.files[0]) {
+            
             var reader = new FileReader();
             
             reader.onload = function (e) {
@@ -14,10 +15,12 @@
             
             reader.readAsDataURL(input.files[0]);
 
+            
         }
     }
     
     $("#image_article").change(function(){
+        $("#prev_image_block").show();
         readURL(this);
     });
 

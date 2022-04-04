@@ -31,7 +31,7 @@
 
             <input type="hidden" value="{{article.id}}" name="id_article"/>
         </div>
-        
+        <input type="hidden" value="{{article.id}}" name="id_article"/>
     </form>
 
 
@@ -50,20 +50,20 @@
         <input type="hidden" value="{{article.id}}" name="id_article"/>
     </form>
 
-
-    <form method="POST" action="{{URL}}admin_blog/edit/change_photo" id="form_photo_article">
+    <form method="POST" action="{{URL}}admin_blog/edit/change_photo" id="form_photo_article"  enctype= "multipart/form-data">
         <div class="group_input">
             <div class="btn_form">
                 <p>image actuelle</p>
-                <img src="{{article.url_image}}" alt="" class="img_600"/>
-
+        
+                <img src= "{{URL_IMG_ARTICLE}}{{article.image}}" alt="" class="img_600" id="current_img"/>
+           
                 <div class="btn_form">
                     <label for="image_article">Selectionner une nouvelle image</label>
-                    <input type="file" name="image_article" id="image_article"/>
+                    <input type="file" name="image_article" id="image_article" accept="image/png, image/jpeg, image/jpg, image/gif"/>
                 </div>
             </div>
 
-            <div class="prev_image">
+            <div id="prev_image_block">
 
                 <img src="" id="prev_image" class="img_600"/>
                 <div class="btn_form">
@@ -110,10 +110,10 @@
 {% block script %}
     <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script src="{{URL}}Public/js/CKEditor.js"></script>
-    <script src="{{URL}}Public/js/preview_image.js"></script>
-    <script src="{{URL}}Public/js/reset_photo_edit_article.js"></script>
     <script src="{{URL}}Public/js/message_ajax.js"></script>
     <script src="{{URL}}Public/js/messag_error_ajax.js"></script>
     <script src="{{URL}}Public/js/ajax_function.js"></script>
+    <script src="{{URL}}Public/js/preview_image.js"></script>
+    <script src="{{URL}}Public/js/reset_photo_edit_article.js"></script>
     <script type="module" src="{{URL}}Public/js/edit_article.js"></script>
 {% endblock %}

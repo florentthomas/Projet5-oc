@@ -583,9 +583,10 @@ label[for="image_article"]{
     height: auto;
 }
 
-.prev_image{
+#prev_image_block{
     margin-top:15px;
     text-align: center;
+    display: none;
 }
 .list_menu_admin{
     padding: 10px;
