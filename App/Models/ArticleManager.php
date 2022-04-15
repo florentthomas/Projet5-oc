@@ -24,7 +24,7 @@ class ArticleManager extends Manager{
 
     public function edit_article($field,$new_value,$id){
 
-        $sth=$this->bdd->prepare("UPDATE articles SET $field = :new_value WHERE id=:id");
+        $sth=$this->bdd->prepare("UPDATE articles SET $field = :new_value , date_update=NOW() WHERE id=:id");
 
         $sth->execute(Array("id" => $id,
                             "new_value" => $new_value));

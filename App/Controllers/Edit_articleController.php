@@ -133,4 +133,37 @@ class Edit_articleController extends Controller{
         echo json_encode($response);
     }
 
+
+    public function change_description(){
+
+        if(isset($_POST["description"]) && !empty($_POST["description"])){
+
+            $article=$this->articleManager->getArticle($_POST["id_article"]);
+
+            if($article != null){
+
+                $description=strip_tags($_POST["description"]);
+
+
+                if($this->articleManager->edit_article("description",$description,$_POST["id_article"])){
+                    $response=["attribute" => "success", "message" => "Description modifiée avec succès"];
+                }
+
+                else{
+                    $response=["attribute" => "error", "message" => "Un problème est survenu, impossible de modifier la description"];
+                }
+                
+            }
+            
+            else{
+
+                $response=["attribute" => "error" , "message" => "L'article n'existe pas"];
+            } 
+
+
+        }
+
+        echo json_encode($response);
+    }
+
 }
