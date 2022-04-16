@@ -166,4 +166,41 @@ class Edit_articleController extends Controller{
         echo json_encode($response);
     }
 
+
+    public function change_content(){
+
+        if(isset($_POST["content_article"]) && !empty($_POST["content_article"])){
+
+            $article=$this->articleManager->getArticle($_POST["id_article"]);
+
+            
+            if($article != null){
+
+                if($this->articleManager->edit_content($_POST["id_article"],$_POST["content_article"])){
+                   
+                    $response=["attribute" => "success", "message" => "Article modifié avec succès"];
+                }
+
+                else{
+                    $response=["attribute" => "error", "message" => "Un problème est survenu, impossible de modifier le contenu"];
+                }
+                
+            }
+            
+            else{
+
+                $response=["attribute" => "error" , "message" => "L'article n'existe pas"];
+            } 
+
+
+        }
+
+        else{
+            $response=["attribute" => "error" , "message" => "L'article n'existe pas"];
+        }
+
+
+        echo json_encode($response);
+    }
+
 }

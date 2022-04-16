@@ -28,7 +28,7 @@ jQuery(document).ready(function($){
             dataType: "json"
         })
         . done(function(response){
-            console.log(response);
+            
             message_ajax(response)
 
             const img=$("#prev_image").attr("src");
@@ -64,7 +64,31 @@ jQuery(document).ready(function($){
 
 
     //changement contenu
-    $("#form_content_article").submit(req_ajax);
+    $("#form_content_article").submit(function(e){
+
+        e.preventDefault();
+
+        const content=CKEDITOR.instances['article'].getData();
+        const url=$(this).attr("action");
+        const method=$(this).attr("method");
+        const id=$("#id_article").attr("value");
+        
+
+        $.ajax({
+            url: url,
+            method:method,
+            data:{ "content_article": content,
+                    "id_article": id},
+            dataType: "JSON"
+        })
+        . done(function(response){
+            message_ajax(response);
+
+        })
+        .fail(function(rq){
+            message_error_ajax(rq);
+        })
+    });
     
 
 })

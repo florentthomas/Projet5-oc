@@ -94,14 +94,14 @@
     </form>
 
 
-    <form method="POST" action="{{URL}}admin_blog/edit/change_content" id="form_content_article">
+    <form method="POST"  id="form_content_article" action="{{URL}}admin_blog/edit/change_content">
 
-        <textarea id="article">{{article.content}}</textarea>
+        <textarea id="article" name="content_article" required>{{article.content}}</textarea>
 
         <div class="btn_form">
             <button type="submit" class="button-blue">Modifier l'article</button>
         </div>
-        <input type="hidden" value="{{article.id}}" name="id_article"/>
+        <input type="hidden" value="{{article.id}}" name="id_article" id="id_article"/>
     </form>
 
     
@@ -111,7 +111,7 @@
     <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script src="{{URL}}Public/js/CKEditor.js"></script>
     <script src="{{URL}}Public/js/message_ajax.js"></script>
-    <script src="{{URL}}Public/js/messag_error_ajax.js"></script>
+    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script src="{{URL}}Public/js/ajax_function.js"></script>
     <script src="{{URL}}Public/js/preview_image.js"></script>
     <script src="{{URL}}Public/js/reset_photo_edit_article.js"></script>
