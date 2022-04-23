@@ -61,4 +61,17 @@ class ArticleManager extends Manager{
         }
 
     }
+
+
+    public function add_article($title,$slug,$description,$content,$name_image,$author){
+
+        $sth=$this->bdd->prepare("INSERT INTO articles (title,author,description_article,content,slug,image_article) VALUES(:title, :author,:description_article,:content,:slug,:image_article)");
+
+        $sth->execute(Array("title" => $title,
+                            "author" =>$author,
+                            "description_article" => $description,
+                            "content" =>$content,
+                            "slug" => $slug,
+                            "image_article" => $name_image));
+    }
 }

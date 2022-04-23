@@ -14,8 +14,10 @@ abstract class Controller{
 
         $twig = new \Twig\Environment($loader, [
             'cache' => false,
+            'debug' => true,
         ]);
 
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addGlobal("URL",URL);
         $twig->addGlobal("session", $_SESSION);
         $twig->addGlobal("URL_IMG_ARTICLE", URL_IMG_ARTICLE);

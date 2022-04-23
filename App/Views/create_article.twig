@@ -14,30 +14,48 @@
 
 {% block admin %}
 
+
     <h1>Rédiger un article</h1>
 
-    <form method="post" action="">
+    <p id="result" class="message_fixed"></p>
+
+    {% if session.flash.response %}
+        <div class="{{session.flash.response.attribute}} message">{{session.flash.response.message}}</div>
+    {% endif %}
+
+    <form method="post" action="{{URL}}admin_blog/create_article" id="create_article" enctype= "multipart/form-data">
 
         <div class="group_input">
+            
+            <div class="input_form">
+                Titre de l'article
+                <input type="text" name="title_article" id="title_article" placeholder="Titre de l'article" required/>
+            </div>
 
             <div class="input_form">
-                <input type="text" name="title_article" id="title_article" placeholder="Titre de l'article" required/>
+                Slug
+                <input type="text" name="slug_article" id="slug_article" placeholder="Slug de l'article" required/>
             </div>
 
             <div class="btn_form">
                 <label for="image_article">Selectionner une image</label>
-                <input type="file" name="image_article" id="image_article"/>
+                <input type="file" name="image_article" id="image_article" accept="image/png, image/jpeg, image/jpg, image/gif"/>
+
+                <div id="prev_image_block">
+                    <img src="" id="prev_image" class="img_600"/>
+                </div>
+
             </div>
 
-            <div class="prev_image">
-
-                <img src="" id="prev_image"/>
-
+            <div class="input_form">
+                <textarea type="text" name="description" id="description" placeholder="Description de l'article" required></textarea>
             </div>
+
+            
 
         </div>
 
-        <textarea id="article"></textarea>
+        <textarea id="article" name="content_article" required placeholder="Contenu de l'article"></textarea>
 
         <div class="btn_form">
             <button type="submit" class="button-blue">Publier l'article</button>
@@ -51,4 +69,5 @@
     <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script src="{{URL}}Public/js/CKEditor.js"></script>
     <script src="{{URL}}Public/js/preview_image.js"></script>
+    <script src="{{URL}}Public/js/create_article.js"></script>
 {% endblock %}

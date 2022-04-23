@@ -10,7 +10,7 @@ class UserManager extends Manager{
     public function email_exists($email){
 
         $sth=$this->bdd->prepare("SELECT * FROM users WHERE email =:email");
-        $sth->execute(Array(["email" => $email]));
+        $sth->execute(Array("email" => $email));
         $result=$sth->fetch();
 
         return $result;
@@ -20,7 +20,7 @@ class UserManager extends Manager{
     public function pseudo_exists($pseudo){
 
         $sth=$this->bdd->prepare("SELECT * FROM users WHERE pseudo =:pseudo");
-        $sth->execute(Array(["pseudo" => $pseudo]));
+        $sth->execute(Array("pseudo" => $pseudo));
         $result=$sth->fetch();
 
         return $result;

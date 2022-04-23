@@ -118,6 +118,13 @@ $router->post("admin_blog/edit/change_content","Edit_articleController@change_co
 //-----------end-------------------//
 
 
+//----------create_article-----------//
+
+$router->post("/admin_blog/create_article","Create_articleController@create_article");
+
+//----------end--------------//
+
+
 
 $router->run();
 
