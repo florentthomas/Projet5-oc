@@ -81,7 +81,10 @@
                     </div>
                     {% if session.user.account_confirmed == 1 %}
                     <div class="btn_comment_end">
-                        <button class="btn_response button-blue" data-id="{{comment.id}}">Répondre</button><button class="button-red">Signaler</button>
+                        <button class="btn_response button-blue" data-id="{{comment.id}}">Répondre</button>
+                        <form class="report_comment" action="{{URL}}blog/report_comment" method="post" data-id="{{comment.id}}"> 
+                            <button class="button-red">Signaler</button>
+                        </form>
                     </div>
                     {% endif %}
                 </div>
@@ -106,7 +109,13 @@
                                 <div class="comment"> {{children.comment}}</div>
                             </div>
                             {% if session.user.account_confirmed == 1 %}
-                            <div class="btn_comment_end"><button class="button-red">Signaler</button></div>
+                                <div class="btn_comment_end">
+                        
+                                    <form class="report_comment" action="{{URL}}blog/report_comment" method="post" data-id="{{children.id}}"> 
+                                        <button class="button-red">Signaler</button>
+                                    </form>
+
+                                </div>
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -127,4 +136,5 @@
     <script src="{{URL}}Public/js/message_error.js"></script>
     <script src="{{URL}}Public/js/message_ajax.js"></script>
     <script src="{{URL}}Public/js/add_comment.js"></script>
+    <script src="{{URL}}Public/js/report_comment.js"></script>
 {% endblock %}

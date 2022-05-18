@@ -54,7 +54,13 @@ $router->post("password_forgot", "UserController@password_forgot");
 
 $router->get("/blog/:slug-:id","ArticleController@index");
 
-$router->post("/blog/:slug-:id/comment","ArticleController@add_comment_article");
+$router->post("/blog/:slug-:id/comment","CommentController@add_comment_article");
+
+$router->post("/blog/report_comment", "CommentController@report_comment");
+
+$router->get("/admin_blog/delete_comment/:id_comment", "CommentController@delete_comment");
+
+$router->get("/admin_blog/approve_comment/:id_comment", "CommentController@approve_comment");
 
 //---------------end-----------------//
 
@@ -124,6 +130,12 @@ $router->post("/admin_blog/create_article","Create_articleController@create_arti
 
 //----------end--------------//
 
+
+//-----comments_reported----//
+
+$router->get("admin_blog/commentaires_signales","CommentController@index");
+
+//-----end------//
 
 
 $router->run();

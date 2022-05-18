@@ -664,3 +664,8 @@ label[for="image_article"]{
 #btn_form_img{
     display: none;
 }
+
+
+.report_comment{
+    display: inline-block;
+}

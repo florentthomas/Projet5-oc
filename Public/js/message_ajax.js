@@ -10,8 +10,10 @@ function message_ajax(data){
     else{
         result.removeClass("error success").addClass(data.attribute);     
         result.text(data.message);
-        result.fadeIn("slow");
-        result.fadeOut(5000);
+
+    
+        result.fadeIn();
+        result.fadeOut(1500);
 
     }
 }

@@ -8,7 +8,7 @@
             <li><a href="{{URL}}setting"><img src="{{session.user.url_photo}}" alt="photo de profil" class="photo_profil" id="photo_navbar"/>{{session.user.pseudo}}</a></li>
 
                 {% if session.user.type_user == "admin" %}
-                    <li><a href="{{URL}}admin_blog"><i class="fas fa-sign-out-alt"></i>Gérer le blog</a></li>
+                    <li><a href="{{URL}}admin_blog/modifier_article"><i class="fas fa-sign-out-alt"></i>Gérer le blog</a></li>
                 {% endif %}
             
             <li><a href="{{URL}}disconnect"><i class="fas fa-sign-out-alt"></i>SE DECONNECTER</a></li>
