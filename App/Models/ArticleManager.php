@@ -5,7 +5,7 @@ namespace App\Models;
 
 class ArticleManager extends Manager{
 
-    public function getArticle($id){
+    public function get_article_by_id($id){
 
         $sth=$this->bdd->prepare("SELECT * FROM articles WHERE id =:id");
         $sth->execute(["id" => $id]);
@@ -20,6 +20,15 @@ class ArticleManager extends Manager{
         $articles= $sth->fetchAll();
 
         return $articles;
+    }
+
+    public function get_articles_pagination($perPage,$offset){
+
+        $sth=$this->bdd->prepare("SELECT * FROM articles ORDER BY date_create DESC LIMIT $perPage OFFSET $offset");
+        $sth->execute();
+        $result=$sth->fetchAll();
+
+        return $result;
     }
 
     public function edit_article($field,$new_value,$id){

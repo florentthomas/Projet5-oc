@@ -24,6 +24,7 @@ class ArticleController extends Controller{
         $users=[];
 
 
+
         foreach($comments as $comment){
             $commentsById[$comment->id]=$comment;
         
@@ -49,7 +50,7 @@ class ArticleController extends Controller{
         }
         
 
-        if($article){
+        if($article){   
             $this->view("Article",array("article" => $article,
                                         "comments" => $comments,
                                         "users" => $users));

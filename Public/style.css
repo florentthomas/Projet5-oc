@@ -16,6 +16,8 @@
 }
 
 
+
+
 .wrapper{
     background-color: var(--bgColor_wrapper);
     min-height:100vh;
@@ -28,6 +30,17 @@
     margin: auto;
     background-color: var(--bgColor_container);
 }
+
+#pagination{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+#pagination a{
+    margin: auto;
+}
+
 
 h1{
     text-align: center;
