@@ -36,7 +36,7 @@ class Route{
         $action=explode('@',$this->action);
         $controller="App\\Controllers\\".$action[0];
         $method=$action[1];
-
+        
         try{
             if(class_exists($controller)){
                 if(method_exists($controller,$method)){
@@ -51,6 +51,7 @@ class Route{
                     }
                 }
             }else{
+                
                 throw new \Exception("Error Processing Request", 1);
                 
             }

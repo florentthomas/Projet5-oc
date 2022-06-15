@@ -42,6 +42,7 @@
 }
 
 
+
 h1{
     text-align: center;
 }
@@ -218,6 +219,19 @@ header{
     
 }
 
+
+#block_searchbar{
+    margin-bottom: 15px;
+}
+
+.searchbar_movie{
+    width:25%;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin: auto;
+    border: rgba(0, 0, 0, 0.2) 0.5px solid;
+  
+}
 
 
 #posts button:hover{

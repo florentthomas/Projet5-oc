@@ -31,6 +31,14 @@
 
     <section id="blog">
 
+        <form id="block_searchbar" method="POST" action="{{URL}}rechercher">
+        
+            <input id="searchbar" class="searchbar_movie" type="text"
+            name="query" placeholder="Rechercher un film, réalisateur, acteur...">
+
+        </form>
+    
+
         <div id="posts">
             {% for article in articles %}
             <article>
