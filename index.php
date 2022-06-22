@@ -65,6 +65,13 @@ $router->get("/admin_blog/approve_comment/:id_comment", "CommentController@appro
 //---------------end-----------------//
 
 
+//-------search_movie-----------//
+
+$router->get("/rechercher","TMDB_api@search");  
+
+//----------end----------------//
+
+
 
 //-------------inscription--------------//
 

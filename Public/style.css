@@ -696,3 +696,30 @@ label[for="image_article"]{
 .report_comment{
     display: inline-block;
 }
+
+
+/*result page api*/
+
+.card_result{
+    width:70%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.info_result{
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.img_profile_result{
+    width:90px;
+    height: 90px;
+}
+
+.name_result a{
+    cursor: pointer;
+    font-weight: bold;
+}

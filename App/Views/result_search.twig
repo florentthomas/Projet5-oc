@@ -1,0 +1,103 @@
+{% extends "Layout.twig" %}
+
+{% block title %}
+
+    <title>Résultat de la recherche</title>
+
+{% endblock %}
+
+{% block description %}
+
+    <meta name="description" content=""/>
+
+{% endblock %}
+
+
+{% block content %}
+
+        <div class="wrapper">
+
+        {% include ("Nav_bar.twig") %}
+
+            <div class="container">
+
+                <form id="block_searchbar" method="GET" action="{{URL}}rechercher">
+        
+                    <input id="searchbar" class="searchbar_movie" type="text"
+                    name="query" placeholder="Rechercher un film, réalisateur, acteur...">
+
+                </form>
+
+                {% if data %}
+            
+                    {% if data.person %}
+
+                        {% for person in data.person %}
+                    
+                        
+
+                            <div class="card_result">
+                                
+                                <img src="{{person.image_profile}}" class="img_profile_result" alt="{{person.name}}"/>
+
+                                <div class="info_result">
+                                    <div class="name_result">
+                                        <a href="{{URL}}rechercher/{{person.media_type}}/{{person.id}}">{{person.name}}</a>
+                                    </div>
+                                    <div class="movies_result">
+                                        {% for movie in person.movie %}
+                                            {{movie}},
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        
+
+                        {% endfor %}
+
+                        
+                    
+                    {% endif %}
+
+                    {% if data.movies %}
+
+                        {% for movie in data.movies %}
+                    
+    
+                            <div class="card_result">
+                                
+                                <img src="{{movie.image_profile}}" class="img_profile_result" alt="{{movie.title}}"/>
+
+                                <div class="info_result">
+                                    <div class="name_result">
+                                        <a href="{{URL}}rechercher/{{movie.media_type}}/{{movie.id}}">{{movie.title}}</a> <br>
+                                        {{movie.date |date("d/m/Y")}}
+                                    </div>
+                                    <div class="movies_result">
+                                        {{ movie.overview }}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                    
+                        {% endfor %}
+                    
+                    {% endif %}
+
+                    {% else %}
+                        <p>Aucun résultat</p>
+                {% endif %}
+
+
+            
+            </div>
+
+        </div>
+ 
+            
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
