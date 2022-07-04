@@ -723,3 +723,138 @@ label[for="image_article"]{
     cursor: pointer;
     font-weight: bold;
 }
+
+
+.header_movie{
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.filter_header_movie{
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    padding: 50px;
+}
+
+.poster_movie{
+    width:100%;
+
+}
+
+.container_poster_movie{
+    width: 20%;
+}
+
+.header_movie_info{
+    display: flex;
+}
+
+.title_movie{
+    
+    text-transform: uppercase;
+}
+
+.container_synopsis{
+    width:70%;
+    margin-right: 15px;
+}
+
+.container_title_movie{
+    align-self: center;
+    padding-left: 5%;
+    color: white !important;
+}
+
+.container_movie_info{
+    display: flex;
+    justify-content: space-between;
+    padding:15px !important;
+    width: 80%;
+    margin: 50px auto;
+    line-height: 1.5rem;
+    
+
+}
+
+.card_info{
+    border: var(--borderBlack);
+    padding: 5px;
+    background-color:white;
+    box-shadow: 1px 2px 20px black ;
+}
+
+.card_person{
+    width:15%;
+    margin: auto;
+}
+
+.card_person img{
+    width:100%;
+}
+
+.director{
+    margin: auto;
+}
+
+.info_person p{
+    text-align: center;
+}
+
+.actors{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-row-gap: 1rem;
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+ .actors .card_info{
+    width:80%;
+}
+
+
+.text-bold{
+    font-weight:bold ;
+}
+
+.trailer{
+    padding-top: 25px;
+
+}
+
+.play_trailer{
+    font-size: 2rem;
+    margin-left: 10px;
+    vertical-align: middle;
+    color:white;
+    
+}
+
+#trailer{
+    color: white;
+    cursor: pointer;
+}
+
+#trailer_iframe{
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width:80%;
+    height: 80%;
+    border:0;
+    transform: translate(-50%, -50%);
+}
+
+#trailer_embed{
+    display: none;
+}
+
+#close_video{
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    font-size: 3rem;
+    cursor: pointer;
+}

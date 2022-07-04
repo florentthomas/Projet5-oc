@@ -9,6 +9,8 @@ define('PATH_IMG_ARTICLE', str_replace('index.php','',$_SERVER['SCRIPT_FILENAME'
 define('PATH_IMG_AVATARS', str_replace('index.php','',$_SERVER['SCRIPT_FILENAME'].'Public/images/avatars'));
 define('URL_IMG_ARTICLE', URL.'Public/images/articles/');
 define('URL_IMG_AVATARS', URL.'Public/images/avatars/');
+define('URL_IMG', URL.'Public/images/');
+
 
 
 //Config_db

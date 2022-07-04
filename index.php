@@ -68,6 +68,8 @@ $router->get("/admin_blog/approve_comment/:id_comment", "CommentController@appro
 //-------search_movie-----------//
 
 $router->get("/rechercher","TMDB_api@search");  
+$router->get("/rechercher/movie/:id","TMDB_api@get_movie");
+$router->get("/rechercher/person/:id","TMDB_api@get_person");
 
 //----------end----------------//
 

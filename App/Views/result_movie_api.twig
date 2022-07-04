@@ -1,0 +1,144 @@
+{% extends "Layout.twig" %}
+
+{% block title %}
+
+  
+
+    <title>{{data.info_movie.title}}</title>
+
+{% endblock %}
+
+{% block description %}
+
+    <meta name="description" content=""/>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="wrapper">
+
+        {% include ("Nav_bar.twig") %}
+
+
+        <div class="container">
+
+            <div class="header_movie" style="background-image:url({{data.info_movie.backdrop_path}})">
+
+                <div class="filter_header_movie">
+
+                    <div class="header_movie_info">
+
+                        <div class="container_poster_movie"><img class="poster_movie" src="{{data.info_movie.poster}}" alt="affiche {{data.info_movie.title}}"/></div>
+                        <div class="container_title_movie">
+                            <h2 class="title_movie">{{data.info_movie.title}}</h2>
+                            {% for genre in data.info_movie.genres %}
+                                &#9679{{genre.name}}
+                            {% endfor %}
+
+                            {{data.info_movie.date |date("d/m/Y")}}
+
+                            {{data.info_movie.time}}
+
+                            {% if data.teaser %}
+                                
+                                <div class="trailer">
+                                    <span id="trailer">Bande annonce<i class="fa-solid fa-circle-play play_trailer"></i></span>
+                                    <div id="trailer_embed">
+                                        <i class="fa-solid fa-circle-xmark" id="close_video"></i>
+                                        <iframe id="trailer_iframe" src="https://www.youtube.com/embed/{{data.teaser.key}}?enablejsapi=1&html5=1" allowScriptAccess="always" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                
+                                
+                            {% endif %}
+
+                            
+                        </div>
+
+                       
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="container_movie_info card_info">
+            
+                <div class="container_synopsis">
+                    <h3>Synopsis</h3>
+                    <p>{{data.info_movie.overview}}</p>
+                </div>
+
+                <div class="container_details">  
+                    <ul>
+                        <li><span class="text-bold">Titre:</span> {{data.info_movie.title}}</li>
+                        <li><span class="text-bold">Date:</span> {{data.info_movie.date |date("d/m/Y")}}</li>
+                        <li><span class="text-bold">Pays:</span> {{data.info_movie.production_country}}</li>
+                        <li><span class="text-bold">Durée:</span> {{data.info_movie.time}}</li>
+                        <li><span class="text-bold">Réalisateur:</span> {{data.casting.director.name}}</li>
+                        <li><span class="text-bold">Budget:</span> {{data.info_movie.budget}}</li>
+                        <li><span class="text-bold">Productions:</span>
+                            {% for prod in data.info_movie.production_compagnies %}
+                                &#9679{{prod.name}}
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+
+               
+        
+            </div>
+
+            <div class="container_casting">
+
+                {% if data.casting.director %}
+                <div class="director">
+                    
+                    <div class="card_person card_info">
+                        <div>
+                            <a href="{{URL}}rechercher/person/{{data.casting.director.id}}"><img src="{{data.casting.director.profile_path}}" alt="{{data.casting.director.name}}"/></a>
+                        </div>
+
+                        <div class="info_person">
+                            <p><a href="{{URL}}rechercher/person/{{data.casting.director.id}}">{{data.casting.director.name}}</a></p>
+                            <p>{{data.casting.director.job}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="actors">
+                    
+                    {% for actor in data.casting.actors %}
+
+                        <div class="card_person card_info">
+                            <div>
+                                <a href="{{URL}}rechercher/person/{{actor.id}}"><img src="{{actor.profile_path}}" alt="{{actor.name}}"/></a>
+                            </div>
+
+                            <div class="info_person">
+                                <p><a href="{{URL}}rechercher/person/{{actor.id}}">{{actor.name}}</a></p>
+                                <p>{{actor.character}}</p>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+ 
+            
+{% endblock %}
+
+{% block script %}
+    <script src="https://www.youtube.com/player_api"></script>
+    <script src="{{URL}}Public/js/trailer.js"></script>
+    
+{% endblock %}

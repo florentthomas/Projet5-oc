@@ -6,9 +6,10 @@ namespace App\Controllers;
 class TMDB_api extends Controller{
 
     private $key_api="70c27cbd777e852dea8ad394a6841c9b";
-    private $url="https://api.themoviedb.org/3/search/";
+    private $url="https://api.themoviedb.org/3/";
     private $language="fr-FR";
     private $url_img_profile="https://www.themoviedb.org/t/p/w90_and_h90_face";
+    private $url_image="https://image.tmdb.org/t/p/original";
     
    
 
@@ -58,7 +59,7 @@ class TMDB_api extends Controller{
             $query=str_replace(" ", "+",$_GET["query"]);
 
 
-            $url=$this->url."multi?api_key=".$this->key_api."&language=".$this->language."&query=".$query."&page=1&include_adult=false";
+            $url=$this->url."search/multi?api_key=".$this->key_api."&language=".$this->language."&query=".$query."&page=1&include_adult=false";
           
 
             $results=$this->request_api($url);
@@ -138,4 +139,139 @@ class TMDB_api extends Controller{
     }
 
 
+    public function get_movie($params){
+
+
+        $id_movie=(int)$params[1];
+
+        $url_movie_info=$this->url."movie/".$id_movie."?api_key=".$this->key_api."&language=".$this->language;
+        $url_movie_credit=$this->url."movie/".$id_movie."/credits?api_key=".$this->key_api."&language=".$this->language;
+        $url_movie_teaser=$this->url."movie/".$id_movie."/videos?api_key=".$this->key_api."&language=".$this->language;
+
+
+        $result_movie_info=$this->request_api($url_movie_info);
+        $result_movie_credit=$this->request_api($url_movie_credit);
+        $result_movie_teaser=$this->request_api($url_movie_teaser);
+
+
+
+
+        if(empty($result_movie_teaser->results)){
+            $data["teaser"]=null;
+
+        }
+        else{
+            foreach($result_movie_teaser->results as $video){
+                
+                if($video->type === "Trailer"){
+                    $teaser=$video;
+                    break;
+                }
+            }
+
+            $data["teaser"]=$teaser;
+        }
+
+    
+
+        $runtime= $result_movie_info->runtime;
+
+        if($runtime === 0 || $runtime === null){
+            $time_movie="Durée du film inconnue";
+        }
+        else{
+            $time_hour=explode(".",$runtime / 60);
+            $time_minute="0.".$time_hour[1];
+
+            $time_movie=$time_hour[0]."h".ceil($time_minute*60)."min";
+        }
+
+        
+
+
+
+        if($result_movie_info->poster_path === "" || $result_movie_info->poster_path === null ){
+            $poster=URL_IMG."no-image.png";
+        }else{
+            $poster=$this->url_image."".$result_movie_info->poster_path;
+        }
+
+
+        if($result_movie_info->budget === 0 || $result_movie_info->budget === null ){
+            $budget="Non communiqué";
+        }else{
+            $budget=$result_movie_info->budget."$";
+
+            
+        }
+
+
+        if(!empty($result_movie_info->production_countries)){
+            $country=$result_movie_info->production_countries[0]->iso_3166_1;
+        }else{
+            $country="Non communiqué";
+        }
+
+
+
+        $data["info_movie"]=[
+            "title" => $result_movie_info->original_title,
+            "date" => $result_movie_info->release_date,
+            "time" =>$time_movie,
+            "backdrop_path" => $this->url_image."".$result_movie_info->backdrop_path,
+            "budget" => $budget,
+            "genres" => $result_movie_info->genres,
+            "overview" => $result_movie_info->overview,
+            "poster" => $poster,
+            "production_compagnies" => $result_movie_info->production_companies,
+            "production_country" => $country
+        ];
+
+
+
+
+
+        for ($i=0; $i < count($result_movie_credit->cast) ; $i++) {
+
+            if($result_movie_credit->cast[$i]->profile_path === null){
+                $result_movie_credit->cast[$i]->profile_path=URL_IMG_AVATARS."default.svg";
+            }
+            else{
+                $result_movie_credit->cast[$i]->profile_path=$this->url_image."".$result_movie_credit->cast[$i]->profile_path;   
+            }
+            
+            $data["casting"]["actors"][]=$result_movie_credit->cast[$i];
+
+            if($i === 9){
+                break;
+            }
+        }
+
+
+
+
+        foreach($result_movie_credit->crew as $person){
+
+            if($person->job === "Director"){
+
+                if($person->profile_path === null){
+                    $person->profile_path=URL_IMG_AVATARS."default.svg";
+                }
+                else{
+                    $person->profile_path=$this->url_image."".$person->profile_path;
+                }
+                
+                $data["casting"]["director"]=$person;
+            }
+
+        }
+
+        $this->view("result_movie_api", Array("data"=>$data));
+        
+            
+       
+    }
+
+
 }
+
