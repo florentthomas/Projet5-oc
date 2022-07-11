@@ -158,7 +158,7 @@ class TMDB_api extends Controller{
 
         if(empty($result_movie_teaser->results)){
             $data["teaser"]=null;
-
+            
         }
         else{
             foreach($result_movie_teaser->results as $video){
@@ -174,8 +174,10 @@ class TMDB_api extends Controller{
                 }
             }
 
+            $data["teaser"]=$teaser;
         }
 
+        
 
         $runtime= $result_movie_info->runtime;
 
