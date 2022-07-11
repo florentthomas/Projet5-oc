@@ -1,0 +1,173 @@
+{% extends "Layout.twig" %}
+
+{% block title %}
+
+  
+
+    <title>{{data.info_person.name}}</title>
+
+{% endblock %}
+
+{% block description %}
+
+    <meta name="description" content=""/>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="wrapper">
+
+        {% include ("Nav_bar.twig") %}
+
+
+        <div class="container">
+            <h1>{{data.info_person.name}}</h1>
+            <div class="info_person">
+
+                <div class="info_img_person">
+                    <div class="img_person">
+                        <img src="{{data.info_person.profile_path}}" alt="{{data.info_person.name}}"/>
+                    </div>
+
+                    <div class="info_person_list">
+                        <ul>
+                            <li><span class="text-bold">Nom: </span>{{data.info_person.name}}</li>
+                            {% if data.info_person.birthday %}
+                                <li><span class="text-bold">Naissance: </span>{{data.info_person.birthday| date("d/m/Y")}}</li>
+                            {% else %}
+                                <li><span class="text-bold">Naissance: </span>Non communiqué</li>
+                            {% endif %}
+                            {% if data.info_person.deathday %}
+                                <li><span class="text-bold">Décès: </span>{{data.info_person.deathday | date("d/m/Y")}}</li>
+                            {% endif %}
+                            <li><span class="text-bold">Lieu de naissance: </span>{{data.info_person.place_of_birth}}</li>
+                            <li><span class="text-bold">Célèbre pour: </span>{{data.info_person.job}}</li>
+                        </ul>
+                    </div>
+                
+                </div>
+
+                <div class="bio">
+                    <h2>Biographie</h2>
+
+                    <p>{{data.info_person.biography}}</p>
+
+                    <div class="movie_popular">
+                        
+                        {% for movie_popular in data.popular_movies %}
+
+                        <div class="card_info card_movie">
+                            <div>
+                                <a href="{{URL}}rechercher/movie/{{movie_popular.id}}"/><img src="{{movie_popular.poster_path}}" alt="{{movie_popular.poster_path}}"/></a>
+                            </div>
+
+                            <div>
+                                <p>
+                                    <a href="{{URL}}rechercher/movie/{{movie_popular.id}}">{{movie_popular.title}}</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                        
+                    </div>
+                
+                </div>
+            
+            </div>
+
+            {% if data.movies %}
+
+                <div class="movies">
+
+                    {% if data.movies.acting %}
+                    <div class="list_movies">
+                        <h4>{% if data.info_person.gender == "female" %}
+                                Actrice
+                                {% else %}
+                                Acteur
+                            {% endif %}
+                        
+                        </h4>
+                        <ul>
+                            {% for movie in data.movies.acting %}
+                                <li> 
+                                    {% if movie.release_date %}
+                                        {{movie.release_date | date("Y")}}
+                                        {% else %}
+                                            NC
+                                    {% endif %}:
+                                    <a href="{{URL}}rechercher/movie/{{movie.id}}">{{movie.title}}</a> 
+                                    : {{ movie.character }}
+                                </li>
+                            {% endfor %}
+                        
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    
+
+
+
+                    {% if data.movies.director %}
+                    <div class="list_movies">
+                        <h4>Réalisation</h4>
+                        <ul>
+                            {% for movie in data.movies.director %}
+                               <li> 
+                                    {% if movie.release_date %}
+                                        {{movie.release_date | date("Y")}}
+                                        {% else %}
+                                            NC
+                                    {% endif %}: 
+                                    <a href="{{URL}}rechercher/movie/{{movie.id}}">{{movie.title}}</a> 
+                                </li>
+                            {% endfor %}
+                        
+                        </ul>
+                    </div>
+                    {% endif %}
+
+
+                    {% if data.movies.production %}
+                    <div class="list_movies">
+                        <h4>Production</h4>
+                        <ul>
+                            {% for movie in data.movies.production %}
+                               <li> 
+                                    {% if movie.release_date %}
+                                        {{movie.release_date | date("Y")}}
+                                        {% else %}
+                                            NC
+                                    {% endif %}:
+                                    <a href="{{URL}}rechercher/movie/{{movie.id}}">{{movie.title}}</a> 
+                                </li>
+                            {% endfor %}
+                        
+                        </ul>
+                    </div>
+                    {% endif %}
+                
+            
+            
+            
+                </div>
+
+               
+            {% endif %}
+
+            
+            
+        </div>
+
+    </div>
+ 
+            
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

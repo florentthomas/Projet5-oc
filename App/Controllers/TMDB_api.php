@@ -167,12 +167,16 @@ class TMDB_api extends Controller{
                     $teaser=$video;
                     break;
                 }
+
+                if($video->type === "Clip"){
+                    $teaser=$video;
+                    break;
+                }
             }
 
-            $data["teaser"]=$teaser;
         }
 
-    
+        var_dump($result_movie_teaser->results);
 
         $runtime= $result_movie_info->runtime;
 
@@ -272,6 +276,158 @@ class TMDB_api extends Controller{
        
     }
 
+    public function get_person($params){
+
+        
+        $id_person=(int)$params[1];
+        
+
+        $url_person_info=$this->url."person/".$id_person."?api_key=".$this->key_api."&language=".$this->language;
+        $url_person_movies=$this->url."person/".$id_person."/movie_credits?api_key=".$this->key_api."&language=".$this->language;
+
+        $result_person_info=$this->request_api($url_person_info);
+        $result_person_movies=$this->request_api($url_person_movies);
+
+
+        if($result_person_info->profile_path === null || $result_person_info->profile_path === ""){
+            $profile_path=URL_IMG_AVATARS."default.svg";
+        }
+        else{
+            $profile_path=$this->url_image."".$result_person_info->profile_path;
+        }
+
+
+        $birthday= $result_person_info->birthday ? : "Non communiqué";
+        $job= $result_person_info->known_for_department ? : "Non communiqué";
+        $place_of_birth= $result_person_info->place_of_birth ? : "Non communiqué";
+        $job= $result_person_info->known_for_department ? : "Non communiqué";
+        $biography= $result_person_info->biography ?  : "Aucune biographie pour ".$result_person_info->name;
+        $gender= $result_person_info->gender === 2 ? "male" : "female"; 
+        
+        
+
+        $data["info_person"]=[
+            "name"=> $result_person_info->name,
+            "job" => $job,
+            "place_of_birth" => $place_of_birth,
+            "profile_path" => $profile_path,
+            "deathday" => $result_person_info->deathday,
+            "birthday" => $result_person_info->birthday,
+            "biography" => $biography,
+            "gender" => $gender
+        ];
+
+
+        function date_compare($a, $b){
+            $t1 = strtotime($a->release_date);
+            $t2 = strtotime($b->release_date);
+            return $t1 - $t2;
+        }  
+
+
+        //recupere les films selon le poste occupé et trie par date  
+        foreach($result_person_movies->crew as $movie){
+
+            if($movie->job === "Director"){
+
+                $data["movies"]["director"][]=$movie;
+                usort($data["movies"]["director"], 'App\Controllers\date_compare');
+             
+            }
+
+            if($movie->job === "Executive Producer" || $movie->job === "Producer" ){
+                $data["movies"]["production"][]=$movie;
+                usort($data["movies"]["production"], 'App\Controllers\date_compare');
+
+            }
+        }
+
+        foreach($result_person_movies->cast as $movie){
+           
+            if($movie->character === "Self" || $movie->character === "Himself" || $movie->character === "Herself" ){
+
+                if($data["info_person"]["gender"] === "male"){
+                    $movie->character="Lui-même";
+                }
+                else{
+                    $movie->character="Elle-même";
+                }
+                
+            }
+            $data["movies"]["acting"][]=$movie;
+            usort($data["movies"]["acting"], 'App\Controllers\date_compare');
+        }
+
+
+
+
+        if(array_key_exists("movies", $data) && $data["movies"] !== null){
+
+            //trie tous les films du tableau par ordre de popularité
+
+            $extract= function($obj){
+                return $obj->id;
+            };
+
+            $movies_popular = array();
+            $all_movies= array();
+           
+            foreach($data["movies"] as $key => $movies){
+
+        
+                foreach($movies as $sub_key => $sub_movies){
+                   
+                 
+                    $id_movie=$sub_movies->id;
+
+                    //Supprime les doublons
+                   
+                    if(in_array($id_movie, array_map($extract,$all_movies)) === false){
+
+                        
+                        $all_movies[]=$sub_movies;
+                    }
+      
+                    
+                }
+
+            }
+
+            foreach($all_movies as $movie){
+                $movies_popular[] = $movie->vote_count;
+            }
+
+
+            array_multisort($movies_popular, SORT_DESC, $all_movies);
+         
+            //recuperation des 10 films les plus populaires
+
+            for($i=0; $i < count($all_movies); $i++){
+    
+                if($all_movies[$i]->poster_path === null || $all_movies[$i]->poster_path === "" ){
+                    $all_movies[$i]->poster_path= URL_IMG."no-image.png";
+                }
+                else{
+                    $all_movies[$i]->poster_path=$this->url_image."".$all_movies[$i]->poster_path;
+                }
+    
+                $data["popular_movies"][]=$all_movies[$i];
+            
+                if($i == 9){
+                    break;
+                }
+    
+            }
+
+           
+
+        }
+        
+
+        
+        $this->view("result_person_api", Array("data" => $data));
+
+    }
 
 }
 
