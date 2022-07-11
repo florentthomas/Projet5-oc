@@ -176,7 +176,6 @@ class TMDB_api extends Controller{
 
         }
 
-        var_dump($result_movie_teaser->results);
 
         $runtime= $result_movie_info->runtime;
 
