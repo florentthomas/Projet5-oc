@@ -37,9 +37,9 @@
                         
 
                             <div class="card_result">
-                                
-                                <img src="{{person.image_profile}}" class="img_profile_result" alt="{{person.name}}"/>
-
+                                <a href="{{URL}}rechercher/{{person.media_type}}/{{person.id}}">
+                                    <img src="{{person.image_profile}}" class="img_profile_result" alt="{{person.name}}"/>
+                                </a>
                                 <div class="info_result">
                                     <div class="name_result">
                                         <a href="{{URL}}rechercher/{{person.media_type}}/{{person.id}}">{{person.name}}</a>
@@ -66,9 +66,9 @@
                     
     
                             <div class="card_result">
-                                
-                                <img src="{{movie.image_profile}}" class="img_profile_result" alt="{{movie.title}}"/>
-
+                                <a href="{{URL}}rechercher/{{movie.media_type}}/{{movie.id}}">
+                                    <img src="{{movie.image_profile}}" class="img_profile_result" alt="{{movie.title}}"/>
+                                </a>
                                 <div class="info_result">
                                     <div class="name_result">
                                         <a href="{{URL}}rechercher/{{movie.media_type}}/{{movie.id}}">{{movie.title}}</a> <br>
