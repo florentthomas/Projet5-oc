@@ -224,15 +224,22 @@ header{
 
 #block_searchbar{
     margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
 }
 
+
+
 .searchbar_movie{
-    width:25%;
     padding: 15px 20px;
     border-radius: 5px;
-    margin: auto;
+    width: 25%;
     border: rgba(0, 0, 0, 0.2) 0.5px solid;
-  
+    margin-right: 15px;
+}
+
+#block_searchbar input[type="submit"]{
+    padding: 5px;
 }
 
 
