@@ -16,7 +16,7 @@ abstract class Controller{
             'cache' => false,
             'debug' => true,
         ]);
-
+        
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addGlobal("URL",URL);
         $twig->addGlobal("session", $_SESSION);
