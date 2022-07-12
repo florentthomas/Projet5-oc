@@ -66,8 +66,9 @@ class TMDB_api extends Controller{
 
             $data=[];
 
+        
 
-            if($results !== null){
+            if($results->total_results >= 1){
                 
 
                 foreach($results->results as $item){
@@ -79,7 +80,7 @@ class TMDB_api extends Controller{
                     if($item->media_type === "person"){
 
                         if($item->profile_path == ""){
-                            $image_profile= URL_IMG_AVATARS."default.png";
+                            $image_profile= URL_IMG_AVATARS."default.svg";
                         }
                         else{
                             $image_profile= $this->url_img_profile."".$item->profile_path;
@@ -114,11 +115,18 @@ class TMDB_api extends Controller{
 
                     if($item->media_type === "movie"){
 
+                        if($item->poster_path === "" || $item->poster_path === null){
+                            $poster=URL_IMG."no_image.svg";
+                        }
+                        else{
+                            $poster=$this->url_img_profile."".$item->poster_path;
+                        }
+
                         $data["movies"][]=[
                             "id" => $item->id,
                             "title" => $item->title,
                             "media_type" => $item->media_type,
-                            "image_profile" => $this->url_img_profile."".$item->poster_path,
+                            "image_profile" => $poster,
                             "overview" => $item->overview,
                             "date" => $item->release_date
                         ];
@@ -127,14 +135,18 @@ class TMDB_api extends Controller{
                     
                 }
 
-                $this->view("result_search", Array("data" => $data));
+                
 
-            }   
+            }
+        
+
+            $this->view("result_search", Array("data" => $data));
 
 
         }
         else{
-            header("Location:".URL);
+            header("HTTP/1.1 404 Not Found");
+            $this->view("404");
         }
     }
 
@@ -196,7 +208,7 @@ class TMDB_api extends Controller{
 
 
         if($result_movie_info->poster_path === "" || $result_movie_info->poster_path === null ){
-            $poster=URL_IMG."no-image.png";
+            $poster=URL_IMG."no_image.svg";
         }else{
             $poster=$this->url_image."".$result_movie_info->poster_path;
         }
