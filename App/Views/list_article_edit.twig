@@ -20,11 +20,11 @@
 
             <div class="content_card">
 
-                <div><img class="image" src="{{article.url_image}}"/></div>
+                <div><img class="image" src="{{article.image_article}}"/></div>
 
                 <div class="content_card_article">
                     <h3>{{article.title}}</h3>
-                    <p>{{article.content}}</p>
+                    <p>{{article.description_article | u.truncate(50, '...', false)}}</p>
 
                     <div class="info_article">
                         <div>Date de publication: {{article.date_create|date("d/m/Y")}}</div>

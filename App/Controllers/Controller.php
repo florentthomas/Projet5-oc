@@ -7,6 +7,11 @@ use Twig\Extra\Markdown\DefaultMarkdown;
 use Twig\Extra\Markdown\MarkdownRuntime;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
+use Twig\Extra\String\StringExtension;
+
+
+
+
 abstract class Controller{
 
     public function view($file,$data=[]){
@@ -26,6 +31,8 @@ abstract class Controller{
 
         $twig->addExtension(new MarkdownExtension());
 
+        
+
         $twig->addRuntimeLoader(new class implements RuntimeLoaderInterface {
             public function load($class) {
                 if (MarkdownRuntime::class === $class) {
@@ -34,7 +41,7 @@ abstract class Controller{
             }
         });
 
-
+        $twig->addExtension(new StringExtension());
         
         $twig->addGlobal("URL",URL);
         $twig->addGlobal("session", $_SESSION);

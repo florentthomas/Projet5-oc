@@ -75,7 +75,7 @@
                                         {{movie.date |date("d/m/Y")}}
                                     </div>
                                     <div class="movies_result">
-                                        {{ movie.overview }}
+                                        {{ movie.overview | u.truncate(120,'...',false)}}
                                     </div>
                                 </div>
                                 
