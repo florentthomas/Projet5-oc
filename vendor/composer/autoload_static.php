@@ -36,6 +36,10 @@ class ComposerStaticInit50e1910fd79857a65bc111f61f03d2d8
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'M' => 
+        array (
+            'Michelf\\' => 8,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -86,6 +90,10 @@ class ComposerStaticInit50e1910fd79857a65bc111f61f03d2d8
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Michelf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
         ),
         'App\\' => 
         array (
