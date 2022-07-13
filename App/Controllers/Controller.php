@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
-
+use Twig\Extra\Markdown\MarkdownExtension;
+use Twig\Extra\Markdown\DefaultMarkdown;
+use Twig\Extra\Markdown\MarkdownRuntime;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 abstract class Controller{
 
@@ -17,7 +20,22 @@ abstract class Controller{
             'debug' => true,
         ]);
         
+       
         $twig->addExtension(new \Twig\Extension\DebugExtension());
+
+
+        $twig->addExtension(new MarkdownExtension());
+
+        $twig->addRuntimeLoader(new class implements RuntimeLoaderInterface {
+            public function load($class) {
+                if (MarkdownRuntime::class === $class) {
+                    return new MarkdownRuntime(new DefaultMarkdown());
+                }
+            }
+        });
+
+
+        
         $twig->addGlobal("URL",URL);
         $twig->addGlobal("session", $_SESSION);
         $twig->addGlobal("URL_IMG_ARTICLE", URL_IMG_ARTICLE);

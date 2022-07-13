@@ -36,7 +36,14 @@
                 {% endif %}
             </p>
 
-            <div class="content_article">{{article.content}}</div>
+            <div class="content_article">
+
+            
+                
+                {{article.content | markdown_to_html}}
+            
+            
+            </div>
 
         </article>
 
