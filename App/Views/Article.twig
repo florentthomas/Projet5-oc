@@ -28,10 +28,13 @@
         <article>
 
             <h1 class="title_article">{{article.title}}</h1>
+            
+            <p class="author">{{article.author}} | Publié le {{article.date_create | date("d/m/Y")}}
 
-            <div class="image_article">
-                <img src="{{article.url_image}}" alt="" class="image_article"/>
-            </div>
+                {% if article.date_create != article.date_update %}
+                   | Modifié le {{article.date_update | date("d/m/Y")}}
+                {% endif %}
+            </p>
 
             <div class="content_article">{{article.content}}</div>
 

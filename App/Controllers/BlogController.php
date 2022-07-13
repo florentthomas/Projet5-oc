@@ -56,7 +56,6 @@ class BlogController extends Controller{
             $article->image_article=URL_IMG_ARTICLE.$article->image_article;
         }
     
-        var_dump($articles);
 
         $this->view("BlogHome",array("articles" => $articles, "current_page" => $current_page, "pages_total" => $pages));
     }

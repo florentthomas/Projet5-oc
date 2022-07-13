@@ -19,7 +19,7 @@ class ArticleController extends Controller{
 
         $id=$params[2];
 
-        $article=$this->articleManager->getArticle($id);
+        $article=$this->articleManager->get_article_by_id($id);
         $comments=$this->commentManager->getCommentsByArticle($id);
         $users=[];
 

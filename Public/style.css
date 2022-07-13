@@ -343,10 +343,10 @@ article{
     padding:3rem;
 }
 
-.image_article{
-    text-align: center;
+.author{
+    text-align: end;
+    font-style: italic;
 }
-
 
 #main_article{
     width:70%;
