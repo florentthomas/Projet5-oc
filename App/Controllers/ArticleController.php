@@ -59,8 +59,9 @@ class ArticleController extends Controller{
         
 
         else{
-            header('HTTP/1.0 404 Not Found');  
             $this->view("404"); 
+            header('HTTP/1.0 404 Not Found');  
+            
         }
 
     }

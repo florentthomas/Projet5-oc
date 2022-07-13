@@ -22,12 +22,17 @@ class Router{
     }
 
     public function run(){
+
     
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
             
             if($route->match($this->url)){
                 $route->execute();
+                die();
             }
+            
         }
+
+        header("HTTP/1.1 404 Not Found");
     }
 }
