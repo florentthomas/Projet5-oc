@@ -24,7 +24,7 @@ class Edit_articleController extends Controller{
 
         $id=$params[1];
 
-        $article=$this->articleManager->getArticle($id);
+        $article=$this->articleManager->get_article_by_id($id);
 
         if( $article != null){
             
@@ -39,7 +39,7 @@ class Edit_articleController extends Controller{
 
         if(isset($_POST["title_article"]) && isset($_POST["id_article"]) && !empty($_POST["title_article"])){
             $titre=htmlspecialchars($_POST["title_article"]);
-            $article=$this->articleManager->getArticle($_POST["id_article"]);
+            $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
 
             if($article != null){
 
@@ -71,7 +71,7 @@ class Edit_articleController extends Controller{
         if(isset($_POST["slug_article"]) && isset($_POST["id_article"]) && !empty($_POST["slug_article"])){
 
             $slug=Tools::slug_format($_POST["slug_article"]);
-            $article=$this->articleManager->getArticle($_POST["id_article"]);
+            $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
 
             if($article != null){
 
@@ -102,7 +102,7 @@ class Edit_articleController extends Controller{
 
         if(isset($_FILES["image_article"]) && !empty($_FILES["image_article"]["name"])){
 
-            $article=$this->articleManager->getArticle($_POST["id_article"]);
+            $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
 
             if($article != null){
 
@@ -138,7 +138,7 @@ class Edit_articleController extends Controller{
 
         if(isset($_POST["description"]) && !empty($_POST["description"])){
 
-            $article=$this->articleManager->getArticle($_POST["id_article"]);
+            $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
 
             if($article != null){
 
@@ -171,7 +171,7 @@ class Edit_articleController extends Controller{
 
         if(isset($_POST["content_article"]) && !empty($_POST["content_article"])){
 
-            $article=$this->articleManager->getArticle($_POST["id_article"]);
+            $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
 
             
             if($article != null){
