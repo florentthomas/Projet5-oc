@@ -42,16 +42,17 @@
         <div id="posts">
             {% for article in articles %}
             <article>
-                <div class="post">
-                    <div class="img_bg" style="background-image:url({{article.url_image}})"></div>
-                </div>
-                <div class="post_infos">
-                    <span>🤵🏻 {{article.author}}</span>
-                    <span>🗓️ {{article.date_create|date("d/m/Y")}}</span>
-                </div>
-                <h1>{{article.title}}</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <a href="{{URL}}blog/{{article.slug}}-{{article.id}}"><button class="button-blue">Lire l'article</button></a>
+                <a href="{{URL}}blog/{{article.slug}}-{{article.id}}">
+                    <div class="post">
+                        <div class="img_bg" style="background-image:url({{article.image_article}})"></div>
+                    </div>
+                    <div class="post_infos">
+                        <span>🤵🏻 {{article.author}}</span>
+                        <span>🗓️ {{article.date_create|date("d/m/Y")}}</span>
+                    </div>
+                    <h1>{{article.title}}</h1>
+                    <p>{{article.description_article}}</p>
+                </a>
             </article>
             {% endfor %}
         </div>

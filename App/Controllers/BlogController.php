@@ -49,7 +49,14 @@ class BlogController extends Controller{
 
         $articles= $this->ArticleManager->get_articles_pagination($per_page,$offset);
 
+        
+
+
+        foreach($articles as $article){
+            $article->image_article=URL_IMG_ARTICLE.$article->image_article;
+        }
     
+        var_dump($articles);
 
         $this->view("BlogHome",array("articles" => $articles, "current_page" => $current_page, "pages_total" => $pages));
     }
