@@ -162,7 +162,9 @@ header{
     }
 }
 
-
+#posts a{
+    color:black;
+}
 
 /* nav_bar */
 
