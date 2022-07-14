@@ -78,7 +78,7 @@
                     <ul>
                         <li><span class="text-bold">Titre:</span> {{data.info_movie.title}}</li>
                         <li><span class="text-bold">Date:</span> {{data.info_movie.date |date("d/m/Y")}}</li>
-                        <li><span class="text-bold">Pays:</span> {{data.info_movie.production_country}}</li>
+                        <li><span class="text-bold">Pays:</span> {{data.info_movie.production_country | country_name}}</li>
                         <li><span class="text-bold">Durée:</span> {{data.info_movie.time}}</li>
                         <li><span class="text-bold">Réalisateur:</span> {{data.casting.director.name}}</li>
                         <li><span class="text-bold">Budget:</span> {{data.info_movie.budget}}</li>

@@ -6,8 +6,8 @@ use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\Markdown\DefaultMarkdown;
 use Twig\Extra\Markdown\MarkdownRuntime;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
-
 use Twig\Extra\String\StringExtension;
+use Twig\Extra\Intl\IntlExtension;
 
 
 
@@ -42,6 +42,8 @@ abstract class Controller{
         });
 
         $twig->addExtension(new StringExtension());
+
+        $twig->addExtension(new IntlExtension());
         
         $twig->addGlobal("URL",URL);
         $twig->addGlobal("session", $_SESSION);
