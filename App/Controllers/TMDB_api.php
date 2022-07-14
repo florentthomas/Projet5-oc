@@ -418,7 +418,7 @@ class TMDB_api extends Controller{
             for($i=0; $i < count($all_movies); $i++){
     
                 if($all_movies[$i]->poster_path === null || $all_movies[$i]->poster_path === "" ){
-                    $all_movies[$i]->poster_path= URL_IMG."no-image.png";
+                    $all_movies[$i]->poster_path= URL_IMG."no_image.svg";
                 }
                 else{
                     $all_movies[$i]->poster_path=$this->url_image."".$all_movies[$i]->poster_path;
