@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 
 class TMDB_api extends Controller{
-
+  
     private $key_api="70c27cbd777e852dea8ad394a6841c9b";
     private $url="https://api.themoviedb.org/3/";
     private $language="fr-FR";
@@ -19,7 +19,7 @@ class TMDB_api extends Controller{
         $curl=curl_init($url);
 
         curl_setopt_array($curl,Array(
-            // CURLOPT_CAINFO => PATH_ROOT."cert.cer",
+            CURLOPT_CAINFO => PATH_ROOT."cert.cer",
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CONNECTTIMEOUT => 1
@@ -28,23 +28,46 @@ class TMDB_api extends Controller{
 
             $data= curl_exec($curl);
 
+            
+            if($data === false){
 
-            if($data != false){
+                $error=curl_error($curl);
 
-                
-                if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200){
+                throw new \Exception("Erreur API: ".$error);
 
-                    $data= json_decode($data);
-
-                    return $data;
-
-                }
-                else{
-                    http_response_code(404);
-                    $this->view("404");
-                }
             }
 
+       
+            if(curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200){
+
+                $data= json_decode($data);
+            
+
+                if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 401){
+
+                    throw new \exception($data->status_message);
+                }
+
+                
+                else{
+
+                    
+                    throw new \exception("HTTP code: ".curl_getinfo($curl, CURLINFO_HTTP_CODE));
+
+                }
+
+            }
+
+            if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200){
+
+                $data= json_decode($data);
+
+                return $data;
+
+            }
+            
+           
+            
             curl_close($curl);
     }
 
@@ -61,8 +84,11 @@ class TMDB_api extends Controller{
 
             $url=$this->url."search/multi?api_key=".$this->key_api."&language=".$this->language."&query=".$query."&page=1&include_adult=false";
           
-
+  
             $results=$this->request_api($url);
+         
+           
+            
 
             $data=[];
 
@@ -164,8 +190,9 @@ class TMDB_api extends Controller{
         $result_movie_info=$this->request_api($url_movie_info);
         $result_movie_credit=$this->request_api($url_movie_credit);
         $result_movie_teaser=$this->request_api($url_movie_teaser);
-
-
+    
+            
+      
 
 
         if(empty($result_movie_teaser->results)){
@@ -298,8 +325,16 @@ class TMDB_api extends Controller{
         $url_person_info=$this->url."person/".$id_person."?api_key=".$this->key_api."&language=".$this->language;
         $url_person_movies=$this->url."person/".$id_person."/movie_credits?api_key=".$this->key_api."&language=".$this->language;
 
+
+    
         $result_person_info=$this->request_api($url_person_info);
         $result_person_movies=$this->request_api($url_person_movies);
+
+        
+
+   
+     
+        
 
 
         if($result_person_info->profile_path === null || $result_person_info->profile_path === ""){

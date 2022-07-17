@@ -50,15 +50,21 @@ class Route{
                         return isset($_POST) ? $controller->$method($_POST) : $controller->$method();
                     }
                 }
+                else{
+                    throw new \Exception("Error Processing Request: Method does not exists");
+                }
             }else{
                 
-                throw new \Exception("Error Processing Request", 1);
+                throw new \Exception("Error Processing Request: Controller does not exists", 1);
                 
             }
 
         }
         catch(\Exception $e){
            echo $e->getMessage();
+        }
+        catch(\Error $e){
+            echo $e->getMessage();
         }
 
         

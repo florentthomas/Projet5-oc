@@ -35,6 +35,8 @@ class UserController extends Controller{
             exit();
         }
 
+
+
         $new_pseudo=strip_tags($_POST["new_pseudo"]);
 
         if(!$this->userManager->pseudo_exists($new_pseudo)){
@@ -108,39 +110,34 @@ class UserController extends Controller{
 
         $key=$key[1];
 
-        try{
-            if(is_numeric($key)){
+      
+        if(is_numeric($key)){
 
-                $user=$this->userManager->get_user("key_confirm",$key);
+            $user=$this->userManager->get_user("key_confirm",$key);
 
-                if($user ==! false){
+            if($user ==! false){
 
-                    if($user->account_confirmed == 0){
-                        $this->userManager->confirm_account($user->id);
-                        $this->view("Confirm_email");
-                    }
-    
-                    else{
-                        header("Location:".URL);
-                    }
-
+                if($user->account_confirmed == 0){
+                    $this->userManager->confirm_account($user->id);
+                    $this->view("Confirm_email");
                 }
+
                 else{
-                    throw new \Exception("Le profil n'a pas été trouvé");
-                }  
+                    header("Location:".URL);
+                }
+
             }
             else{
-                throw new \Exception("Clé non valide");
-            }
-
+                throw new \Exception("Le profil n'a pas été trouvé");
+            }  
+        }
+        else{
+            throw new \Exception("Clé non valide");
         }
 
-        catch(\Exception $e){
-            $message=$e->getMessage();
-            header('HTTP/1.0 404 Not Found');
-            $this->view("Exception",array("message_exception" => $message));
         
-        }
+
+       
     }
 
 
@@ -216,40 +213,32 @@ class UserController extends Controller{
         $key=$params[1];
 
 
-        try{
-            if(is_numeric($key)){
-
-                $user=$this->userManager->get_user("key_confirm",$key);
-
-
-                if($user ==! false){
-
-                    $this->userManager->delete_account($user->id);
-
-                    if(isset($_SESSION["user"])){
-                        unset($_SESSION["user"]);
-                        session_destroy();
-                    }
-
-                    $this->view("delete_account");
-                }
-                else{
-                    throw new \Exception("Le profil n'a pas été trouvé");
-                }
-            }
-
-            else{
-                throw new \Exception("Clé non valide");
-            }
-
-        }
-
-        catch(\Exception $e){
-            $message=$e->getMessage();
-            header('HTTP/1.0 404 Not Found');
-            $this->view("Exception",array("message_exception" => $message));
         
+        if(is_numeric($key)){
+
+            $user=$this->userManager->get_user("key_confirm",$key);
+
+
+            if($user ==! false){
+
+                $this->userManager->delete_account($user->id);
+
+                if(isset($_SESSION["user"])){
+                    unset($_SESSION["user"]);
+                    session_destroy();
+                }
+
+                $this->view("delete_account");
+            }
+            else{
+                throw new \Exception("Le profil n'a pas été trouvé");
+            }
         }
+
+        else{
+            throw new \Exception("Clé non valide");
+        }
+
         
     }
 
@@ -354,35 +343,26 @@ class UserController extends Controller{
      
         $key=$params[1];
 
-        try{
-            if(is_numeric($key)){
+        if(is_numeric($key)){
 
-                $user=$this->userManager->get_user("key_confirm",$key);
+            $user=$this->userManager->get_user("key_confirm",$key);
 
 
-                if($user ==! false){
+            if($user ==! false){
 
-                    $this->view("reset_password",array("key_account" =>$key));
-                }
-                else{
-                    throw new \Exception("Le profil n'a pas été trouvé");
-                }
+                $this->view("reset_password",array("key_account" =>$key));
             }
-
             else{
-                throw new \Exception("Clé non valide");
+                throw new \Exception("Le profil n'a pas été trouvé");
             }
-
         }
 
-        catch(\Exception $e){
-            $message=$e->getMessage();
-            header('HTTP/1.0 404 Not Found');
-            $this->view("Exception",array("message_exception" => $message));
-        
+        else{
+            throw new \Exception("Clé non valide");
         }
     }
 
+    
     public function reset_password_apply(){
 
         if(isset($_POST["key_account"])){
