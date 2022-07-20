@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Tools\Tools;
+use App\Tools\Email;
 
 class InscriptionController extends Controller{
 
@@ -37,9 +37,9 @@ class InscriptionController extends Controller{
                             }
 
                             
-                            $content_email=Tools::generate_email("confirmation_inscription",array("key" => $key));
+                            $content_email=Email::generate_email("confirmation_inscription",array("key" => $key));
 
-                            if(Tools::sendEmail($_POST["email"],"Confirmez votre inscription",$content_email)){
+                            if(Email::sendEmail($_POST["email"],"Confirmez votre inscription",$content_email)){
 
                                 $this->UserManager->create_account($_POST["pseudo"],$_POST["email"],$password,$key);
                                 $response=["attribute"=>"success","message"=>"Compte crée, cliquez sur le lien de confirmation sur le mail envoyé"];

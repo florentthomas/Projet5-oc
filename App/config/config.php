@@ -11,6 +11,11 @@ define('URL_IMG_ARTICLE', URL.'Public/images/articles/');
 define('URL_IMG_AVATARS', URL.'Public/images/avatars/');
 define('URL_IMG', URL.'Public/images/');
 
+//Email
+
+define('EMAIL', 'cine-film@outlook.fr');
+define('EMAIL_PASSWORD', 'Tff_dke#85%fdfs,;(du');
+
 
 
 //Config_db

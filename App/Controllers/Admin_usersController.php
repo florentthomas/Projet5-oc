@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Tools\Tools;
+use App\Tools\Email;
 
 
 class Admin_usersController extends Controller{
@@ -102,7 +103,7 @@ class Admin_usersController extends Controller{
 
                 $email_user=$user->email;
 
-                if(Tools::sendEmail($email_user,$_POST["subject"],$_POST["message"])){
+                if(Email::sendEmail($email_user,$_POST["subject"],$_POST["message"])){
                     $response=["attribute" => "success" , "message" => "Message envoyé", "email" => $email_user];
                 }
 

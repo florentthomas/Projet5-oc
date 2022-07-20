@@ -27,8 +27,9 @@ jQuery(document).ready(function($){
         done(function(response){
 
             $("#subject").val("");
-            CKEDITOR.instances["message_user"].setData('')
+            CKEDITOR.instances["message_user"].setData('');
             message_ajax(response);
+            
         }).
 
         fail(message_error_ajax).
