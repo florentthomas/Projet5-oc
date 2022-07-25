@@ -19,7 +19,7 @@
     <!--[if !mso]><!-->
 	<link href="https://fonts.googleapis.com/css?family=Yantramanav:300,400,500,700" rel="stylesheet" />
     <!--<![endif]-->
-	<title>Confirmez votre inscription</title>
+	<title><?=$title?></title>
 	<!--[if gte mso 9]>
 	<style type="text/css" media="all">
 		sup { font-size: 100% !important; }
@@ -132,25 +132,9 @@
 																<th style="padding-bottom:20px !important; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;" class="column" width="60"></th>
 																<th class="column" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
 																	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
-																		<tr mc:hideable>
-																			<td class="h2" style="padding-bottom: 20px; color:#444444; font-family:'Yantramanav', Arial, sans-serif; font-size:40px; line-height:46px; text-align:left; font-weight:300;"><div mc:edit="text_6">Bonjour <?=$name?></div></td>
-																		</tr>
 																		
 																		<tr mc:hideable>
-																			<td class="text" style="padding-bottom: 25px; color:#666666; font-family:Arial, sans-serif; font-size:16px; line-height:30px; text-align:left; min-width:auto !important;"><div mc:edit="text_7">
-																				Vous venez de vous inscrire sur notre site, merci de confirmer votre inscription
-																			</div></td>
-																		</tr>
-
-																		<tr mc:hideable>
-																			<td align="left">
-																				<table border="0" cellspacing="0" cellpadding="0">
-																					<tr>
-																						<td class="text-button" style="color:#ffffff; background:#0984e3; border-radius:5px; font-family:'Yantramanav', Arial, sans-serif; font-size:14px; line-height:18px; text-align:center; font-weight:500; padding:12px 25px;"><div mc:edit="text_8"><a href=<?=URL."confirm/".$key ?> target="_blank" class="link-white" style="color:#ffffff; text-decoration:none;"><span class="link-white" style="color:#ffffff; text-decoration:none;">confirmer l'inscription</span></a></div></td>
-																					</tr>
-																				</table>
-																			</td>
+																			<td class="text" style="padding-bottom: 25px; color:#666666; font-family:Arial, sans-serif; font-size:16px; line-height:30px; text-align:left; min-width:auto !important;"><div mc:edit="text_7"><?=$content?></div></td>
 																		</tr>
 																		
 																	</table>

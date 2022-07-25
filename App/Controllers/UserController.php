@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Tools\Tools;
+use App\Tools\Email;
 
 
 class UserController extends Controller{
@@ -76,9 +76,10 @@ class UserController extends Controller{
 
                 if(!$this->userManager->email_exists($_POST["new_email"])){
 
-                    $content_email=Tools::generate_email("confirm_new_email",array("key_account"=>$current_user->key_confirm));
 
-                    if(Tools::sendEmail($_POST["new_email"],"Confirmez votre nouvelle adresse",$content_email)){
+                    $content_email=Email::generate_email("confirm_new_email",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
+
+                    if(Email::sendEmail($_POST["new_email"],"Confirmez votre nouvelle adresse",$content_email)){
 
                         $this->userManager->update_user("email",$_POST["new_email"],$current_user->id);
                         $this->userManager->update_user("account_confirmed",0,$current_user->id);
@@ -186,9 +187,9 @@ class UserController extends Controller{
 
         if($current_user ==! false){
 
-            $content_email=Tools::generate_email("delete_account",array("key_account"=>$key_account));
+            $content_email=Email::generate_email("delete_account",array("key_account"=>$key_account, "name" => $current_user->pseudo));
 
-            if(Tools::sendEmail($current_user->email,"Suppression du compte",$content_email)){
+            if(Email::sendEmail($current_user->email,"Suppression du compte",$content_email)){
                 $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
             }
 
@@ -317,9 +318,9 @@ class UserController extends Controller{
 
                 $current_user=$this->userManager->get_user("email",$_POST["email"]);
 
-                $content_email=Tools::generate_email("reset_password",array("key_account"=>$current_user->key_confirm));
+                $content_email=Email::generate_email("reset_password",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
 
-                if(Tools::sendEmail($current_user->email,"Réinitialiser le mot de passe",$content_email)){
+                if(Email::sendEmail($current_user->email,"Réinitialiser le mot de passe",$content_email)){
                     $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
                 }
 

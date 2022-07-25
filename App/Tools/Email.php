@@ -52,7 +52,9 @@ class Email{
     }
 
     public static function generate_email($file,$data){
+
             $file_email=PATH_ROOT."App/Views/emails/".$file.".php";
+            
             if(file_exists($file_email)){
                 extract($data);
                 ob_start();
@@ -63,4 +65,30 @@ class Email{
                 return false;
             }
     }
+
+
+    // public static function generate($file,$data=[],$title){
+
+    
+    //     $content=Email::generateFile(PATH_ROOT."App/Views/emails/".$file.".php", $data);
+
+    //     $view=Email::generateFile(PATH_ROOT."App/views/Template_email.php",array('title' => $title,
+    //                                                                                 'content' => $content));
+
+        
+       
+        
+        
+    // }
+
+
+    // private static function generateFile($file,$data){
+
+    //     if(file_exists($file)){
+    //         extract($data);
+    //         ob_start();
+    //         require $file;
+    //         return ob_get_clean();
+    //     }
+    // }
 }

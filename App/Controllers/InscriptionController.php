@@ -36,8 +36,9 @@ class InscriptionController extends Controller{
                                 $key.= mt_rand(0,9);
                             }
 
-                            
-                            $content_email=Email::generate_email("confirmation_inscription",array("key" => $key));
+                            $pseudo=htmlspecialchars($_POST["pseudo"]);
+
+                            $content_email=Email::generate_email("confirmation_inscription",array("key" => $key, "name" => $pseudo));
 
                             if(Email::sendEmail($_POST["email"],"Confirmez votre inscription",$content_email)){
 
