@@ -11,6 +11,27 @@ class UserController extends Controller{
         $this->userManager=$this->model("UserManager");
     }
 
+    private function is_connected(){
+
+        if(!isset($_SESSION["user"])){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+    }
+
+    private function get_current_user($id){
+
+        $current_user=$this->userManager->get_user("id",$id);
+
+        if($current_user == false){
+            echo json_encode(['location'=>URL]);
+            exit();
+        }
+
+        return $current_user;
+    }
+
     public function index(){
         
         if(isset($_SESSION["user"])){
@@ -23,19 +44,9 @@ class UserController extends Controller{
 
     public function pseudo(){
         
-        if(!isset($_SESSION["user"])){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        $this->is_connected();
 
-        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
-
-        if($current_user == false){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
-
-
+        $current_user=$this->get_current_user($_SESSION["user"]->id);
 
         $new_pseudo=strip_tags($_POST["new_pseudo"]);
 
@@ -58,17 +69,10 @@ class UserController extends Controller{
 
     public function email(){
 
-        if(!isset($_SESSION["user"])){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        $this->is_connected();
 
-        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+        $current_user=$this->get_current_user($_SESSION["user"]->id);
 
-        if($current_user == false){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
 
         if(filter_var($_POST["new_email"],FILTER_VALIDATE_EMAIL)){
 
@@ -144,17 +148,9 @@ class UserController extends Controller{
 
     public function password(){
 
-        if(!isset($_SESSION["user"])){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        $this->is_connected();
 
-        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
-
-        if($current_user == false){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        $current_user=$this->get_current_user($_SESSION["user"]->id);
 
 
         if(password_verify($_POST["current_password"], $current_user->password_account)){
@@ -177,32 +173,22 @@ class UserController extends Controller{
         
         $key_account=$params[1];
 
-        $current_user=$this->userManager->get_user("key_confirm",$key_account);
+        
 
-        if($current_user == false){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        $current_user=$this->get_current_user($_SESSION["user"]->id);
+   
 
+        $content_email=Email::generate_email("delete_account",array("key_account"=>$key_account, "name" => $current_user->pseudo));
 
-        if($current_user ==! false){
-
-            $content_email=Email::generate_email("delete_account",array("key_account"=>$key_account, "name" => $current_user->pseudo));
-
-            if(Email::sendEmail($current_user->email,"Suppression du compte",$content_email)){
-                $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
-            }
-
-            else{
-                $message=["attribute"=>"error", "message"=>"Problème technique"];
-            }
-
+        if(Email::sendEmail($current_user->email,"Suppression du compte",$content_email)){
+            $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
         }
 
         else{
-            $message=["attribute"=>"error", "message"=>"Utilisateur introuvable"];
+            $message=["attribute"=>"error", "message"=>"Problème technique"];
         }
 
+      
          echo json_encode($message);
 
     }
@@ -245,17 +231,11 @@ class UserController extends Controller{
 
     public function picture_account(){
 
-        if(!isset($_SESSION["user"])){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        $this->is_connected();
 
-        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+        $current_user=$this->get_current_user($_SESSION["user"]->id);
 
-        if($current_user == false){
-            echo json_encode(['location'=>URL]);
-            exit();
-        }
+        
         
         if(isset($_FILES["photo"]) && !empty($_FILES["photo"]["name"])){
 
