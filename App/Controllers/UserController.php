@@ -88,6 +88,7 @@ class UserController extends Controller{
                         $this->userManager->update_user("email",$_POST["new_email"],$current_user->id);
                         $this->userManager->update_user("account_confirmed",0,$current_user->id);
                         $_SESSION["user"]->email=$_POST["new_email"];
+                        $_SESSION["user"]->account_confirmed=0;
                         $response=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
                     }
                     else{
