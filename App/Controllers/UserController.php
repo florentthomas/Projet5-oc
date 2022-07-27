@@ -274,31 +274,50 @@ class UserController extends Controller{
 
     public function password_forgot(){
 
-        if(!empty($_POST["email"]) && filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)){
+
+        if(isset($_POST["email"])){
+
+            if(!empty($_POST["email"]) && filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)){
             
 
-            if($this->userManager->email_exists($_POST["email"]) ==! false){
-
-                $current_user=$this->userManager->get_user("email",$_POST["email"]);
-
-                $content_email=Email::generate_email("reset_password",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
-
-                if(Email::sendEmail($current_user->email,"Réinitialiser le mot de passe",$content_email)){
-                    $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
+                if($this->userManager->email_exists($_POST["email"]) ==! false){
+    
+                    $current_user=$this->userManager->get_user("email",$_POST["email"]);
+    
+                    $content_email=Email::generate_email("reset_password",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
+    
+                    if(Email::sendEmail($current_user->email,"Réinitialiser le mot de passe",$content_email)){
+                        $_SESSION["flash"]["response"]=["attribute"=>"success","message"=>"Email envoyé"];
+                    }
+    
+                    else{
+                        $_SESSION["flash"]["response"]=["attribute"=>"error","message"=>"Un problème est survenu, echec de l'envoie de l'email"];
+                    }
+                        
                 }
-
+    
                 else{
-                    $message=["attribute"=>"error", "message"=>"Problème technique"];
+                    $_SESSION["flash"]["response"]=["attribute"=>"error","message"=>"L'adresse email ne corresponds à aucun utilisateur"];
                 }
-                    $_SESSION["flash"]["response"]=["attribute"=>"success","message"=>"Email envoyé"];
+            }
+    
+            else{
+                $_SESSION["flash"]["response"]=["attribute"=>"error","message"=>"Vous devez saisir votre adresse email"];
             }
 
-            else{
-                $_SESSION["flash"]["response"]=["attribute"=>"error","message"=>"L'adresse email ne corresponds à aucun utilisateur"];
-            }
+
+            header("Location:".URL."password_forgot");
+            exit();
+            
+
         }
 
+
         $this->view("Forgot_password");
+
+        if(isset($_SESSION["flash"]["response"])){
+            unset($_SESSION["flash"]["response"]);
+        }
 
     }
 
