@@ -75,37 +75,52 @@ class UserController extends Controller{
         $current_user=$this->get_current_user($_SESSION["user"]->id);
 
 
-        if(filter_var($_POST["new_email"],FILTER_VALIDATE_EMAIL)){
-
-            if($_POST["new_email"] !== $current_user->email){
-
-                if(!$this->userManager->email_exists($_POST["new_email"])){
+        if(isset($_POST["new_email"]) && isset($_POST["email_confirm"]) && !empty($_POST["new_email"]) && !empty($_POST["email_confirm"])){
 
 
-                    $content_email=Email::generate_email("confirm_new_email",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
+            if($_POST["new_email"] === $_POST["email_confirm"]){
 
-                    if(Email::sendEmail($_POST["new_email"],"Confirmez votre nouvelle adresse",$content_email)){
 
-                        $this->userManager->update_user("email",$_POST["new_email"],$current_user->id);
-                        $this->userManager->update_user("account_confirmed",0,$current_user->id);
-                        $_SESSION["user"]->email=$_POST["new_email"];
-                        $_SESSION["user"]->account_confirmed=0;
-                        $response=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
+                if(filter_var($_POST["new_email"],FILTER_VALIDATE_EMAIL)){
+
+                    if($_POST["new_email"] !== $current_user->email){
+
+                        if(!$this->userManager->email_exists($_POST["new_email"])){
+
+
+                            $content_email=Email::generate_email("confirm_new_email",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
+
+                            if(Email::sendEmail($_POST["new_email"],"Confirmez votre nouvelle adresse",$content_email)){
+
+                                $this->userManager->update_user("email",$_POST["new_email"],$current_user->id);
+                                $this->userManager->update_user("account_confirmed",0,$current_user->id);
+                                $_SESSION["user"]->email=$_POST["new_email"];
+                                $_SESSION["user"]->account_confirmed=0;
+                                $response=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
+                            }
+                            else{
+                                $response=["attribute"=>"error","message"=>"Une erreur s'est produite"];
+                            }
+                        }
+                        else{
+                            $response=["attribute"=>"error","message"=>"Adresse email déjà utilisée par un autre compte"];
+                        }
                     }
                     else{
-                        $response=["attribute"=>"error","message"=>"Une erreur s'est produite"];
+                        $response=["attribute"=>"error","message"=>"Vous avez renseigné votre adresse email actuelle"];
                     }
                 }
                 else{
-                    $response=["attribute"=>"error","message"=>"Adresse email déjà utilisée par un autre compte"];
+                    $response=["attribute"=>"error","message"=>"Adresse email non valide"];
                 }
             }
             else{
-                $response=["attribute"=>"error","message"=>"Vous avez renseigné votre adresse email actuelle"];
+                $response=["attribute"=>"error","message"=>"Les adresses email ne sont pas identiques"];
             }
         }
+
         else{
-            $response=["attribute"=>"error","message"=>"Adresse email non valide"];
+            $response=["attribute"=>"error","message"=>"Vous devez renseigner une adresse email"];
         }
 
         echo json_encode($response);
