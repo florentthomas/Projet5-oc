@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Tools\Email;
+use App\Tools\Tools;
 
 
 class UserController extends Controller{
@@ -240,48 +241,27 @@ class UserController extends Controller{
         
         if(isset($_FILES["photo"]) && !empty($_FILES["photo"]["name"])){
 
-            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
 
-            $extensionFile_explode=explode('.',$_FILES["photo"]["name"]);
+            $send_image=Tools::add_picture($_FILES["photo"], PATH_IMG_AVATARS);
 
-            $extension_photo=strtolower(end($extensionFile_explode));
+            
 
-            $maxSize=2097152;
+            if($send_image["attribute"] === "success"){
+
+                $response=["attribute" => "success", "message" => "Photo de profil modifié"];
+
+                $name_photo=$send_image["name_photo"];
+
+                $this->userManager->update_user("photo",$name_photo,$current_user->id);
 
 
-            if(in_array($extension_photo,$extensionsValides)){
+                unlink(PATH_IMG_AVATARS."/".$_SESSION["user"]->photo);
 
-                if($_FILES["photo"]["size"] < $maxSize){
+                $_SESSION["user"]->photo= $name_photo;
 
-                    $path_photo=PATH_ROOT."Public/images/avatars/".$current_user->id.".".$extension_photo;
-                
-                    if($_FILES["photo"]["error"] == 0){
-
-                        if(move_uploaded_file($_FILES["photo"]["tmp_name"], $path_photo)){
-                        
-                            $url_photo=URL."Public/images/avatars/".$current_user->id.".".$extension_photo;
-                            $this->userManager->update_user("url_photo",$url_photo,$current_user->id);
-                            $_SESSION["user"]->url_photo= $url_photo;
-                            
-                            $response=["attribute"=>"success","message"=>"La photo de profil importée avec succès"];
-                        }
-        
-                        else{
-                            $response=["attribute"=>"error","message"=>"La photo de profil n'a pas été importée"];
-                        }
-                    }
-                    else{
-                        $response=["attribute"=>"error","message"=>"Une erreur s'est produite, l'importation de la photo echouée"];
-                    }
-                }
-                else{
-                    $response=["attribute"=>"error","message"=>"La photo doit faire moins de 2 Mo"];
-                }
             }
-            else{
-                $response=["attribute"=>"error", "message"=>"Seuls les fichiers jpg, jpeg, gif et png sont autorisés"];
-            }
-           
+
+            
         }
         else{
             $response=["attribute"=>"error","message"=>"Veuillez sélectionner une photo"];
@@ -289,6 +269,8 @@ class UserController extends Controller{
 
         echo json_encode($response);
     }
+
+
 
     public function password_forgot(){
 

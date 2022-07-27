@@ -47,6 +47,7 @@ class Tools{
 
     public static function add_picture($file,$path){
 
+
         $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
 
         $extensionFile_explode=explode('.',$file["name"]);
