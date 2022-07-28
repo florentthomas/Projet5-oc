@@ -31,7 +31,7 @@ class UserController extends Controller{
                 unset($_SESSION["user"]);
                 session_destroy();
             }
-            
+
             echo json_encode(['location'=>URL]);
             exit();
         }
@@ -183,16 +183,30 @@ class UserController extends Controller{
 
         $current_user=$this->get_current_user($_SESSION["user"]->id);
 
+        if(isset($_POST["current_password"]) && isset($_POST["new_password"]) && isset($_POST["confirm_new_password"]) && !empty($_POST["current_password"]) && !empty($_POST["new_password"]) && !empty($_POST["confirm_new_password"])){
 
-        if(password_verify($_POST["current_password"], $current_user->password_account)){
+            if($_POST["new_password"] === $_POST["confirm_new_password"]){
+                
+                if(password_verify($_POST["current_password"], $current_user->password_account)){
 
-            $new_password=password_hash($_POST["new_password"],PASSWORD_DEFAULT);
-            $this->userManager->update_user("password_account",$new_password,$current_user->id);
-            $response=["attribute"=>"success","message"=>"Mot de passe modifié avec succès"];
+                    $new_password=password_hash($_POST["new_password"],PASSWORD_DEFAULT);
+                    $this->userManager->update_user("password_account",$new_password,$current_user->id);
+                    $response=["attribute"=>"success","message"=>"Mot de passe modifié avec succès"];
+                }
+
+                else{
+                    $response=["attribute"=>"error","message"=>"Votre mot de passe actuel n'est pas bon"];
+                }
+            }
+
+            else{
+                $response=["attribute"=>"error","message"=>"Les deux mots de passe ne sont pas identiques"];
+            }
+
         }
 
-        else{
-            $response=["attribute"=>"error","message"=>"Votre mot de passe actuel n'est pas bon"];
+        else {
+            $response=["attribute"=>"error","message"=>"Les champs ne sont pas tous remplis"];
         }
         
         echo json_encode($response);
