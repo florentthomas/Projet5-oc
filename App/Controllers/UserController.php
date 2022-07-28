@@ -26,6 +26,12 @@ class UserController extends Controller{
         $current_user=$this->userManager->get_user("id",$id);
 
         if($current_user == false){
+
+            if(isset($_SESSION["user"])){
+                unset($_SESSION["user"]);
+                session_destroy();
+            }
+            
             echo json_encode(['location'=>URL]);
             exit();
         }
