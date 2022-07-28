@@ -49,18 +49,26 @@ class UserController extends Controller{
 
         $current_user=$this->get_current_user($_SESSION["user"]->id);
 
-        $new_pseudo=strip_tags($_POST["new_pseudo"]);
 
-        if(!$this->userManager->pseudo_exists($new_pseudo)){
+        if(isset($_POST["new_pseudo"]) && !empty($_POST["new_pseudo"])){
 
-            $this->userManager->update_user("pseudo",$new_pseudo,$current_user->id);
+            $new_pseudo=strip_tags($_POST["new_pseudo"]);
 
-            $_SESSION["user"]->pseudo=$new_pseudo;
+            if(!$this->userManager->pseudo_exists($new_pseudo)){
 
-            $response=["attribute"=>"success","message"=>"Pseudo modifié"];
+                $this->userManager->update_user("pseudo",$new_pseudo,$current_user->id);
+
+                $_SESSION["user"]->pseudo=$new_pseudo;
+
+                $response=["attribute"=>"success","message"=>"Pseudo modifié"];
+            }
+            else{
+                $response=["attribute"=>"error","message"=>"Le pseudo existe déjà, modification impossible"];
+            }
         }
+
         else{
-            $response=["attribute"=>"error","message"=>"Le pseudo existe déjà, modification impossible"];
+            $response=["attribute"=>"error","message"=>"Veuillez renseigner votre nouveau pseudo"];
         }
 
         echo json_encode($response);
