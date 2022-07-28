@@ -186,7 +186,7 @@ class UserController extends Controller{
         if(isset($_POST["current_password"]) && isset($_POST["new_password"]) && isset($_POST["confirm_new_password"]) && !empty($_POST["current_password"]) && !empty($_POST["new_password"]) && !empty($_POST["confirm_new_password"])){
 
             if($_POST["new_password"] === $_POST["confirm_new_password"]){
-                
+
                 if(password_verify($_POST["current_password"], $current_user->password_account)){
 
                     $new_password=password_hash($_POST["new_password"],PASSWORD_DEFAULT);
@@ -213,24 +213,22 @@ class UserController extends Controller{
     }
 
 
-    public function delete_account($params){
+    public function delete_account(){
 
-        
-        $key_account=$params[1];
 
-        
+        $this->is_connected();
 
         $current_user=$this->get_current_user($_SESSION["user"]->id);
    
 
-        $content_email=Email::generate_email("delete_account",array("key_account"=>$key_account, "name" => $current_user->pseudo));
+        $content_email=Email::generate_email("delete_account",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
 
         if(Email::sendEmail($current_user->email,"Suppression du compte",$content_email)){
             $message=["attribute"=>"success", "message"=>"Email envoyé, veuillez cliquer sur le lien pour confirmer"];
         }
 
         else{
-            $message=["attribute"=>"error", "message"=>"Problème technique"];
+            $message=["attribute"=>"error", "message"=>"Echec lors de l'envoie du mail, suppression impossible"];
         }
 
       
@@ -252,6 +250,10 @@ class UserController extends Controller{
 
 
             if($user ==! false){
+
+                if($user->photo !== "default.svg"){
+                    unlink(PATH_IMG_AVATARS."/".$user->photo);
+                }
 
                 $this->userManager->delete_account($user->id);
 

@@ -32,7 +32,7 @@ $router->post("/setting/change_email", "UserController@email");
 
 $router->post("/setting/change_password", "UserController@password");
  
-$router->get("/setting/delete/:key", "UserController@delete_account");
+$router->get("/setting/delete", "UserController@delete_account");
 
 $router->get("/confirm_delete_account/:key", "UserController@confirm_delete_account");
 
