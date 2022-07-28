@@ -395,14 +395,14 @@ class UserController extends Controller{
     
     public function reset_password_apply(){
 
-        if(isset($_POST["key_account"])){
+        if(isset($_POST["key_account"]) && !empty($_POST["key_account"])){
 
             
             $current_user=$this->userManager->get_user("key_confirm",$_POST["key_account"]);
 
             if($current_user){
 
-                if(isset($_POST["new_password"]) && isset($_POST["confirm_password"]) && $_POST["new_password"] === $_POST["confirm_password"]){
+                if(isset($_POST["new_password"]) && isset($_POST["confirm_password"]) && !empty($_POST["new_password"]) && !empty($_POST["confirm_password"]) && $_POST["new_password"] === $_POST["confirm_password"]){
 
                     $new_password=password_hash($_POST["new_password"], PASSWORD_DEFAULT);
 
