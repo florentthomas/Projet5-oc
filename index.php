@@ -15,9 +15,9 @@ $router->get("/","BlogController@index");
 
 //-----------connection---------------//
 
-$router->get("/connection","BlogController@connection");
-$router->get("/disconnect","BlogController@disconnect");
-$router->post("/connection","BlogController@connection");
+$router->get("/login","LoginController@index");
+$router->get("/disconnect","LoginController@disconnect");
+$router->post("/connection","LoginController@connection");
 
 //----------------end--------------//
 
