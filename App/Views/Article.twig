@@ -78,7 +78,7 @@
 
                             {% for user in users %}
                                 {% if comment.id_user == user.id %}
-                                    <img class="photo_profil" src="{{user.url_photo}}"  alt=""/>
+                                    <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}"  alt=""/>
                                     <div>{{user.pseudo}}</div>
                                     <div>{{comment.date_comment|date("d/m/y")}}</div>
                                 {% endif %}

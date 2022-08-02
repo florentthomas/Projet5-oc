@@ -28,18 +28,18 @@ class UserManager extends Manager{
     }
 
 
-    public function create_account($pseudo,$email,$password,$key){
+    public function create_account($pseudo,$email,$password,$key,$photo){
 
-        $sth=$this->bdd->prepare("INSERT INTO users(pseudo,email,password_account,key_confirm,url_photo) 
-                        VALUES(:pseudo,:email,:password_account,:key_confirm,:url_photo)");
+        $sth=$this->bdd->prepare("INSERT INTO users(pseudo,email,password_account,key_confirm,photo) 
+                        VALUES(:pseudo,:email,:password_account,:key_confirm,:photo)");
 
-        $url_photo_default=URL."Public/images/avatars/default.png";
+       
 
         $sth->execute(Array("pseudo" => $pseudo,
                             "email" => $email,
                             "password_account" =>$password,
                             "key_confirm" => $key,
-                            "url_photo" => $url_photo_default));
+                            "photo" => $photo));
     }
 
 
