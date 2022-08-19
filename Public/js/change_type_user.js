@@ -3,6 +3,7 @@ jQuery(document).ready(function($){
 
 
     $("#form_type_user").submit(function(e){
+
         e.preventDefault();
 
         const url=$(this).attr("action");
@@ -18,14 +19,22 @@ jQuery(document).ready(function($){
         }).
 
             done(function(response){
+                
                 message_ajax(response);
 
-                const new_type_user=$("#form_select_type").find("option:selected").attr("value");
-                $("#type_user").text(new_type_user);
+                const new_type_user=$("#form_type_user").find("input:checked").attr("value");
+                $("#type_user").text("Type d'utilisateur: "+new_type_user);
               
-            })
+            }).
             
-            .fail(message_error_ajax)
+            fail(function(response){
+                
+                message_ajax(response.responseJSON);
+
+                setTimeout(function(){
+                    window.location.href=response.responseJSON.redirect;
+                  }, 2000);
+            })
     })
 
 

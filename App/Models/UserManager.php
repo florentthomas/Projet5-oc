@@ -56,7 +56,7 @@ class UserManager extends Manager{
 
         $value_input=$value_input."%";
 
-        $sth=$this->bdd->prepare("SELECT * FROM users WHERE pseudo LIKE :value_input LIMIT 15");
+        $sth=$this->bdd->prepare("SELECT id,pseudo,photo,type_user,date_inscription FROM users WHERE pseudo LIKE :value_input LIMIT 15");
         $sth->execute(Array("value_input" => $value_input));
         $result=$sth->fetchAll();
 

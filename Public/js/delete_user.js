@@ -23,8 +23,12 @@ jQuery(document).ready(function($){
                 message_ajax(response);   
             }).
 
-            fail(function(){
-                message_error_ajax();
+            fail(function(response){
+                message_ajax(response.responseJSON);
+
+                setTimeout(function(){
+                    window.location.href=response.responseJSON.redirect;
+                }, 2000);
             }).
             
             always(function(){

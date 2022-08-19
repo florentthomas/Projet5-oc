@@ -103,8 +103,6 @@ $router->get("/admin_blog/utilisateur","Admin_usersController@index");
 
 $router->get("/admin_blog/recherche_utilisateur","Admin_usersController@search_user");
 
-$router->post("/admin_blog/recuperer_utilisateur","Admin_usersController@get_user");
-
 $router->post("/admin_blog/type_user","Admin_usersController@change_type_user");
 
 $router->post("/admin_blog/contact_user","Admin_usersController@send_email_to_user");

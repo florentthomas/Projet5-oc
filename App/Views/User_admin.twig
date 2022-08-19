@@ -19,20 +19,18 @@
     <h1>Rechercher un utilisateur</h1>
 
     
-    <form id="search_user" action="{{URL}}admin_blog/recuperer_utilisateur">
+    
 
-        <div class="input_form search">
-            <input id="search_user_input" type="text" placeholder="Saisir le pseudo de l'utilisateur" data-search-url="{{URL}}admin_blog/recherche_utilisateur"/> 
-        </div>
+    <div class="input_form search">
+        <input id="search_user_input" type="text" placeholder="Saisir le pseudo de l'utilisateur" data-search-url="{{URL}}admin_blog/recherche_utilisateur"/> 
+    </div>
 
-   
-        <div id="search_result">
 
-            
-            
-        </div>
+    <div id="search_result">
+        
+    </div>
 
-    </form>
+    
 
     <div id="user_info">
         <img src="" id="photo_user"/>
@@ -47,11 +45,15 @@
             <input type="hidden" name="id_user" value=""/>
             <div>
                 <label>Changer le type de cet utilisateur</label>
-                <select name="type_user" id="form_select_type">
-                    <option value="user">Utilisateur</option>
-                    <option value="editor">Rédacteur</option>
-                    <option value="Admin">Admin</option>
-                </select>
+
+                <div class="list_btn_radio">
+                    <input type="radio" name="type_user" class="type_user" id="user" value="user" checked>
+                    <label for="user">Utilisateur</label>
+                    <input type="radio" name="type_user" class="type_user" id="editor" value="editor" >
+                    <label for="editor">Editeur</label>
+                    <input type="radio" name="type_user" class="type_user" id="admin" value="admin">
+                    <label for="admin">Administrateur</label>
+                </div>
             </div>
             <button type="submit" class="button-blue">Appliquer le changement</button>
         </form>

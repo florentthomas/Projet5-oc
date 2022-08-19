@@ -654,6 +654,9 @@ label[for="image_article"]{
     margin: 25px auto;
 }
 
+
+
+
 .select_user{
     cursor: pointer;
     padding: 5px;
@@ -674,6 +677,7 @@ label[for="image_article"]{
 
 #user_info{
     text-align: center;
+    display: none;
 }
 
 
@@ -707,6 +711,34 @@ label[for="image_article"]{
 .report_comment{
     display: inline-block;
 }
+
+input[type="radio"].type_user {
+    display: none;
+}
+
+input[type="radio"].type_user:checked + label {
+padding: 10px;
+background-color: var(--color_blue_btn);
+color:white;
+border-radius:10px;
+}
+
+input[type="radio"].type_user + label {
+cursor: pointer;
+}
+
+.list_btn_radio{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 15px auto;
+    
+}
+
+.list_btn_radio > label{
+    margin-top: 5px;
+}
+
 
 
 /*result page api*/

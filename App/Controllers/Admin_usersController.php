@@ -3,7 +3,6 @@
 
 namespace App\Controllers;
 
-use App\Tools\Tools;
 use App\Tools\Email;
 
 
@@ -13,10 +12,45 @@ class Admin_usersController extends Controller{
         $this->userManager= $this->model("UserManager");
     }
 
+    private function is_allowed(){
 
+   
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+        
+        if($current_user->type_user !== "admin"){
+
+            header("403 Forbidden", false , 403);
+            $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];
+            echo json_encode ($response);
+            exit();
+
+        }
+        
+
+    }
 
     public function index(){
-        $this->view("User_admin");
+
+        if(isset($_SESSION["user"])){
+            
+            $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+            if($current_user->type_user === "admin"){
+                $this->view("User_admin");
+            }
+            else{
+                header("Location:".URL);
+                exit();
+            }
+        }
+        else{
+            header("Location:".URL);
+            exit();
+        }
+
+  
+        
     }
 
 
@@ -29,24 +63,23 @@ class Admin_usersController extends Controller{
 
             $result=$this->userManager->search($user);
 
+            foreach($result as $user){
+                $user->photo=URL_IMG_AVATARS.$user->photo;
+                $user->date_inscription=date("d/m/Y", strtotime($user->date_inscription));
+            }
+
+
             echo json_encode($result);
 
         }
         
     }
 
-    public function get_user(){
-
-        if(isset($_POST["id_user"])){
-
-            $test="id de l'utilisateur: ".$_POST["id_user"];
-
-            echo json_encode ($test);
-        }
-    }
 
 
     public function change_type_user(){
+
+        $this->is_allowed();
 
         if(isset($_POST["type_user"]) && isset($_POST["id_user"])){
 
@@ -55,7 +88,7 @@ class Admin_usersController extends Controller{
             $user=$this->userManager->get_user("id",$_POST['id_user']);
 
         
-            if($type_user == "user" || $type_user == "editor" || $type_user="admin"){
+            if($type_user === "user" || $type_user === "editor" || $type_user === "admin"){
 
                 if($user !== false){
 
@@ -95,6 +128,9 @@ class Admin_usersController extends Controller{
 
     public function send_email_to_user(){
 
+        $this->is_allowed();
+
+
         if(isset($_POST["message"]) && !empty($_POST["message"]) && isset($_POST["id_user"]) && isset($_POST["subject"]) && !empty($_POST["subject"])){
 
             $user=$this->userManager->get_user("id",$_POST['id_user']);
@@ -110,7 +146,7 @@ class Admin_usersController extends Controller{
                 }
 
                 else{
-                    $response=["attribute" => "error" , "message" => "Une erreur s'est produite lors de l'envoi", "email" => $email_user];
+                    $response=["attribute" => "error" , "message" => "Une erreur s'est produite lors de l'envoi"];
                 }
 
             }
@@ -133,6 +169,8 @@ class Admin_usersController extends Controller{
 
     public function delete_user(){
 
+        $this->is_allowed();
+
         if(isset($_POST["id_user"])){
             $user=$this->userManager->get_user("id",$_POST['id_user']);
 
@@ -141,8 +179,8 @@ class Admin_usersController extends Controller{
                 if($this->userManager->delete_account($_POST["id_user"]) > 0){
 
                     $response=["attribute" => "success", "message" => "Le compte de cet utilisateur a été supprimé"];
-                    $content_email=Tools::generate_email("supression_du_compte",["pseudo" => $user->pseudo]);
-                    Tools::sendEmail($user->email,"Suppression du compte",$content_email);
+                    $content_email=Email::generate_email("supression_du_compte",["name" => $user->pseudo]);
+                    Email::sendEmail($user->email,"Suppression du compte",$content_email);
                 }
 
                else{

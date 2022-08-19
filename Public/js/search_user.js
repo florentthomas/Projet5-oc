@@ -29,11 +29,12 @@ jQuery(document).ready(function($){
 
                     for(let i = 0; i < response.length; i++){
                     
-                        const user=$("<div class='select_user' data-index='"+response.indexOf(response[i])+"' name='id_user' id='"+response[i].id+"'/><img class='photo_profil' src='"+ response[i].url_photo+"'/><span>"+response[i].pseudo+"</span></div>");
-
+                        const user=$("<div class='select_user' data-index='"+response.indexOf(response[i])+"' name='id_user' id='"+response[i].id+"'/><img class='photo_profil' src='"+ response[i].photo+"'/><span>"+response[i].pseudo+"</span></div>");
+                        
 
                         user.appendTo("#search_result");
                     }
+
 
                     $(".select_user").click(function(){
 
@@ -51,14 +52,14 @@ jQuery(document).ready(function($){
 
                         const user = response[key_user_array];
                         
-                        $("#photo_user").attr("src",user.url_photo);
+                        $("#photo_user").attr("src",user.photo);
                         $("#pseudo").append(user.pseudo);
-                        $("#date_inscription").append(user.date_inscription);
-                        $("#type_user").append(user.type_user);
+                        $("#date_inscription").append("Date d'inscrition: "+user.date_inscription);
+                        $("#type_user").append("Type d'utilisateur: "+user.type_user);
 
                         $("input[type=hidden]").attr("value",user.id);
 
-                        
+                        $("#user_info").css("display","block");
 
                     });
                 }

@@ -32,7 +32,13 @@ jQuery(document).ready(function($){
             
         }).
 
-        fail(message_error_ajax).
+        fail(function(response){
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+              }, 2000);
+        }).
 
         always(function(){
             $("#loading").remove();

@@ -139,7 +139,7 @@
 																		
 																		<tr mc:hideable>
 																			<td class="text" style="padding-bottom: 25px; color:#666666; font-family:Arial, sans-serif; font-size:16px; line-height:30px; text-align:left; min-width:auto !important;"><div mc:edit="text_7">
-                                                                                Votre Compte a été supprimé definitevement par un administrateur
+                                                                                Votre Compte a été supprimé definitivement par un administrateur
                                                                             </div></td>
 																		</tr>
 																		
