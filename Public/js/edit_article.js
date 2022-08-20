@@ -5,7 +5,36 @@ jQuery(document).ready(function($){
     
     //Changement du titre
 
-    $("#form_title_article").submit(req_ajax);
+    $("#form_title_article").submit(function(e){
+
+        e.preventDefault();
+
+        const formData=$(this).serialize();
+        const url=$(this).attr("action");
+        const method=$(this).attr("method");
+      
+    
+        $.ajax({
+    
+            url: url,
+            type: method,
+            data: formData,
+            dataType: "json"
+    
+        })
+        
+        .done(function(response){
+            message_ajax(response);
+        })
+        
+        .fail(function(response){
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+            }, 2000);
+        })
+    });
 
 
 
@@ -27,7 +56,7 @@ jQuery(document).ready(function($){
             data: data,
             dataType: "json"
         })
-        . done(function(response){
+        .done(function(response){
             
             message_ajax(response)
 
@@ -46,6 +75,7 @@ jQuery(document).ready(function($){
             
 
         })
+
         .fail(function(rq){
             message_error_ajax(rq);
         })
@@ -55,12 +85,71 @@ jQuery(document).ready(function($){
 
     //changement slug
 
-    $("#form_slug_article").submit(req_ajax);
+    $("#form_slug_article").submit(function(e){
+
+        e.preventDefault();
+
+        const formData=$(this).serialize();
+        const url=$(this).attr("action");
+        const method=$(this).attr("method");
+      
+    
+        $.ajax({
+    
+            url: url,
+            type: method,
+            data: formData,
+            dataType: "json"
+    
+        })
+        
+        .done(function(response){
+            console.log("test");
+            message_ajax(response);
+        })
+        
+        .fail(function(response){
+            console.log("fail");
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+            }, 2000);
+        })
+    });
 
 
     //Changement_description
 
-    $("#form_description_article").submit(req_ajax);
+    $("#form_description_article").submit(function(e){
+        e.preventDefault();
+
+        const formData=$(this).serialize();
+        const url=$(this).attr("action");
+        const method=$(this).attr("method");
+      
+    
+        $.ajax({
+    
+            url: url,
+            type: method,
+            data: formData,
+            dataType: "json"
+    
+        })
+        
+        .done(function(response){
+            message_ajax(response);
+        })
+        
+        .fail(function(response){
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+            }, 2000);
+        })
+    });
 
 
     //changement contenu
@@ -85,8 +174,12 @@ jQuery(document).ready(function($){
             message_ajax(response);
 
         })
-        .fail(function(rq){
-            message_error_ajax(rq);
+        .fail(function(response){
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+            }, 2000);
         })
     });
     

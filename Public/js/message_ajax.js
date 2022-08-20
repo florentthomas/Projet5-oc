@@ -3,6 +3,8 @@ function message_ajax(data){
 
     const result=$("#result");
 
+    console.log(data);
+
     if(data.location){
         window.location.href = data.location;
     }

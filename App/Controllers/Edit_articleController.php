@@ -9,6 +9,7 @@ class Edit_articleController extends Controller{
 
     public function __construct(){
         $this->articleManager= $this->model("ArticleManager");
+        $this->userManager= $this->model("UserManager");
     }
 
 
@@ -29,13 +30,34 @@ class Edit_articleController extends Controller{
         if( $article != null){
             
             $this->view("article_edit", ["article" => $article]);
+            var_dump($_SESSION["user"]);
 
         }
         
     }
 
+    private function is_allowed(){
+
+   
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+        
+        if($current_user->type_user !== "admin" && $current_user->type_user !== "editor"){
+
+            header("403 Forbidden", false , 403);
+            $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];
+            echo json_encode ($response);
+            exit();
+
+        }
+        
+
+    }
+
 
     public function change_title(){
+
+        $this->is_allowed();
 
         if(isset($_POST["title_article"]) && isset($_POST["id_article"]) && !empty($_POST["title_article"])){
             $titre=htmlspecialchars($_POST["title_article"]);
@@ -68,6 +90,8 @@ class Edit_articleController extends Controller{
 
     public function change_slug(){
 
+        $this->is_allowed();
+
         if(isset($_POST["slug_article"]) && isset($_POST["id_article"]) && !empty($_POST["slug_article"])){
 
             $slug=Tools::slug_format($_POST["slug_article"]);
@@ -99,6 +123,8 @@ class Edit_articleController extends Controller{
 
 
     public function change_photo(){
+
+        $this->is_allowed();
 
         if(isset($_FILES["image_article"]) && !empty($_FILES["image_article"]["name"])){
 
@@ -136,6 +162,8 @@ class Edit_articleController extends Controller{
 
     public function change_description(){
 
+        $this->is_allowed();
+
         if(isset($_POST["description"]) && !empty($_POST["description"])){
 
             $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
@@ -168,6 +196,8 @@ class Edit_articleController extends Controller{
 
 
     public function change_content(){
+
+        $this->is_allowed();
 
         if(isset($_POST["content_article"]) && !empty($_POST["content_article"])){
 
