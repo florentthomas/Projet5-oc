@@ -17,6 +17,8 @@ jQuery(document).ready(function($){
                 const url=$(this).attr("action");
                 const formData=$(this).serialize();
 
+                loading_ajax();
+
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -29,7 +31,12 @@ jQuery(document).ready(function($){
 
                     $("input","#form_inscription").val('');
                     
-                }).fail(message_error_ajax);
+                }).fail(message_error_ajax)
+
+                .always(function(){
+                    $("#loading").remove();
+                    $("body").css("overflow","auto");
+                })
 
             }
             else{
