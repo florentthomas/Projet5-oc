@@ -160,7 +160,7 @@ class CommentController extends Controller{
 
     public function add_comment_article(){
 
-        if(isset($_SESSION['user'])){
+        if(isset($_SESSION['user']) && $_SESSION["user"]->account_confirmed == 1){
 
             if(isset($_POST["comment"]) && !empty($_POST["comment"])){
 
