@@ -87,32 +87,39 @@ class Admin_usersController extends Controller{
 
             $user=$this->userManager->get_user("id",$_POST['id_user']);
 
-        
-            if($type_user === "user" || $type_user === "editor" || $type_user === "admin"){
+            if($user->type_user !== "super_admin"){
 
-                if($user !== false){
+                if($type_user === "user" || $type_user === "editor" || $type_user === "admin"){
 
-                    $request_update_user=$this->userManager->update_user("type_user",$type_user,$_POST["id_user"]);
-                    
-                    if($request_update_user){
-
-                        $response=["attribute" => "success", "message" => "Changement effectué"];
+                    if($user !== false){
+    
+                        $request_update_user=$this->userManager->update_user("type_user",$type_user,$_POST["id_user"]);
+                        
+                        if($request_update_user){
+    
+                            $response=["attribute" => "success", "message" => "Changement effectué"];
+                        }
+    
+                        else{
+                            $response=["attribute" => "error", "message" => "Une erreur est survenue lors de l'execution de la requête"];
+                        }
+    
+                        
                     }
-
+    
                     else{
-                        $response=["attribute" => "error", "message" => "Une erreur est survenue lors de l'execution de la requête"];
+                        $response=["attribute"=>"error","message" => "L'utilisateur n'existe pas"];
                     }
-
-                    
                 }
-
+    
                 else{
-                    $response=["attribute"=>"error","message" => "L'utilisateur n'existe pas"];
+                    $response=["attribute"=> "error", "message" => "Type utilisateur non conforme"];
                 }
-            }
+
+            } 
 
             else{
-                $response=["attribute"=> "error", "message" => "Type utilisateur non conforme"];
+                $response=["attribute"=> "error", "message" => "Vous ne pouvez pas modifier son statut"];
             }
 
         }
@@ -176,16 +183,25 @@ class Admin_usersController extends Controller{
 
             if($user != false){
 
-                if($this->userManager->delete_account($_POST["id_user"]) > 0){
+                if($user->type_user !== "super_admin"){
 
-                    $response=["attribute" => "success", "message" => "Le compte de cet utilisateur a été supprimé"];
-                    $content_email=Email::generate_email("supression_du_compte",["name" => $user->pseudo]);
-                    Email::sendEmail($user->email,"Suppression du compte",$content_email);
+                    if($this->userManager->delete_account($_POST["id_user"]) > 0){
+
+                        $response=["attribute" => "success", "message" => "Le compte de cet utilisateur a été supprimé"];
+                        $content_email=Email::generate_email("supression_du_compte",["name" => $user->pseudo]);
+                        Email::sendEmail($user->email,"Suppression du compte",$content_email);
+                    }
+    
+                   else{
+                        $response=["attribute" => "error" , "message" => "L'utilisateur n'as pas été supprimé suite à un problème technique"];
+                    }
                 }
 
-               else{
-                    $response=["attribute" => "error" , "message" => "L'utilisateur n'as pas été supprimé suite à un problème technique"];
+                else{
+                    $response=["attribute" => "error" , "message" => "Vous ne pouvez pas supprimer cet utilisateur"];
                 }
+
+                
             }
 
             else{
