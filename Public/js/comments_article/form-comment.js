@@ -4,11 +4,10 @@ jQuery(document).ready(function($){
 
     const form=$('#form_comment');
 
-    $('.btn_response').click(function(e){
+    $(document).delegate('.btn_response','click',function(e){
 
-        e.preventDefault();
 
-        const id_parent=$(this).data('id');
+        const id_parent=e.target.dataset.id;
 
         const comment=$('#comment-'+ id_parent);
 
@@ -27,7 +26,7 @@ jQuery(document).ready(function($){
 
         e.preventDefault();
 
-        const form_comment_article=$('#comment_article');
+        const form_comment_article=$('#form_comment_article');
 
         $('#id_parent').val(0);
 
@@ -38,10 +37,6 @@ jQuery(document).ready(function($){
         form_comment_article.append(form);
 
     })
-
-
-
-
 
 });
 

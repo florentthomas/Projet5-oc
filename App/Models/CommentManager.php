@@ -17,10 +17,23 @@ class CommentManager extends Manager{
     }
 
 
-    public function getCommentsChildren($comment_id_parent){
+    public function getCommentsPagination($id, $perPage, $offset){
 
-        $sth=$this->bdd->prepare("SELECT * FROM comments_articles WHERE id_parent =:comment_id_parent");
-        $sth->execute(["comment_id_parent" => $comment_id_parent]);
+        $sth=$this->bdd->prepare("SELECT * FROM comments_articles WHERE id_article =:id AND id_parent = 0 ORDER BY date_comment DESC LIMIT $perPage OFFSET $offset");
+        $sth->execute(["id" => $id]);
+
+        $result=$sth->fetchAll();
+
+        return $result;
+
+    }
+
+
+
+    public function getCommentsChildren($comment_id){
+
+        $sth=$this->bdd->prepare("SELECT * FROM comments_articles WHERE id_parent =:comment_id");
+        $sth->execute(["comment_id" => $comment_id]);
 
         $result=$sth->fetchAll();
 

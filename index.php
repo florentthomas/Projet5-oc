@@ -62,6 +62,8 @@ $router->get("/admin_blog/delete_comment/:id_comment", "CommentController@delete
 
 $router->get("/admin_blog/approve_comment/:id_comment", "CommentController@approve_comment");
 
+$router->post("/blog/get_comments", "ArticleController@getComments" );
+
 //---------------end-----------------//
 
 

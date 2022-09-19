@@ -50,16 +50,16 @@
 
         
 
-        <div id="comments">
+        <section id="comments">
 
-            <div id="comment_article">
+            <div id="form_comment_article">
 
                 {% if session.user.account_confirmed == 1 %}
                 
                 <form action="{{URL}}blog/{{article.slug}}-{{article.id}}/comment" method="post" id="form_comment">
                     <input type="hidden" id="id_parent" name="id_parent" value="0"/>
                     <input type="hidden" id="id_article" name="id_article" value="{{article.id}}"/>
-                    <textarea id="comment_area" name="comment" placeholder="Ecrivez votre commentaire"></textarea>
+                    <textarea id="comment_area" name="comment" placeholder="Ecrivez un commentaire"></textarea>
                     <div id="btn_form">
                         <button type="submit" class="button-blue">Envoyer</button>
                         <button id="close_form" class="button-red">Fermer</button>
@@ -69,6 +69,8 @@
                 {% endif %}
 
             </div>
+
+            <div id="comments_article">
           
             {% for comment in comments %}
                       
@@ -134,17 +136,23 @@
                 
                 
             {% endfor %}
+            </div>
+            <div id="load_comments_msg"></div>
+            
 
-    </div>
+        </section>
+        
     </div>
 </div>
 {% endblock %}
 
 {% block script %}
-    <script src="{{URL}}Public/js/form-comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/form-comment.js"></script>
     <script src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script src="{{URL}}Public/js/message_error.js"></script>
     <script src="{{URL}}Public/js/message_ajax.js"></script>
-    <script src="{{URL}}Public/js/add_comment.js"></script>
-    <script src="{{URL}}Public/js/report_comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/add_comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/report_comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/create_elt_user_comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/download_comments.js"></script>
 {% endblock %}
