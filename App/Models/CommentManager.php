@@ -43,6 +43,8 @@ class CommentManager extends Manager{
 
     public function add_comment($comment,$id_parent,$id_user,$id_article,$users_report){
 
+       
+
         $sth=$this->bdd->prepare("INSERT INTO comments_articles (comment,id_parent,date_comment,id_user,id_article,users_report)
                         VALUES (:comment,:id_parent,NOW(),:id_user,:id_article,:users_report)");
 
@@ -53,6 +55,13 @@ class CommentManager extends Manager{
                     "users_report" => $users_report);
 
         $sth->execute($values);
+
+        $id= $this->bdd->lastInsertId();
+
+        return $id;
+        
+
+        
     }
 
     public function get_comments_reported(){

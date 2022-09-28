@@ -11,6 +11,7 @@ class CommentController extends Controller{
 
         $this->commentManager=$this->model("CommentManager");
         $this->userManager=$this->model("userManager");
+        $this->articleManager=$this->model("articleManager");
     }
 
 
@@ -160,34 +161,43 @@ class CommentController extends Controller{
 
     public function add_comment_article(){
 
+
         if(isset($_SESSION['user']) && $_SESSION["user"]->account_confirmed == 1){
 
-            if(isset($_POST["comment"]) && !empty($_POST["comment"])){
 
-                $comment=strip_tags($_POST["comment"]);
-                $id_user=$_SESSION["user"]->id;
-                $url_photo=$_SESSION["user"]->url_photo;
-                $pseudo_user=$_SESSION["user"]->pseudo;
-                $users_report=serialize(Array());
-               
-                $this->commentManager->add_comment($comment,$_POST["id_parent"],$id_user,$_POST["id_article"],$users_report);
-    
-                    $response=["attribute" => "success", "message" => "commentaire envoyé", "url_photo"=>$url_photo,"pseudo_user"=>$pseudo_user];
+            if(isset($_POST["comment"]) && !empty($_POST["comment"]) && isset($_POST["id_parent"]) && is_numeric($_POST["id_parent"]) && isset($_POST["id_article"]) && is_numeric($_POST["id_article"])){
+
                 
+                if($this->articleManager->get_article_by_id($_POST["id_article"])){
+
+                    $comment=htmlspecialchars(trim($_POST["comment"]));
+                    $id_user=$_SESSION["user"]->id;
+                    $users_report=serialize(Array());
+
+
+                    $id_comment=$this->commentManager->add_comment($comment,$_POST["id_parent"],$id_user,$_POST["id_article"],$users_report);
+
+
+                    $response=["attribute" => "success","message" => "Commentaire ajouté", "comment" => $comment ,"id_comment" => $id_comment, "photo" => URL_IMG_AVATARS.$_SESSION["user"]->photo, "date" => date("d/m/y"), "pseudo" => $_SESSION["user"]->pseudo];
+
+                }
+                
+                else{
+                    $response=["attribute" => "error", "message" => "impossible d'envoyer le commentaire"];
+                }
             }
 
             else{
-                $response=["attribute"=>"error","message" => "Le champs commentaire est vide"];
+                $response=["attribute" => "error", "message" => "impossible d'envoyer le commentaire"];
             }
+            
         }
         
         else{
-            $response=["attribute"=>"error","message" => "commentaire non envoyé"];
+            $response=["attribute" => "error", "message" => "impossible d'envoyer le commentaire"];
         }
         
-        
-
-        echo json_encode($response);
+        echo json_encode ($response);
     }
 
 }

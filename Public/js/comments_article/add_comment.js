@@ -6,6 +6,7 @@ jQuery(document).ready(function($){
 
         const url=$(this).attr("action");
         const formData=$(this).serialize();
+        const id_parent=$(this).find("#id_parent").val();
 
         $.ajax({
             url: url,
@@ -17,51 +18,89 @@ jQuery(document).ready(function($){
         
             .done(function(response){
 
-                
 
                 if(response.attribute == "success"){
 
-                   
-                    const id_parent=$("#id_parent").val();
+                    // create card comment
 
-                    const fullDate = new Date();
-                    const twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
-                    const currentDate = fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+            
+                    let containerComment=$("<div></div>").addClass("container_comment");
+                    
+                    let commentDiv=$("<div></div>").addClass("comment").html(response.comment);
 
- 
-                    const img_user=$("<img src='"+response.url_photo+"'/>").addClass("photo_profil");
-                    const date=$("<div></div>").text(currentDate);
-                    const user=$("<div></div>").addClass("user").append(img_user,date);
+                    //card user
+
+                    let userDiv=$("<div></div>");
+                    userDiv.addClass("user");
+
+                    let photoUser=$("<img/>");
+                    let pseudoDiv=$("<div></div>");
+                    let dateCommentDiv=$("<div></div>");
 
 
-                    const comment=$("<div></div>").addClass("comment").text($("#comment_area").val());
+                    photoUser.attr("src", response.photo);
+                    pseudoDiv.html(response.pseudo);
+                    dateCommentDiv.html(response.date);
+
+                    $(userDiv).append(photoUser);
+                    $(userDiv).append(pseudoDiv);
+                    $(userDiv).append(dateCommentDiv);
+
+                    //btn response and report 
+
+                    const btnDiv=$("<div></div>").addClass("btn_comment_end");
+                    const formElt=$("<form></form>").addClass("report_comment");
+
+                    const report_url=$(".report_comment").attr("action");
+            
+                    formElt.attr({"action": report_url, "method":"post", "data-id":response.id_comment});
+                    
+                    const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
 
 
-                    const container_comment=$("<div></div>").addClass("container_comment").append(user,comment);
-
-                    const comment_card=$("<div></div>").append(container_comment);
-
-                    if(id_parent > 0){
+                    
+                    if(id_parent == 0){
                         
-                        comment_card.addClass("response_comment_card");
-                        $("#comment-"+id_parent).after(comment_card);
+                        //button response
+                        const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", response.id_comment).html("Répondre");
+                        $(btnDiv).append(btnEltReponse);
                     }
-                    else{
-                        comment_card.addClass("comment_article_card");
-                        $("#comment_article").after(comment_card);
-    
+                    
+
+                
+                    
+                    $(formElt).append(btnReport);
+                    $(containerComment).append(userDiv);
+                    $(btnDiv).append(formElt);
+                   
+
+                    $(containerComment).append(commentDiv);
+                
+
+                    if(id_parent == 0){
+                        let cardElt=$("<div></div>").addClass("comment_article_card").attr("id", "comment-"+response.id_comment);
+                        $(cardElt).append(btnDiv);
+                        cardElt.prepend(containerComment);
+                        $("#comments_article").prepend(cardElt);
                     }
 
-                    message_ajax(response);
+                    else{
+                        let cardEltChildren=$("<div></div>").addClass("response_comment_card");
+                        $(cardEltChildren).append(btnDiv);
+                        cardEltChildren.prepend(containerComment);
+                        $("#comment-"+id_parent).after(cardEltChildren);
+                    }
+
 
                     $("#comment_area").val("");
+                    message_ajax(response);
+                    
                 }
 
                 else{
-                    message_error(response);
+                    message_ajax(response);
                 }
 
- 
             })
             
             .fail(message_error_ajax);

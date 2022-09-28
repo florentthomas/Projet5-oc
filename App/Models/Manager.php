@@ -28,6 +28,7 @@ abstract class Manager{
             echo $e->getMessage();
             die();
         }
+       
     }
 
 }

@@ -2,16 +2,15 @@ jQuery(document).ready(function($){
 
 
 
-    
 
-    $('.report_comment').submit(function(e){
+    $(document).delegate(".report_comment","submit",function(e){
 
         e.preventDefault();
 
         const comment_id=$(this).data("id");
         const url=$(this).attr("action");
       
-
+        console.log(comment_id);
        
         $.ajax({
             url: url,

@@ -47,7 +47,6 @@ $(window).scroll(function() {
 
             account_confirmed=response.account_confirmed;
 
-            console.log(comments);
             
             if(comments != undefined){
 
