@@ -10,7 +10,6 @@ jQuery(document).ready(function($){
         const comment_id=$(this).data("id");
         const url=$(this).attr("action");
       
-        console.log(comment_id);
        
         $.ajax({
             url: url,
@@ -18,8 +17,8 @@ jQuery(document).ready(function($){
             data:{
                 "comment_id" : comment_id
             },
-            dataType: "json",
-            async: false
+            dataType: "json"
+            
 
         }).
         done(function(response){

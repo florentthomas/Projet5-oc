@@ -56,14 +56,11 @@ class CommentController extends Controller{
 
                 $id_user=$_SESSION["user"]->id;
 
-
-
-
                 
-
+           
                 if(!in_array($id_user,$users_report)){
 
-                    array_push($users_report,$_SESSION["user"]->id);
+                    array_push($users_report,$id_user);
 
                     $this->commentManager->report_comment($_POST["comment_id"],serialize($users_report));
 
