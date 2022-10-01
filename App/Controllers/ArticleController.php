@@ -97,9 +97,11 @@ class ArticleController extends Controller{
 
                     if($comment->id_parent == $comment_to_show->id){
 
-                        //stock tous les commentaires enfants des 10 premiers commentaires recupérés plus tôt
+                        //stock tous les commentaires enfants des 10 premiers commentaires parents recupérés plus tôt
 
                         $children=$this->commentManager->getCommentsChildren($comment_to_show->id);
+
+                    
 
                         
                         $comment_to_show->children=$children;
@@ -138,7 +140,6 @@ class ArticleController extends Controller{
                 }
                 
             }
-
 
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
 
