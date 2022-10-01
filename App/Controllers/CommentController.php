@@ -167,6 +167,12 @@ class CommentController extends Controller{
                 
                 if($this->articleManager->get_article_by_id($_POST["id_article"])){
 
+                    if($_POST["id_parent"] != 0 && $this->commentManager->get_comment($_POST["id_parent"]) == null){
+                        $response=["attribute" => "error", "message" => "impossible d'envoyer le commentaire"];
+                        echo json_encode ($response);
+                        exit();
+                    }
+
                     $comment=htmlspecialchars(trim($_POST["comment"]));
                     $id_user=$_SESSION["user"]->id;
                     $users_report=serialize(Array());
@@ -180,7 +186,7 @@ class CommentController extends Controller{
                 }
                 
                 else{
-                    $response=["attribute" => "error", "message" => "impossible d'envoyer le commentaire"];
+                    $response=["attribute" => "error", "message" => "l'article n'existe pas"];
                 }
             }
 
