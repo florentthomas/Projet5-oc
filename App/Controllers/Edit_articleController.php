@@ -15,23 +15,62 @@ class Edit_articleController extends Controller{
 
     public function index(){
 
-        $articles=$this->articleManager->get_all_articles();
+        if(isset($_SESSION["user"])){
+            
+            $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
-        $this->view("list_article_edit", ["articles" => $articles]); 
+            if($current_user->type_user === "admin" || $current_user->type_user === "super_admin" || $current_user->type_user === "editor"){
+
+                $articles=$this->articleManager->get_all_articles();
+
+                $this->view("list_article_edit", ["articles" => $articles]); 
+            }
+            else{
+                header("Location:".URL);
+                exit();
+            }
+        }
+        else{
+            header("Location:".URL);
+            exit();
+        }
+
+        
     }
 
 
     public function panel_edit_article($params){
 
-        $id=$params[1];
 
-        $article=$this->articleManager->get_article_by_id($id);
 
-        if( $article != null){
+        if(isset($_SESSION["user"])){
             
-            $this->view("article_edit", ["article" => $article]);
-            var_dump($_SESSION["user"]);
+            $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
+            if($current_user->type_user === "admin" || $current_user->type_user === "super_admin" || $current_user->type_user === "editor"){
+
+                $id=$params[1];
+
+                $article=$this->articleManager->get_article_by_id($id);
+
+                if( $article != null){
+                    
+                    $this->view("article_edit", ["article" => $article]);
+
+                }else{
+                    header('HTTP/1.0 404 Not Found');
+                    $this->view("404");
+                }
+
+            }
+            else{
+                header("Location:".URL);
+                exit();
+            }
+        }
+        else{
+            header("Location:".URL);
+            exit();
         }
         
     }
@@ -42,7 +81,7 @@ class Edit_articleController extends Controller{
         $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
         
-        if($current_user->type_user !== "admin" && $current_user->type_user !== "editor"){
+        if($current_user->type_user !== "admin" && $current_user->type_user !== "editor" && $current_user->type_user !== "super_admin"){
 
             header("403 Forbidden", false , 403);
             $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];

@@ -18,7 +18,7 @@ class Admin_usersController extends Controller{
         $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
         
-        if($current_user->type_user !== "admin"){
+        if($current_user->type_user !== "admin" && $current_user->type_user !== "super_admin"){
 
             header("403 Forbidden", false , 403);
             $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];
@@ -36,7 +36,7 @@ class Admin_usersController extends Controller{
             
             $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
-            if($current_user->type_user === "admin"){
+            if($current_user->type_user === "admin" || $current_user->type_user === "super_admin" ){
                 $this->view("User_admin");
             }
             else{
@@ -48,9 +48,7 @@ class Admin_usersController extends Controller{
             header("Location:".URL);
             exit();
         }
-
   
-        
     }
 
 

@@ -17,33 +17,74 @@ class CommentController extends Controller{
 
     public function index(){
 
-        $comments=$this->commentManager->get_comments_reported();
-        $users=[];
-
-        foreach($comments as $comment){
-            $commentsById[$comment->id]=$comment;
-        
-            $users_id[]=$comment->id_user;    
+        if(isset($_SESSION["user"])){
             
-        }
+            $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
-        if(isset($users_id) && $users_id ==! null){
+            if($current_user->type_user === "admin" || $current_user->type_user === "super_admin"){
 
-            $users_id=array_unique($users_id);
-            foreach($users_id as $user){
-                $users[]=$this->userManager->get_user("id",$user);
+                $comments=$this->commentManager->get_comments_reported();
+                $users=[];
+
+                foreach($comments as $comment){
+                    $commentsById[$comment->id]=$comment;
+                
+                    $users_id[]=$comment->id_user;    
+                    
+                }
+
+                if(isset($users_id) && $users_id ==! null){
+
+                    $users_id=array_unique($users_id);
+                    foreach($users_id as $user){
+                        $users[]=$this->userManager->get_user("id",$user);
+                    }
+
+                } 
+
+
+                $this->view("report_comment",array("comments_reported" => $comments, "users" => $users));
+
+
             }
 
-        } 
+            else{
+                header("Location:".URL);
+                exit();
+            }
 
+        }
 
-        $this->view("report_comment",array("comments_reported" => $comments, "users" => $users));
+        else{
+            header("Location:".URL);
+            exit();
+        }
+
+        
+
+    }
+
+    private function is_allowed(){
+
+   
+        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+        
+        if($current_user->type_user !== "admin"  && $current_user->type_user !== "super_admin"){
+
+            header("403 Forbidden", false , 403);
+            $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];
+            echo json_encode ($response);
+            exit();
+
+        }
+        
 
     }
 
     public function report_comment(){
 
-        if($_SESSION["user"]->account_confirmed == 1){
+        if(isset($_SESSION["user"]) && $_SESSION["user"]->account_confirmed == 1){
 
 
             $comment= $this->commentManager->get_comment($_POST["comment_id"]);
@@ -87,21 +128,23 @@ class CommentController extends Controller{
 
 
     public function delete_comment($params){
+
+        $this->is_allowed();
     
-       $id_comment=$params[1];
+        $id_comment=$params[1];
 
-       $comment=$this->commentManager->get_comment($id_comment);
+        $comment=$this->commentManager->get_comment($id_comment);
 
-       if($comment == null){
+        if($comment == null){
 
-            $reponse = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
+                $reponse = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
 
-       }
+        }
 
-       else{
+        else{
 
         
-           if($comment->id_parent == 0){
+            if($comment->id_parent == 0){
 
                 $comments_children=$this->commentManager->getCommentsChildren($id_comment);
 
@@ -136,6 +179,8 @@ class CommentController extends Controller{
 
 
     public function approve_comment($params){
+
+        $this->is_allowed();
     
         $id_comment=$params[1];
  
