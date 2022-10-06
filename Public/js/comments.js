@@ -27,7 +27,11 @@ jQuery(document).ready(function($){
         }).
 
         fail(function(response){
-            message_error_ajax(response);
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+              }, 2000);;
         })
     })
 
@@ -47,7 +51,6 @@ jQuery(document).ready(function($){
 
         done(function(response){
 
-            console.log(commentElt);
 
             $("#test").hide();
             commentElt.hide();
@@ -57,7 +60,11 @@ jQuery(document).ready(function($){
         }).
 
         fail(function(response){
-            message_error_ajax(response);
+            message_ajax(response.responseJSON);
+
+            setTimeout(function(){
+                window.location.href=response.responseJSON.redirect;
+              }, 2000);
         })
     })
 
