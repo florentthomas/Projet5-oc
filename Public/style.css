@@ -993,3 +993,8 @@ cursor: pointer;
     margin-top: 50px;
     line-height: 2rem;
 }
+
+#img_check{
+    display: block;
+    margin-top: 15px;
+}
