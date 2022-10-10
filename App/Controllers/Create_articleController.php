@@ -67,19 +67,27 @@ class Create_articleController extends Controller{
                 
             $response=Tools::add_picture($_FILES["image_article"],PATH_IMG_ARTICLE);
 
+            if($response["attribute"] == "success"){
 
-            $name_image=$response["name_photo"];
-            $title=strip_tags($_POST["title_article"]);
-            $slug=Tools::slug_format($_POST["slug_article"]);
-            $description=strip_tags($_POST["description"]);
-            $content=$_POST["content_article"];
-            $author=$_SESSION["user"]->pseudo;
+                $name_image=$response["name_photo"];
+                $title=strip_tags($_POST["title_article"]);
+                $slug=Tools::slug_format($_POST["slug_article"]);
+                $description=strip_tags($_POST["description"]);
+                $content=$_POST["content_article"];
+                $author=$_SESSION["user"]->pseudo;
 
 
 
-            $this->articleManager->add_article($title,$slug,$description,$content,$name_image,$author);
+                $this->articleManager->add_article($title,$slug,$description,$content,$name_image,$author);
 
-            $_SESSION["flash"]["response"]=["attribute"=>"success","message"=>"L'article a bien été publié"];
+                $_SESSION["flash"]["response"]=["attribute"=>"success","message"=>"L'article a bien été publié"];
+
+            }
+
+            else{
+                $_SESSION["flash"]["response"]=["attribute"=>$response["attribute"],"message"=>$response["message"]];
+            }
+            
 
         
             

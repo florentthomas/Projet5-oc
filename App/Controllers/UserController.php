@@ -307,6 +307,9 @@ class UserController extends Controller{
                 $_SESSION["user"]->photo= $name_photo;
 
             }
+            else{
+                $response=["attribute"=>"error","message"=>$send_image["message"]];
+            }
 
             
         }
