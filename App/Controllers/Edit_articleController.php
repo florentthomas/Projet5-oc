@@ -177,12 +177,12 @@ class Edit_articleController extends Controller{
 
                     $name_photo=$response["name_photo"];
     
-                    if($this->articleManager->edit_article("image",$name_photo,$_POST["id_article"])){
+                    if($this->articleManager->edit_article("image_article",$name_photo,$_POST["id_article"])){
                         $response=["attribute" => "success", "message" => "Image modifiée avec succès"];
                     }
     
                     else{
-                        $response=["attribute" => "error", "message" => "Un problème est survenu, impossible de modifier l'image"];
+                        $response=["attribute" => "error", "message" => $response["message"]];
                     }
                 }
             }
@@ -245,7 +245,7 @@ class Edit_articleController extends Controller{
             
             if($article != null){
 
-                if($this->articleManager->edit_content($_POST["id_article"],$_POST["content_article"])){
+                if($this->articleManager->edit_article("content",$_POST["content_article"],$_POST["id_article"])){
                    
                     $response=["attribute" => "success", "message" => "Article modifié avec succès"];
                 }

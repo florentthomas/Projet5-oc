@@ -51,26 +51,6 @@ class ArticleManager extends Manager{
     }
 
 
-    public function edit_content($id,$content){
-
-        $sth=$this->bdd->prepare("UPDATE articles SET content = :new_content , date_update=NOW() WHERE id=:id");
-
-        $sth->execute(Array("id" => $id,
-                            "new_content" => $content));
-
-
-        $count=$sth->rowCount();
-
-        if($count >= 1){
-            return true;
-        }
-
-        else{
-            return false;
-        }
-
-    }
-
 
     public function add_article($title,$slug,$description,$content,$name_image,$author){
 
