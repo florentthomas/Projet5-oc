@@ -33,7 +33,7 @@ jQuery(document).ready(function($){
                     let userDiv=$("<div></div>");
                     userDiv.addClass("user");
 
-                    let photoUser=$("<img/>");
+                    let photoUser=$("<img/>").addClass("photo_profil");
                     let pseudoDiv=$("<div></div>");
                     let dateCommentDiv=$("<div></div>");
 
