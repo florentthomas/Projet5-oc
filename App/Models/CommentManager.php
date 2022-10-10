@@ -97,14 +97,14 @@ class CommentManager extends Manager{
     }
 
 
-    public function delete_comments($id_comments){
+    public function delete_comment($id_comment){
 
         $sth=$this->bdd->prepare("DELETE FROM comments_articles WHERE id = :id_comment");
 
-        foreach($id_comments as $id_comment){
-            $sth->execute(Array("id_comment" => $id_comment));
+    
+        $sth->execute(Array("id_comment" => $id_comment));
 
-        }
+       
     }
 
     public function approve_comment($id_comment,$users_report){

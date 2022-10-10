@@ -143,7 +143,7 @@ class CommentController extends Controller{
 
         else{
 
-        
+            
             if($comment->id_parent == 0){
 
                 $comments_children=$this->commentManager->getCommentsChildren($id_comment);
@@ -152,26 +152,19 @@ class CommentController extends Controller{
 
                     foreach($comments_children as $comment_children){
 
-                        $comments_to_delete[]=$comment_children->id;
+                        $this->commentManager->delete_comment($comment_children->id);
 
                     }
                         
-                    $comments_to_delete[]=$id_comment;
+                }    
 
-                    $this->commentManager->delete_comments($comments_to_delete);
-                }
-
-                
-               
            }
 
-            else{
+            
+            $this->commentManager->delete_comment($id_comment);
 
-                $this->commentManager->delete_comments(Array($id_comment));
-
-            }
-
-           $reponse = ["attribute" => "success", "message" => "commentaire supprimé"];
+            
+            $reponse = ["attribute" => "success", "message" => "commentaire supprimé"];
        }
 
        echo json_encode($reponse);

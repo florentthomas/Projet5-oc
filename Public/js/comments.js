@@ -17,8 +17,6 @@ jQuery(document).ready(function($){
 
         done(function(response){
 
-            console.log(commentElt);
-
             $("#test").hide();
             commentElt.hide();
 
