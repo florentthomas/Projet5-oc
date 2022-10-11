@@ -32,6 +32,7 @@
     background-color: var(--bgColor_container);
 }
 
+
 #pagination{
     display: flex;
     justify-content: space-between;
@@ -83,9 +84,10 @@ input[type="file"]{
 .input_form{
     margin-top: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
 }
+
 
 .input_form input{
     border-radius: 20px;
@@ -96,6 +98,7 @@ input[type="file"]{
 .input_form label{
     display: flex;
     align-items: center;
+    margin-right: 0.5rem;
 }
 
 textarea:focus,input:focus{
