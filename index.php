@@ -130,6 +130,9 @@ $router->post("admin_blog/edit/change_description","Edit_articleController@chang
 
 $router->post("admin_blog/edit/change_content","Edit_articleController@change_content");
 
+$router->post("admin_blog/edit/delete_article","Edit_articleController@delete_article");
+
+
 //-----------end-------------------//
 
 

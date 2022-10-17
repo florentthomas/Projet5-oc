@@ -104,6 +104,14 @@
         <input type="hidden" value="{{article.id}}" name="id_article" id="id_article"/>
     </form>
 
+
+    <form method="POST" id="delete_article" action="{{URL}}admin_blog/edit/delete_article">
+        <div class="btn_form">
+            <button type="submit" class="button-red">Supprimer l'article</button>
+        </div>
+        <input type="hidden" value="{{article.id}}" name="id_article" id="id_article"/>
+    </form>
+
     
 {% endblock %}
 
@@ -115,5 +123,5 @@
     <script src="{{URL}}Public/js/ajax_function.js"></script>
     <script src="{{URL}}Public/js/preview_image.js"></script>
     <script src="{{URL}}Public/js/reset_photo_edit_article.js"></script>
-    <script type="module" src="{{URL}}Public/js/edit_article.js"></script>
+    <script src="{{URL}}Public/js/delete_article.js"></script>
 {% endblock %}

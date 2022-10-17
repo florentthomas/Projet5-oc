@@ -10,6 +10,7 @@ class Edit_articleController extends Controller{
     public function __construct(){
         $this->articleManager= $this->model("ArticleManager");
         $this->userManager= $this->model("UserManager");
+        $this->commentManager=$this->model("CommentManager");
     }
 
 
@@ -270,6 +271,37 @@ class Edit_articleController extends Controller{
 
 
         echo json_encode($response);
+    }
+
+
+    public function delete_article(){
+
+        $this->is_allowed();
+
+        if(isset($_POST["id_article"]) && !empty($_POST["id_article"])){
+
+            $article=$this->articleManager->get_article_by_id($_POST["id_article"]);
+
+            if($article != null){
+
+                $this->articleManager->delete_article($_POST["id_article"]);
+                $this->commentManager->delete_comments_by_article($_POST["id_article"]);
+                $response=["attribute" => "success", "message" => "L'article a été supprimé", "redirect" => URL."admin_blog/modifier_article"];
+                
+            }
+            else{
+                $response=["attribute" => "error", "message" => "L'article n'existe pas"];
+            }
+
+
+        }
+        else{
+            $response=["attribute" => "error", "message" => "L'article n'a pas été supprimé"];
+        }
+
+
+        echo json_encode ($response);
+
     }
 
 }

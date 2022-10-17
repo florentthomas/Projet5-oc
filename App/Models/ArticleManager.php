@@ -63,4 +63,12 @@ class ArticleManager extends Manager{
                             "slug" => $slug,
                             "image_article" => $name_image));
     }
+
+
+    public function delete_article($id){
+
+        $sth=$this->bdd->prepare("DELETE FROM articles WHERE id = :id");
+        
+        $sth->execute(Array("id"=> $id));
+    }
 }

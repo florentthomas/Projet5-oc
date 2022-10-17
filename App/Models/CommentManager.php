@@ -107,6 +107,17 @@ class CommentManager extends Manager{
        
     }
 
+
+    public function delete_comments_by_article($id_article){
+
+        $sth=$this->bdd->prepare("DELETE FROM comments_articles WHERE id_article = :id_article");
+
+    
+        $sth->execute(Array("id_article" => $id_article));
+    }
+
+
+
     public function approve_comment($id_comment,$users_report){
 
         $sth=$this->bdd->prepare("UPDATE comments_articles SET count_reported = 0, users_report = :users_report  WHERE id = :id_comment");
