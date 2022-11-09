@@ -47,6 +47,8 @@ $(window).scroll(function() {
 
             account_confirmed=response.account_confirmed;
 
+            current_user=response.current_user;
+
             
             if(comments != undefined){
 
@@ -94,11 +96,32 @@ $(window).scroll(function() {
                         formElt.attr({"action": report_url, "method":"post", "data-id":commentElt.id});
                        
                         const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
-                       
+
+
                         $(formElt).append(btnReport);
                         $(btnDiv).append(btnEltReponse);
                         $(btnDiv).append(formElt);
+                        
                         $(cardElt).append(btnDiv);
+
+
+
+                        //button delete comment
+
+                        if(current_user == commentElt.id_user){
+                            
+                            const formDeleteComment=$("<form></form>").addClass("delete_comment").attr({"action": window.location.origin+"/projet-5/blog/delete_comment", "method":"post"});
+
+                            const btnDelete=$("<button></button>").addClass("button-red").html("Supprimer");
+
+                            const inputElt=$("<input/>").attr({"type" : "hidden", "value" : commentElt.id, "name" : "comment_id"});
+
+                            $(formDeleteComment).append(btnDelete);
+                            $(formDeleteComment).append(inputElt);
+                            $(btnDiv).append(formDeleteComment);
+
+                        }
+                       
                         
                     }
 
@@ -117,7 +140,7 @@ $(window).scroll(function() {
 
                         commentElt.children.forEach(children =>{
 
-                            let cardEltChildren=$("<div></div>").addClass("response_comment_card");
+                            let cardEltChildren=$("<div></div>").addClass("response_comment_card").attr({"id": "comment-"+children.id , "data-id-parent": children.id_parent});
                             
                             
                             let containerCommentChildren=$("<div></div>").addClass("container_comment");;
@@ -129,7 +152,7 @@ $(window).scroll(function() {
 
                             users.forEach(user=>{
 
-                                if(commentElt.id_user == user.id){
+                                if(children.id_user == user.id){
         
                                     let userDivChild=createUserCard(user,children);
                                     $(containerCommentChildren).append(userDivChild);
@@ -148,16 +171,33 @@ $(window).scroll(function() {
     
                                 const report_url=$(".report_comment").attr("action");
 
-                                formElt.attr({"action":report_url, "method":"post", "data-id":commentElt.id});
+                                formElt.attr({"action":report_url, "method":"post", "data-id":children.id});
                             
                                 
     
                                 const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
-                            
+
+                                $(btnDiv).append(formElt);
                                 $(formElt).append(btnReport);
+
+                                if(current_user == children.id_user){
+
+                                    const formDeleteComment=$("<form></form>").addClass("delete_comment").attr({"action": window.location.origin+"/projet-5/blog/delete_comment", "method":"post"});
+
+                                    const btnDelete=$("<button></button>").addClass("button-red").html("Supprimer");
+
+                                    const inputElt=$("<input/>").attr({"type" : "hidden", "value" : children.id, "name" : "comment_id"});
+
+                                    $(formDeleteComment).append(btnDelete);
+                                    $(formDeleteComment).append(inputElt);
+                                    $(btnDiv).append(formDeleteComment);
+
+                                }
+                            
+                                
     
                                 
-                                $(btnDiv).append(formElt);
+                                
                                 $(cardEltChildren).append(btnDiv);
                                  
                              }

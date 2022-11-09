@@ -105,46 +105,42 @@ class CommentController extends Controller{
 
                     $this->commentManager->report_comment($_POST["comment_id"],serialize($users_report));
 
-                    $reponse=["attribute" =>"success", "message" => "Commentaire signalé"];
+                    $response=["attribute" =>"success", "message" => "Commentaire signalé"];
 
                 }else{
-                    $reponse=["attribute" =>"error", "message" => "Vous avez déjà signalé ce commentaire"];
+                    $response=["attribute" =>"error", "message" => "Vous avez déjà signalé ce commentaire"];
                 }
                
 
 
             }else{
-                $reponse=["attribute" =>"error", "message" => "Le commentaire n'existe pas"];
+                $response=["attribute" =>"error", "message" => "Le commentaire n'existe pas"];
             }
 
             
         }else{
 
-            $reponse=["attribute" =>"error", "message" => "Impossible de signaler le commentaire"];
+            $response=["attribute" =>"error", "message" => "Impossible de signaler le commentaire"];
         }
 
-        echo json_encode($reponse);
+        echo json_encode($response);
     }
 
 
-    public function delete_comment($params){
-
-        $this->is_allowed();
-    
-        $id_comment=$params[1];
+    private function delete_comment($id_comment){
 
         $comment=$this->commentManager->get_comment($id_comment);
 
         if($comment == null){
 
-                $reponse = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
+                $response = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
 
         }
 
         else{
 
             
-            if($comment->id_parent == 0){
+            if($comment->id_parent == 0){   
 
                 $comments_children=$this->commentManager->getCommentsChildren($id_comment);
 
@@ -158,16 +154,47 @@ class CommentController extends Controller{
                         
                 }    
 
-           }
+            }
 
             
             $this->commentManager->delete_comment($id_comment);
 
             
-            $reponse = ["attribute" => "success", "message" => "commentaire supprimé"];
-       }
+            $response = ["attribute" => "success", "message" => "commentaire supprimé"];
+        }
 
-       echo json_encode($reponse);
+        
+        return $response;
+       
+    }
+
+
+
+
+
+    public function delete_own_comment(){
+
+        if(isset($_SESSION["user"]) && isset($_POST["id_comment"])){
+
+            $comment=$this->commentManager->get_comment($_POST["id_comment"]);
+
+            if($comment != null && $comment->id_user == $_SESSION["user"]->id){
+
+               $response=$this->delete_comment($_POST["id_comment"]);
+
+                
+            }
+            else{
+                $response = ["attribute" => "error", "message" => "impossible de supprimer le commentaire"];
+            }
+    
+        }
+        else{
+            $response = ["attribute" => "error", "message" => "impossible de supprimer le commentaire"];
+           
+        }
+
+        echo json_encode($response);
     }
 
 
@@ -180,17 +207,17 @@ class CommentController extends Controller{
         $comment=$this->commentManager->get_comment($id_comment);
  
         if($comment == null){
-         $reponse = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
+         $response = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
         }
  
         else{
             $array_void=serialize(Array());
 
             $this->commentManager->approve_comment($id_comment, $array_void);
-            $reponse = ["attribute" => "success", "message" => "commentaire approuvé"];
+            $response = ["attribute" => "success", "message" => "commentaire approuvé"];
         }
  
-        echo json_encode($reponse);
+        echo json_encode($response);
      }
 
 

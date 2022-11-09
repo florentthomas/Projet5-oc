@@ -18,7 +18,7 @@ jQuery(document).ready(function($){
         
             .done(function(response){
 
-
+                
                 if(response.attribute == "success"){
 
                     // create card comment
@@ -46,17 +46,27 @@ jQuery(document).ready(function($){
                     $(userDiv).append(pseudoDiv);
                     $(userDiv).append(dateCommentDiv);
 
-                    //btn response and report 
+                    //btn response, report and delete 
 
                     const btnDiv=$("<div></div>").addClass("btn_comment_end");
-                    const formElt=$("<form></form>").addClass("report_comment");
 
+                    const formElt=$("<form></form>").addClass("report_comment");
                     const report_url=$(".report_comment").attr("action");
-            
-                    formElt.attr({"action": report_url, "method":"post", "data-id":response.id_comment});
+                    formElt.attr({"action": window.location.origin+"/projet-5/blog/report_comment", "method":"post", "data-id":response.id_comment});
+
                     
                     const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
 
+                    const formDeleteComment=$("<form></form>").addClass("delete_comment").attr({"action": window.location.origin+"/projet-5/blog/delete_comment", "method":"post"});
+                    
+                    const btnDelete=$("<button></button>").addClass("button-red").html("Supprimer");
+
+                    const inputElt=$("<input/>").attr({"type" : "hidden", "value" : response.id_comment, "name" : "comment_id"});
+                    
+
+                    formDeleteComment.append(btnDelete);
+                    formDeleteComment.append(inputElt);
+                    
 
                     
                     if(id_parent == 0){
@@ -72,6 +82,7 @@ jQuery(document).ready(function($){
                     $(formElt).append(btnReport);
                     $(containerComment).append(userDiv);
                     $(btnDiv).append(formElt);
+                    $(btnDiv).append(formDeleteComment);
                    
 
                     $(containerComment).append(commentDiv);
@@ -85,7 +96,7 @@ jQuery(document).ready(function($){
                     }
 
                     else{
-                        let cardEltChildren=$("<div></div>").addClass("response_comment_card");
+                        let cardEltChildren=$("<div></div>").addClass("response_comment_card").attr({"id": "comment-"+response.id_comment , "data-id-parent": id_parent});
                         $(cardEltChildren).append(btnDiv);
                         cardEltChildren.prepend(containerComment);
                         $("#comment-"+id_parent).after(cardEltChildren);

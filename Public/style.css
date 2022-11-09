@@ -453,6 +453,10 @@ article{
     margin-right:10px;
 } 
 
+.delete_comment{
+    display: inline-block;
+}
+
 
 
 /*Page inscription*/

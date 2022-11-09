@@ -20,6 +20,8 @@
 <div class="wrapper">
 
     {% include ("Nav_bar.twig") %}
+
+    
     
     <div class="container">
 
@@ -44,6 +46,8 @@
             
             
             </div>
+
+           
 
         </article>
 
@@ -97,15 +101,24 @@
                         <form class="report_comment" action="{{URL}}blog/report_comment" method="post" data-id="{{comment.id}}"> 
                             <button class="button-red">Signaler</button>
                         </form>
+
+                        {% if session.user.id == comment.id_user %}
+                        <form class="delete_comment" action="{{URL}}blog/delete_comment" method="post"> 
+                            <button class="button-red">Supprimer</button>
+                            <input type="hidden" name="comment_id" value="{{comment.id}}"/>
+                        </form>
+                        {% endif %}
                     </div>
                     {% endif %}
                 </div>
 
                 
                 {% if comment.children %}
-                
+                    
+                    
                     {% for children in comment.children %}
-                        <div class="response_comment_card">
+                        
+                        <div class="response_comment_card" id="comment-{{children.id}}" data-id-parent="{{children.id_parent}}">
                             <div class="container_comment">
                                 <div class="user">
 
@@ -127,11 +140,19 @@
                                         <button class="button-red">Signaler</button>
                                     </form>
 
+                                    {% if session.user.id == comment.id_user %}
+                                        <form class="delete_comment" action="{{URL}}blog/delete_comment" method="post"> 
+                                            <button class="button-red">Supprimer</button>
+                                            <input type="hidden" name="comment_id" value="{{children.id}}"/>
+                                        </form>
+                                    {% endif %}
+
                                 </div>
                             {% endif %}
                         </div>
+                        
                     {% endfor %}
-                
+                    
                 {% endif %}
                 
                 
@@ -155,4 +176,5 @@
     <script src="{{URL}}Public/js/comments_article/report_comment.js"></script>
     <script src="{{URL}}Public/js/comments_article/create_elt_user_comment.js"></script>
     <script src="{{URL}}Public/js/comments_article/download_comments.js"></script>
+    <script src="{{URL}}Public/js/comments_article/delete_comment.js"></script>
 {% endblock %}

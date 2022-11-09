@@ -153,19 +153,29 @@ class ArticleController extends Controller{
                 
                 foreach($comments as $comment){
 
-                    $date_format = date("d/m/Y", strtotime($comment->date_comment));
                     $comment->date_comment= date("d/m/Y", strtotime($comment->date_comment));
+
+                    if(isset($comment->children)){
+                      
+                        foreach($comment->children as $childs){
+
+                            // var_dump($childs);
+                            $childs->date_comment=date("d/m/Y", strtotime($childs->date_comment));
+                        }
+                    }
 
                 }
 
                 if(isset($_SESSION["user"]) && $_SESSION["user"]->account_confirmed == 1 ){
                     $account_confirmed= true;
+                    $current_user=$_SESSION["user"]->id;
                 }
                 else{
                     $account_confirmed= false;
+                    $current_user=false;
                 }
 
-                $response=["comments" => $comments, "users" => $users, "account_confirmed" => $account_confirmed];
+                $response=["comments" => $comments, "users" => $users, "account_confirmed" => $account_confirmed, "current_user" => $current_user];
 
                 echo json_encode($response);
             }
