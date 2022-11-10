@@ -9,14 +9,13 @@ jQuery(document).ready(function($){
 
         const comment_id=$(this).data("id");
         const url=$(this).attr("action");
-      
+        const fomrData=$(this).serialize();
+        
        
         $.ajax({
             url: url,
             type: "POST",
-            data:{
-                "comment_id" : comment_id
-            },
+            data:fomrData,
             dataType: "json"
             
 

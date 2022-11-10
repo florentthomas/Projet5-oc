@@ -84,7 +84,7 @@ class CommentController extends Controller{
 
     public function report_comment(){
 
-        if(isset($_SESSION["user"]) && $_SESSION["user"]->account_confirmed == 1){
+        if(isset($_SESSION["user"]) && $_SESSION["user"]->account_confirmed == 1 && isset($_POST["comment_id"])){
 
 
             $comment= $this->commentManager->get_comment($_POST["comment_id"]);
