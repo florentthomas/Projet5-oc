@@ -238,15 +238,23 @@ class CommentController extends Controller{
                         exit();
                     }
 
-                    $comment=htmlspecialchars(trim($_POST["comment"]));
-                    $id_user=$_SESSION["user"]->id;
+                    $comment=htmlspecialchars(trim($_POST["comment"])); 
+
+                    $user=Array("id" => $_SESSION["user"]->id,
+                                "photo" => URL_IMG_AVATARS.$_SESSION["user"]->photo,
+                                "pseudo" => $_SESSION["user"]->pseudo);
+                    //$id_user=$_SESSION["user"]->id;
                     $users_report=serialize(Array());
 
 
-                    $id_comment=$this->commentManager->add_comment($comment,$_POST["id_parent"],$id_user,$_POST["id_article"],$users_report);
+                    $id_comment=$this->commentManager->add_comment($comment,$_POST["id_parent"],$user["id"],$_POST["id_article"],$users_report);
 
+                    $comment=$this->commentManager->get_comment($id_comment);
 
-                    $response=["attribute" => "success","message" => "Commentaire ajouté", "comment" => $comment ,"id_comment" => $id_comment, "photo" => URL_IMG_AVATARS.$_SESSION["user"]->photo, "date" => date("d/m/y"), "pseudo" => $_SESSION["user"]->pseudo];
+                    $comment->date_comment= date("d/m/Y", strtotime($comment->date_comment));
+                    
+
+                    $response=["attribute" => "success","message" => "Commentaire ajouté", "comment" => $comment ,"user" => $user];
 
                 }
                 

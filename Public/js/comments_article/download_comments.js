@@ -54,22 +54,16 @@ $(window).scroll(function() {
 
                 comments.forEach(commentElt => {
 
-         
-                    //Create div element and insert comments
+                    const card_comment_parent=create_card_comment_parent(commentElt);
 
-                    let cardElt=$("<div></div>").addClass("comment_article_card").attr("id", "comment-"+commentElt.id);
-                 
-                    let containerComment=$("<div></div>").addClass("container_comment");
                     
-
-                    let commentDiv=$("<div></div>").addClass("comment").html(commentElt.comment);
-                 
-
                     users.forEach(user =>{
 
                         if(user.id == commentElt.id_user){
-                            let userDiv=createUserCard(user,commentElt);
-                            $(containerComment).append(userDiv);
+
+                            const userDiv=createUserCard(user,commentElt);
+                            $(card_comment_parent).find(".container_comment").prepend(userDiv);
+                            
                         }
                     })
 
@@ -78,59 +72,30 @@ $(window).scroll(function() {
 
                        //insert buttons response and report comment if user's account is valid
 
-                        const btnDiv=$("<div></div>").addClass("btn_comment_end");
+                        const btnDiv=$("<div></div>").addClass("btn_comment_end").append(create_form_report_comment(commentElt));
                     
 
                         //button response
                         const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", commentElt.id).html("Répondre");
                       
-            
+                        $(btnDiv).prepend(btnEltReponse);
                         
-                     
-
-                        //form report comment
-                        const formElt=$("<form></form>").addClass("report_comment");
-
-                        const report_url=$(".report_comment").attr("action");
-                
-                        formElt.attr({"action": report_url, "method":"post", "data-id":commentElt.id});
-                       
-                        const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
-
-
-                        $(formElt).append(btnReport);
-                        $(btnDiv).append(btnEltReponse);
-                        $(btnDiv).append(formElt);
-                        
-                        $(cardElt).append(btnDiv);
+                        $(card_comment_parent).append(btnDiv);
 
 
 
                         //button delete comment
 
                         if(current_user == commentElt.id_user){
-                            
-                            const formDeleteComment=$("<form></form>").addClass("delete_comment").attr({"action": window.location.origin+"/projet-5/blog/delete_comment", "method":"post"});
 
-                            const btnDelete=$("<button></button>").addClass("button-red").html("Supprimer");
-
-                            const inputElt=$("<input/>").attr({"type" : "hidden", "value" : commentElt.id, "name" : "comment_id"});
-
-                            $(formDeleteComment).append(btnDelete);
-                            $(formDeleteComment).append(inputElt);
-                            $(btnDiv).append(formDeleteComment);
+                            $(btnDiv).append(create_form_delete_comment(commentElt));
 
                         }
                        
                         
                     }
 
-                   
-                    $(containerComment).append(commentDiv);
-                    cardElt.prepend(containerComment);
-                    $("#comments_article").append(cardElt);
-
-
+                    $("#comments_article").append(card_comment_parent);
 
 
                     //comments child
@@ -138,24 +103,17 @@ $(window).scroll(function() {
 
                     if(commentElt.children){
 
-                        commentElt.children.forEach(children =>{
-
-                            let cardEltChildren=$("<div></div>").addClass("response_comment_card").attr({"id": "comment-"+children.id , "data-id-parent": children.id_parent});
+                        commentElt.children.forEach(commentChild =>{
                             
-                            
-                            let containerCommentChildren=$("<div></div>").addClass("container_comment");;
-                        
-
-                            let commentDivChild=$("<div></div>").addClass("comment").html(children.comment);
-                            
+                            const card_comment_child=create_card_comment_child(commentChild);
 
 
                             users.forEach(user=>{
 
-                                if(children.id_user == user.id){
-        
-                                    let userDivChild=createUserCard(user,children);
-                                    $(containerCommentChildren).append(userDivChild);
+                                if(commentChild.id_user == user.id){
+
+                                    card_comment_child.find(".container_comment").prepend(createUserCard(user,commentChild));
+                                    
                                 }
                             })
 
@@ -164,33 +122,13 @@ $(window).scroll(function() {
      
      
                                 const btnDiv=$("<div></div>").addClass("btn_comment_end");
-                                
+                           
+                                $(btnDiv).append(create_form_report_comment(commentChild));
+                               
 
-                                //form report comment
-                                const formElt=$("<form></form>").addClass("report_comment");
-    
-                                const report_url=$(".report_comment").attr("action");
+                                if(current_user == commentChild.id_user){
 
-                                formElt.attr({"action":report_url, "method":"post", "data-id":children.id});
-                            
-                                
-    
-                                const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
-
-                                $(btnDiv).append(formElt);
-                                $(formElt).append(btnReport);
-
-                                if(current_user == children.id_user){
-
-                                    const formDeleteComment=$("<form></form>").addClass("delete_comment").attr({"action": window.location.origin+"/projet-5/blog/delete_comment", "method":"post"});
-
-                                    const btnDelete=$("<button></button>").addClass("button-red").html("Supprimer");
-
-                                    const inputElt=$("<input/>").attr({"type" : "hidden", "value" : children.id, "name" : "comment_id"});
-
-                                    $(formDeleteComment).append(btnDelete);
-                                    $(formDeleteComment).append(inputElt);
-                                    $(btnDiv).append(formDeleteComment);
+                                    $(btnDiv).append(create_form_delete_comment(commentChild));
 
                                 }
                             
@@ -198,17 +136,11 @@ $(window).scroll(function() {
     
                                 
                                 
-                                $(cardEltChildren).append(btnDiv);
+                                $(card_comment_child).append(btnDiv);
                                  
-                             }
+                            }
 
-
-                            
-                            $(containerCommentChildren).append(commentDivChild);
-                            cardEltChildren.prepend(containerCommentChildren);
-                    
-
-                            $("#comments_article").append(cardEltChildren);
+                            $("#comments_article").append(card_comment_child);
 
                         })
                     }

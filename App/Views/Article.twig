@@ -86,7 +86,7 @@
                                 {% if comment.id_user == user.id %}
                                     <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}"  alt=""/>
                                     <div>{{user.pseudo}}</div>
-                                    <div>{{comment.date_comment|date("d/m/y")}}</div>
+                                    <div>{{comment.date_comment|date("d/m/Y")}}</div>
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -98,8 +98,9 @@
                     {% if session.user.account_confirmed == 1 %}
                     <div class="btn_comment_end">
                         <button class="btn_response button-blue" data-id="{{comment.id}}">Répondre</button>
-                        <form class="report_comment" action="{{URL}}blog/report_comment" method="post" data-id="{{comment.id}}"> 
+                        <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
                             <button class="button-red">Signaler</button>
+                            <input type="hidden" name="comment_id" value="{{comment.id}}"/>
                         </form>
 
                         {% if session.user.id == comment.id_user %}
@@ -126,7 +127,7 @@
                                         {% if children.id_user == user.id %}
                                             <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}" alt=""/>
                                             <div>{{user.pseudo}}</div>
-                                            <div>{{children.date_comment|date("d/m/y")}}</div>
+                                            <div>{{children.date_comment|date("d/m/Y")}}</div>
                                         {% endif %}
                                     {% endfor %}
 
@@ -136,8 +137,9 @@
                             {% if session.user.account_confirmed == 1 %}
                                 <div class="btn_comment_end">
                         
-                                    <form class="report_comment" action="{{URL}}blog/report_comment" method="post" data-id="{{children.id}}"> 
+                                    <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
                                         <button class="button-red">Signaler</button>
+                                        <input type="hidden" name="comment_id" value="{{children.id}}"/>
                                     </form>
 
                                     {% if session.user.id == comment.id_user %}
@@ -172,9 +174,13 @@
     <script src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script src="{{URL}}Public/js/message_error.js"></script>
     <script src="{{URL}}Public/js/message_ajax.js"></script>
+    <script src="{{URL}}Public/js/comments_article/card_comment/card_comment_parent.js"></script>
+    <script src="{{URL}}Public/js/comments_article/card_comment/card_comment_child.js"></script>
+    <script src="{{URL}}Public/js/comments_article/card_comment/create_elt_user_comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/card_comment/form_report_comment.js"></script>
+    <script src="{{URL}}Public/js/comments_article/card_comment/form_delete_comment.js"></script>
     <script src="{{URL}}Public/js/comments_article/add_comment.js"></script>
     <script src="{{URL}}Public/js/comments_article/report_comment.js"></script>
-    <script src="{{URL}}Public/js/comments_article/create_elt_user_comment.js"></script>
     <script src="{{URL}}Public/js/comments_article/download_comments.js"></script>
     <script src="{{URL}}Public/js/comments_article/delete_comment.js"></script>
 {% endblock %}

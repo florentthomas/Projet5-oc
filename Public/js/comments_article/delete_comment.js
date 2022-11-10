@@ -11,8 +11,6 @@ jQuery(document).ready(function($){
 
         const id_comment=$(this).find($("input[type=hidden]")).attr("value");
 
-        console.log(id_comment);
-
         const comment=$("#comment-"+id_comment);
         
 
@@ -31,8 +29,6 @@ jQuery(document).ready(function($){
                 comment.fadeOut();
             
                 let responses= $("[data-id-parent="+id_comment+"]");
-
-                console.log(responses);
 
                 responses.fadeOut();
 

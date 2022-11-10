@@ -18,88 +18,60 @@ jQuery(document).ready(function($){
         
             .done(function(response){
 
-                
+
+                const comment=response.comment;
+                const user = response.user;
+
                 if(response.attribute == "success"){
 
-                    // create card comment
+                    // create card user
 
-            
-                    let containerComment=$("<div></div>").addClass("container_comment");
-                    
-                    let commentDiv=$("<div></div>").addClass("comment").html(response.comment);
+                    const cardUSer=createUserCard(user,comment);
 
-                    //card user
-
-                    let userDiv=$("<div></div>");
-                    userDiv.addClass("user");
-
-                    let photoUser=$("<img/>").addClass("photo_profil");
-                    let pseudoDiv=$("<div></div>");
-                    let dateCommentDiv=$("<div></div>");
-
-
-                    photoUser.attr("src", response.photo);
-                    pseudoDiv.html(response.pseudo);
-                    dateCommentDiv.html(response.date);
-
-                    $(userDiv).append(photoUser);
-                    $(userDiv).append(pseudoDiv);
-                    $(userDiv).append(dateCommentDiv);
 
                     //btn response, report and delete 
 
                     const btnDiv=$("<div></div>").addClass("btn_comment_end");
 
-                    const formElt=$("<form></form>").addClass("report_comment");
-                    const report_url=$(".report_comment").attr("action");
-                    formElt.attr({"action": window.location.origin+"/projet-5/blog/report_comment", "method":"post", "data-id":response.id_comment});
+    
+                    const form_report_comment=create_form_report_comment(comment);
 
+                    const form_delete_comment=create_form_delete_comment(comment);
                     
-                    const btnReport=$("<button></button>").addClass("button-red").html("Signaler");
+                    btnDiv.append(form_report_comment,form_delete_comment);
+                 
+                    
+                
 
-                    const formDeleteComment=$("<form></form>").addClass("delete_comment").attr({"action": window.location.origin+"/projet-5/blog/delete_comment", "method":"post"});
-                    
-                    const btnDelete=$("<button></button>").addClass("button-red").html("Supprimer");
-
-                    const inputElt=$("<input/>").attr({"type" : "hidden", "value" : response.id_comment, "name" : "comment_id"});
-                    
-
-                    formDeleteComment.append(btnDelete);
-                    formDeleteComment.append(inputElt);
-                    
-
-                    
                     if(id_parent == 0){
+                      
+
+                         //button response
+
+                        const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", comment.id).html("Répondre");
+                        $(btnDiv).prepend(btnEltReponse);
+
+
+                    
+                        card_comment_parent=create_card_comment_parent(comment);
+
+                        card_comment_parent.find(".container_comment").prepend(cardUSer)
+
+                        card_comment_parent.append(btnDiv);
+
+                        $("#comments_article").prepend(card_comment_parent);
+
                         
-                        //button response
-                        const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", response.id_comment).html("Répondre");
-                        $(btnDiv).append(btnEltReponse);
-                    }
-                    
-
-                
-                    
-                    $(formElt).append(btnReport);
-                    $(containerComment).append(userDiv);
-                    $(btnDiv).append(formElt);
-                    $(btnDiv).append(formDeleteComment);
-                   
-
-                    $(containerComment).append(commentDiv);
-                
-
-                    if(id_parent == 0){
-                        let cardElt=$("<div></div>").addClass("comment_article_card").attr("id", "comment-"+response.id_comment);
-                        $(cardElt).append(btnDiv);
-                        cardElt.prepend(containerComment);
-                        $("#comments_article").prepend(cardElt);
                     }
 
                     else{
-                        let cardEltChildren=$("<div></div>").addClass("response_comment_card").attr({"id": "comment-"+response.id_comment , "data-id-parent": id_parent});
-                        $(cardEltChildren).append(btnDiv);
-                        cardEltChildren.prepend(containerComment);
-                        $("#comment-"+id_parent).after(cardEltChildren);
+                        const card_comment_child=create_card_comment_child(comment);
+                      
+                        card_comment_child.find(".container_comment").prepend(cardUSer);
+
+                        $(card_comment_child).append(btnDiv);
+                        
+                        $("#comment-"+id_parent).after(card_comment_child);
                     }
 
 
