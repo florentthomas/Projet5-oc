@@ -12,12 +12,13 @@ jQuery(document).ready(function($){
         const id_comment=$(this).find($("input[type=hidden]")).attr("value");
 
         const comment=$("#comment-"+id_comment);
-        
 
+        const formData=$(this).serialize();
+        
         $.ajax({
             url: action,
             method: method,
-            data: {"id_comment" : id_comment},
+            data: formData,
             dataType:"json"
         }).
         

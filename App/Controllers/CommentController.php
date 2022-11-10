@@ -174,13 +174,13 @@ class CommentController extends Controller{
 
     public function delete_own_comment(){
 
-        if(isset($_SESSION["user"]) && isset($_POST["id_comment"])){
+        if(isset($_SESSION["user"]) && isset($_POST["comment_id"])){
 
-            $comment=$this->commentManager->get_comment($_POST["id_comment"]);
+            $comment=$this->commentManager->get_comment($_POST["comment_id"]);
 
             if($comment != null && $comment->id_user == $_SESSION["user"]->id){
 
-               $response=$this->delete_comment($_POST["id_comment"]);
+               $response=$this->delete_comment($_POST["comment_id"]);
 
                 
             }
@@ -243,7 +243,7 @@ class CommentController extends Controller{
                     $user=Array("id" => $_SESSION["user"]->id,
                                 "photo" => URL_IMG_AVATARS.$_SESSION["user"]->photo,
                                 "pseudo" => $_SESSION["user"]->pseudo);
-                    //$id_user=$_SESSION["user"]->id;
+                    
                     $users_report=serialize(Array());
 
 
