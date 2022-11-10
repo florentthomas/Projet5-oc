@@ -76,6 +76,9 @@ jQuery(document).ready(function($){
 
 
                     $("#comment_area").val("");
+                    $("#form_comment_article").append($("#form_comment"));
+                    $("#id_parent").attr("value", 0);
+                    $("#comment_area").attr("placeholder", "Ecrivez un commentaire");
                     message_ajax(response);
                     
                 }
