@@ -378,6 +378,11 @@ class UserController extends Controller{
 
         if(is_numeric($key)){
 
+            if(isset($_SESSION["user"])){
+                header("Location:".URL);
+                exit();
+            }
+
             $user=$this->userManager->get_user("key_confirm",$key);
 
 
