@@ -189,6 +189,8 @@ class CommentController extends Controller{
 
     public function delete_own_comment(){
 
+        $response = ["attribute" => "error", "message" => "impossible de supprimer le commentaire"];
+
         if(isset($_SESSION["user"]) && isset($_POST["comment_id"])){
 
             $comment=$this->commentManager->get_comment($_POST["comment_id"]);
@@ -196,17 +198,9 @@ class CommentController extends Controller{
             if($comment != null && $comment->id_user == $_SESSION["user"]->id){
 
                $response=$this->delete_comment($_POST["comment_id"]);
-
-                
-            }
-            else{
-                $response = ["attribute" => "error", "message" => "impossible de supprimer le commentaire"];
+ 
             }
     
-        }
-        else{
-            $response = ["attribute" => "error", "message" => "impossible de supprimer le commentaire"];
-           
         }
 
         echo json_encode($response);
