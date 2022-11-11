@@ -58,9 +58,9 @@ $router->post("/blog/:slug-:id/comment","CommentController@add_comment_article")
 
 $router->post("/blog/report_comment", "CommentController@report_comment");
 
-$router->get("/admin_blog/delete_comment/:id_comment", "CommentController@delete_comment");
+$router->post("/admin_blog/delete_comment", "CommentController@delete_comment_reported");
 
-$router->get("/admin_blog/approve_comment/:id_comment", "CommentController@approve_comment");
+$router->post("/admin_blog/approve_comment", "CommentController@approve_comment");
 
 $router->post("/blog/get_comments", "ArticleController@getComments" );
 

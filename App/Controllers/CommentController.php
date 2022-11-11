@@ -131,41 +131,56 @@ class CommentController extends Controller{
 
         $comment=$this->commentManager->get_comment($id_comment);
 
-        if($comment == null){
+       
+            
+        if($comment->id_parent == 0){   
 
-                $response = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
+            $comments_children=$this->commentManager->getCommentsChildren($id_comment);
+
+            if($comments_children != null){
+
+                foreach($comments_children as $comment_children){
+
+                    $this->commentManager->delete_comment($comment_children->id);
+
+                }
+                    
+            }    
 
         }
 
-        else{
+        
+        $this->commentManager->delete_comment($id_comment);
 
-            
-            if($comment->id_parent == 0){   
-
-                $comments_children=$this->commentManager->getCommentsChildren($id_comment);
-
-                if($comments_children != null){
-
-                    foreach($comments_children as $comment_children){
-
-                        $this->commentManager->delete_comment($comment_children->id);
-
-                    }
-                        
-                }    
-
-            }
-
-            
-            $this->commentManager->delete_comment($id_comment);
-
-            
-            $response = ["attribute" => "success", "message" => "commentaire supprimé"];
-        }
+        
+        $response = ["attribute" => "success", "message" => "commentaire supprimé"];
+        
 
         
         return $response;
        
+    }
+
+
+    public function delete_comment_reported(){
+
+        $this->is_allowed();
+
+        $response = ["attribute" => "error", "message" => "impossible de supprimer le commentaire"];
+
+        if(isset($_POST["comment_id"])){
+
+            $comment=$this->commentManager->get_comment($_POST["comment_id"]);
+
+            if($comment != null){
+             
+                $response=$this->delete_comment($_POST["comment_id"]);
+            }
+
+        }
+        
+        echo json_encode($response);
+
     }
 
 
@@ -198,24 +213,29 @@ class CommentController extends Controller{
     }
 
 
-    public function approve_comment($params){
+    public function approve_comment(){
 
         $this->is_allowed();
-    
-        $id_comment=$params[1];
- 
-        $comment=$this->commentManager->get_comment($id_comment);
- 
-        if($comment == null){
-         $response = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
-        }
- 
-        else{
-            $array_void=serialize(Array());
 
-            $this->commentManager->approve_comment($id_comment, $array_void);
-            $response = ["attribute" => "success", "message" => "commentaire approuvé"];
+        $response = ["attribute" => "error", "message" => "Action impossible"];
+
+        if(isset($_POST["comment_id"])){
+
+            $comment=$this->commentManager->get_comment($_POST["comment_id"]);
+ 
+            if($comment == null){
+             $response = ["attribute" => "error", "message" => "Le commentaire n'existe pas"];
+            }
+     
+            else{
+                $array_void=serialize(Array());
+    
+                $this->commentManager->approve_comment($_POST["comment_id"], $array_void);
+                $response = ["attribute" => "success", "message" => "commentaire approuvé"];
+            }
         }
+ 
+       
  
         echo json_encode($response);
      }

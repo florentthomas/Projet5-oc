@@ -453,7 +453,7 @@ article{
     margin-right:10px;
 } 
 
-.delete_comment{
+.delete_comment, .approve_comment{
     display: inline-block;
 }
 

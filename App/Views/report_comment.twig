@@ -44,10 +44,16 @@
         
             <div class="btn_comment_end">
 
+                <form class="approve_comment" action="{{URL}}admin_blog/approve_comment" method="post"> 
+                    <button class="button-blue">Approuver</button>
+                    <input type="hidden" name="comment_id" value="{{comment_reported.id}}"/>
+                </form>
+
                 
-                <a href="{{URL}}admin_blog/approve_comment/{{comment_reported.id}}" class="approve_comment"><button class="button-blue">Approuver</button></a>
-                <a href="{{URL}}admin_blog/delete_comment/{{comment_reported.id}}" class="delete_comment"><button class="button-red">Supprimer</button></a>
-                
+                <form class="delete_comment" action="{{URL}}admin_blog/delete_comment" method="post"> 
+                    <button class="button-red">Supprimer</button>
+                    <input type="hidden" name="comment_id" value="{{comment_reported.id}}"/>
+                </form>
                 
             </div>
             Commentaire signalé par {{comment_reported.count_reported}} utilisateurs
@@ -66,6 +72,6 @@
 
     <script src="{{URL}}Public/js/message_ajax.js"></script>
     <script src="{{URL}}Public/js/message_error_ajax.js"></script>
-    <script src="{{URL}}Public/js/comments.js"></script>
+    <script src="{{URL}}Public/js/comments_reported.js"></script>
 
 {% endblock %}
