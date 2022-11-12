@@ -61,5 +61,10 @@ class BlogController extends Controller{
     }
 
 
+    public function no_script(){
+        $this->view("no_script");
+    }
+
+
     
 }

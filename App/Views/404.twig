@@ -6,11 +6,14 @@
 
 
 {% block content %}
+
+{% include ("Nav_bar.twig") %}
+
 <div id="page_404">
     <div id="card_404">
-        <img src="../Public/images/popcorn" alt="pop_corn"/>
+        <img src="{{URL_IMG}}popcorn" alt="pop_corn"/>
         <p>Page non trouvée</p>
-        <a href="{{URL}}"><button>Accueil</button></a>
+        <a href="{{URL}}"><button class="button-blue">Accueil</button></a>
     </div>
 </div>
 {% endblock %}

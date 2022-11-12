@@ -13,6 +13,12 @@ $router=new Router($_GET['url']);
 
 $router->get("/","BlogController@index");
 
+//-------no_script-----------//
+
+$router->get("/no_script","BlogController@no_script");
+
+//------------------------//
+
 //-----------connection---------------//
 
 $router->get("/login","LoginController@index");

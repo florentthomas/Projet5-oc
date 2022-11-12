@@ -1,0 +1,28 @@
+{% extends "Layout.twig" %}
+
+
+{% block title %}
+    <title>javascript désactivé</title>
+{% endblock %}
+
+
+
+{% block description %}
+    <meta name="description" content=""/>
+{% endblock %}
+
+
+
+{% block content %}
+
+{% include ("Nav_bar.twig") %}
+
+    <div id="page_404">
+        <div id="card_404">
+            <img src="{{URL_IMG}}popcorn" alt="pop_corn"/>
+            <p>Cette page a besoin de javascript pour fonctionner correctement</p>
+            <a href="{{URL}}"><button class="button-blue">Accueil</button></a>
+        </div>
+    </div>
+
+{% endblock %}
