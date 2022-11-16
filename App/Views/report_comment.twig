@@ -10,6 +10,14 @@
     <meta name="description" content=""/>
 {% endblock %}
 
+{% block script %}
+
+    <script defer src="{{URL}}Public/js/message_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/comments_reported.js"></script>
+
+{% endblock %}
+
 {% block admin %}
 
 <noscript> 
@@ -74,10 +82,3 @@
     
 {% endblock %}
 
-{% block script %}
-
-    <script src="{{URL}}Public/js/message_ajax.js"></script>
-    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
-    <script src="{{URL}}Public/js/comments_reported.js"></script>
-
-{% endblock %}

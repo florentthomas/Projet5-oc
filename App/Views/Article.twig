@@ -11,6 +11,23 @@
     <meta name="description" content="{{article.content}}"/>
 {% endblock %}
 
+{% block script %}
+    
+    <script defer src="{{URL}}Public/js/comments_article/form-comment.js"></script>
+    <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/message_error.js"></script>
+    <script defer src="{{URL}}Public/js/message_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/card_comment/card_comment_parent.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/card_comment/card_comment_child.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/card_comment/create_elt_user_comment.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/card_comment/form_report_comment.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/card_comment/form_delete_comment.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/add_comment.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/report_comment.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/download_comments.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/delete_comment.js"></script>
+{% endblock %}
+
 
 
 {% block content %}
@@ -173,18 +190,3 @@
 </div>
 {% endblock %}
 
-{% block script %}
-    <script src="{{URL}}Public/js/comments_article/form-comment.js"></script>
-    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
-    <script src="{{URL}}Public/js/message_error.js"></script>
-    <script src="{{URL}}Public/js/message_ajax.js"></script>
-    <script src="{{URL}}Public/js/comments_article/card_comment/card_comment_parent.js"></script>
-    <script src="{{URL}}Public/js/comments_article/card_comment/card_comment_child.js"></script>
-    <script src="{{URL}}Public/js/comments_article/card_comment/create_elt_user_comment.js"></script>
-    <script src="{{URL}}Public/js/comments_article/card_comment/form_report_comment.js"></script>
-    <script src="{{URL}}Public/js/comments_article/card_comment/form_delete_comment.js"></script>
-    <script src="{{URL}}Public/js/comments_article/add_comment.js"></script>
-    <script src="{{URL}}Public/js/comments_article/report_comment.js"></script>
-    <script src="{{URL}}Public/js/comments_article/download_comments.js"></script>
-    <script src="{{URL}}Public/js/comments_article/delete_comment.js"></script>
-{% endblock %}

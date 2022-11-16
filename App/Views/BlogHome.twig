@@ -10,6 +10,11 @@
     <meta name="description" content=""/>
 {% endblock %}
 
+{% block script %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script defer src="{{URL}}Public/js/scroll_to_blog.js"></script>
+{% endblock %}
+
 {% block content %}
 
     <header>
@@ -82,6 +87,3 @@
     
 {% endblock %}
 
-{% block script %}
-    <script src="{{URL}}Public/js/scroll_to_blog.js"></script>
-{% endblock %}

@@ -12,6 +12,15 @@
 
 {% endblock %}
 
+{% block script %}
+    <script defer src="{{URL}}Public/js/message_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/message_error.js"></script>
+    <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/loading_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/safe_password.js"></script>
+    <script defer src="{{URL}}Public/js/form_inscription.js"></script>
+{% endblock %}
+
 
 {% block content %}
 
@@ -73,11 +82,3 @@
             
 {% endblock %}
 
-{% block script %}
-    <script src="{{URL}}Public/js/message_ajax.js"></script>
-    <script src="{{URL}}Public/js/message_error.js"></script>
-    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
-    <script src="{{URL}}Public/js/loading_ajax.js"></script>
-    <script src="{{URL}}Public/js/safe_password.js"></script>
-    <script src="{{URL}}Public/js/form_inscription.js"></script>
-{% endblock %}

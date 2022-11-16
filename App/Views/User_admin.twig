@@ -12,6 +12,17 @@
 
 {% endblock %}
 
+{% block script %}
+    <script defer src="{{URL}}Public/js/search_user.js"></script>
+    <script defer src="{{URL}}Public/js/loading_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/message_error.js"></script>
+    <script defer src="{{URL}}Public/js/message_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/change_type_user.js"></script>
+    <script defer src="{{URL}}Public/js/send_email.js"></script>
+    <script defer src="{{URL}}Public/js/delete_user.js"></script>
+{% endblock %}
+
 {% block admin %}
 
 <noscript> 
@@ -90,17 +101,3 @@
 {% endblock %}
 
 
-{% block script %}
-    <script src="{{URL}}Public/js/search_user.js"></script>
-    <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'message_user' );
-    </script>
-    <script src="{{URL}}Public/js/loading_ajax.js"></script>
-    <script src="{{URL}}Public/js/message_error_ajax.js"></script>
-    <script src="{{URL}}Public/js/message_error.js"></script>
-    <script src="{{URL}}Public/js/message_ajax.js"></script>
-    <script src="{{URL}}Public/js/change_type_user.js"></script>
-    <script src="{{URL}}Public/js/send_email.js"></script>
-    <script src="{{URL}}Public/js/delete_user.js"></script>
-{% endblock %}
