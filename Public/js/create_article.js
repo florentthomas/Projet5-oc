@@ -44,10 +44,10 @@ jQuery(document).ready(function($){
 
 
 
-    $("#create_article").submit(function(e){
+    $("#create_article").submit(function(){
 
-    
-        const content=CKEDITOR.instances['article'].getData();
+        
+        const content=$(this).find("#article").summernote("code");
         const result_elt=$("#result");
         
         

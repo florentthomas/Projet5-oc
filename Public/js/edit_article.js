@@ -157,17 +157,16 @@ jQuery(document).ready(function($){
 
         e.preventDefault();
 
-        const content=CKEDITOR.instances['article'].getData();
         const url=$(this).attr("action");
         const method=$(this).attr("method");
         const id=$("#id_article").attr("value");
-        
+        const dataForm=$(this).serialize();
+
 
         $.ajax({
             url: url,
             method:method,
-            data:{ "content_article": content,
-                    "id_article": id},
+            data:dataForm,
             dataType: "JSON"
         })
         . done(function(response){
