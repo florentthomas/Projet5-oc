@@ -213,7 +213,7 @@ class Edit_articleController extends Controller{
                 $description=strip_tags($_POST["description"]);
 
 
-                if($this->articleManager->edit_article("description",$description,$_POST["id_article"])){
+                if($this->articleManager->edit_article("description_article",$description,$_POST["id_article"])){
                     $response=["attribute" => "success", "message" => "Description modifiée avec succès"];
                 }
 
