@@ -13,6 +13,10 @@
 {% endblock %}
 
 {% block script %}
+
+    {% include ("summernote_cdn.twig") %}
+
+    <script defer src="{{URL}}Public/js/summernote_contact_user.js"></script>
     <script defer src="{{URL}}Public/js/search_user.js"></script>
     <script defer src="{{URL}}Public/js/loading_ajax.js"></script>
     <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>

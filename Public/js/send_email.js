@@ -8,26 +8,22 @@ jQuery(document).ready(function($){
 
         const url= $(this).attr("action");
         const method= $(this).attr("method");
-        const id_user=$("#id_user").val();
-        const subject=$("#subject").val();
-        const message=CKEDITOR.instances['message_user'].getData();
+        const dataForm=$(this).serialize();
+
+        
 
         $.ajax({
 
             url:url,
             dataType:"JSON",
             type:method,
-            data: {
-                "id_user" : id_user,
-                "message" : message,
-                "subject" : subject
-            }
+            data: dataForm
         }).
 
         done(function(response){
 
             $("#subject").val("");
-            CKEDITOR.instances["message_user"].setData('');
+            $("#message_user").summernote('reset')
             message_ajax(response);
             
         }).
