@@ -46,7 +46,6 @@ jQuery(document).ready(function($){
 
     $("#create_article").submit(function(){
 
-        
         const content=$(this).find("#article").summernote("code");
         const result_elt=$("#result");
         
@@ -68,6 +67,5 @@ jQuery(document).ready(function($){
             }
         }
     })
-
 
 })

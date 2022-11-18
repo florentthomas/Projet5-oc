@@ -18,6 +18,107 @@
 
 
 
+@media only screen and (max-device-width : 767px) {
+
+    .container{
+        width:100% !important;
+    }
+
+    /*page blog*/
+
+    #posts{
+        
+        grid-template-columns:1fr !important;
+        
+
+    }
+
+    #block_searchbar{
+        flex-direction: column;
+    }
+
+    #searchbar{
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: inherit;
+    }
+
+
+    /*Page article*/
+
+    .menu_comment{
+        display: block !important;
+        cursor:pointer;
+        position: absolute;
+        right: 2rem;
+        bottom: 1rem;
+
+
+
+    }
+
+
+    .comment_article_card, .response_comment_card{
+        position: relative;
+    }
+
+    .menu_mobile_active{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #f7f7f7aa;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        z-index: 100;
+    }
+
+    .menu_mobile_active form{
+        margin-top: 1rem;
+    }
+
+
+    .btn_comment_end{
+        display: none;
+    }
+    
+}
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1279px){
+        
+    #posts{
+        
+        grid-template-columns:1fr 1fr !important;
+        
+
+    }
+
+    .container{
+        width:100% !important;
+    }
+}
+
+
+
+.content_article img{
+    max-width: 100% !important;
+    height: auto;
+}
+
+.content_article iframe{
+    max-width: 100%;
+}
+
+
+
+
+
+
 .wrapper{
     background-color: var(--bgColor_wrapper);
     min-height:100vh;
@@ -341,7 +442,9 @@ article p{
 
 /*Page article*/
 
-
+.menu_comment{
+    display: none;
+}
 
 
 article{

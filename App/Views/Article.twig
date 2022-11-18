@@ -12,11 +12,12 @@
 {% endblock %}
 
 {% block script %}
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script defer src="{{URL}}Public/js/comments_article/form-comment.js"></script>
     <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script defer src="{{URL}}Public/js/message_error.js"></script>
     <script defer src="{{URL}}Public/js/message_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/card_comment/menu_mobile.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/card_comment_parent.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/card_comment_child.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/create_elt_user_comment.js"></script>
@@ -26,6 +27,7 @@
     <script defer src="{{URL}}Public/js/comments_article/report_comment.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/download_comments.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/delete_comment.js"></script>
+    <script defer src="{{URL}}Public/js/menu_hamburger_comment.js"></script>
 {% endblock %}
 
 
@@ -117,7 +119,12 @@
                         </div>
                     </div>
                     {% if session.user.account_confirmed == 1 %}
+                    
+
+                    <span class="menu_comment"><i class="fa-solid fa-list"></i></span> 
+
                     <div class="btn_comment_end">
+                        
                         <button class="btn_response button-blue" data-id="{{comment.id}}">Répondre</button>
                         <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
                             <button class="button-red">Signaler</button>
@@ -131,6 +138,7 @@
                         </form>
                         {% endif %}
                     </div>
+
                     {% endif %}
                 </div>
 
@@ -156,8 +164,13 @@
                                 <div class="comment"> {{children.comment}}</div>
                             </div>
                             {% if session.user.account_confirmed == 1 %}
+
+                                
+
+                                <span class="menu_comment"><i class="fa-solid fa-list"></i></span> 
+                                
                                 <div class="btn_comment_end">
-                        
+
                                     <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
                                         <button class="button-red">Signaler</button>
                                         <input type="hidden" name="comment_id" value="{{children.id}}"/>
@@ -171,6 +184,7 @@
                                     {% endif %}
 
                                 </div>
+                                
                             {% endif %}
                         </div>
                         

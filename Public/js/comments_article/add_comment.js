@@ -37,6 +37,9 @@ jQuery(document).ready(function($){
                     const form_report_comment=create_form_report_comment(comment);
 
                     const form_delete_comment=create_form_delete_comment(comment);
+
+
+                    const menu_sandwich=$("<i></i>").addClass("fa-solid fa-list menu_comment");
                     
                     btnDiv.append(form_report_comment,form_delete_comment);
                  
@@ -57,7 +60,9 @@ jQuery(document).ready(function($){
 
                         card_comment_parent.find(".container_comment").prepend(cardUSer)
 
-                        card_comment_parent.append(btnDiv);
+                        const menu_sandwich=create_menu_hamburger();
+
+                        card_comment_parent.append(menu_sandwich,btnDiv);
 
                         $("#comments_article").prepend(card_comment_parent);
 
@@ -69,7 +74,9 @@ jQuery(document).ready(function($){
                       
                         card_comment_child.find(".container_comment").prepend(cardUSer);
 
-                        $(card_comment_child).append(btnDiv);
+                        const menu_sandwich=create_menu_hamburger();
+
+                        $(card_comment_child).append(menu_sandwich,btnDiv);
                         
                         $("#comment-"+id_parent).after(card_comment_child);
                     }

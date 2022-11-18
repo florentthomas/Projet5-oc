@@ -79,8 +79,10 @@ $(window).scroll(function() {
                         const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", commentElt.id).html("Répondre");
                       
                         $(btnDiv).prepend(btnEltReponse);
+
+                        const menu_sandwich=create_menu_hamburger()
                         
-                        $(card_comment_parent).append(btnDiv);
+                        $(card_comment_parent).append(menu_sandwich,btnDiv);
 
 
 
@@ -134,9 +136,9 @@ $(window).scroll(function() {
                             
                                 
     
+                                const menu_sandwich=create_menu_hamburger();
                                 
-                                
-                                $(card_comment_child).append(btnDiv);
+                                $(card_comment_child).append(menu_sandwich,btnDiv);
                                  
                             }
 
