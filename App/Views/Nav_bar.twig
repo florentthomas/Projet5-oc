@@ -1,22 +1,31 @@
 
     <nav class="nav_bar">
-        <a href="{{URL}}"><img src="{{URL_IMG}}logo.png" class="logo" alt="logo"/></a>
+        <a href="{{URL}}" class="link_blog"><img src="{{URL_IMG}}logo.png" class="logo" alt="logo"/></a>
 
-        <ul>
+        
+       
+
+        <ul class="menu_navbar_large_screen menu_navbar menu_hide">
             {% if session.user %}
 
             <li><a href="{{URL}}setting"><img src="{{URL_IMG_AVATARS}}{{session.user.photo}}" alt="photo de profil" class="photo_profil" id="photo_navbar"/>{{session.user.pseudo}}</a></li>
 
                 {% if session.user.type_user != "user" %}
-                    <li><a href="{{URL}}admin_blog/modifier_article"><i class="fas fa-sign-out-alt"></i>Gérer le blog</a></li>
+                    <li><a href="{{URL}}admin_blog/modifier_article"><i class="fa fa-cog" aria-hidden="true"></i> Gérer le blog</a></li>
                 {% endif %}
             
-            <li><a href="{{URL}}disconnect"><i class="fas fa-sign-out-alt"></i>SE DECONNECTER</a></li>
+            <li><a href="{{URL}}disconnect"><i class="fa-solid fa-circle-xmark"></i> SE DECONNECTER</a></li>
             {% endif %}
 
             {% if not session.user %}
-            <li><a href="{{URL}}inscription">S'INSCRIRE</a></li>
-            <li><a href="{{URL}}login">SE CONNECTER</a></li>
+            <li><a href="{{URL}}inscription"><i class="fa-solid fa-user-plus"></i> S'INSCRIRE</a></li>
+            <li><a href="{{URL}}login"><i class="fa-solid fa-user"></i> SE CONNECTER</a></li>
             {% endif %}
+
+            
         </ul>
+
+        <span id="menu_mobile_navbar"><i class="fa fa-bars" aria-hidden="true"></i></span>
+
+
     </nav>
