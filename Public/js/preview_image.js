@@ -25,4 +25,10 @@
     });
 
 
+    $("#photo").change(function(){
+        $("#prev_image_block").show();
+        readURL(this);
+    })
+
+
 })

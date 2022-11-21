@@ -138,6 +138,18 @@
     
 }
 
+@media only screen and (max-device-width: 1024px){
+
+    .input_form{
+        flex-direction: column;
+    }
+
+    .input_form label{
+        align-self: center;
+    }
+    
+}
+
 @media only screen and (min-device-width: 768px){
 
     #menu_mobile_navbar{
@@ -708,6 +720,11 @@ article{
 
 /*User_setting*/
 
+
+#photo{
+    display: none;
+}
+
 .setting{
     width:70%;
     margin: auto;
@@ -769,13 +786,17 @@ article{
     margin-top: 30px;
 }
 
-label[for="image_article"]{
+label[for="image_article"],label[for="photo"]{
     border:0;
     border-radius: 30px;
     padding: 0.5rem 2rem;
     cursor:pointer;
     color:white;
     background-color:var(--color_blue_btn);
+}
+
+label[for="photo"]{
+    margin: auto;
 }
 
 .image{
@@ -823,6 +844,11 @@ label[for="image_article"]{
     margin-top:15px;
     text-align: center;
     display: none;
+}
+
+
+#prev_image_block img{
+    max-width: 100%;
 }
 .list_menu_admin{
     padding: 10px;
