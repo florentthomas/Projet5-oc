@@ -851,16 +851,28 @@ label[for="photo"]{
     max-width: 100%;
 }
 .list_menu_admin{
-    padding: 10px;
+    height: fit-content;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    background-color: #f7f7f7aa;
+    border: var(--borderBlack);
 }
 
 .list_menu_admin li{
-    margin-bottom: 15px;
+    padding: 2rem;
+   
 }
 
 .list_menu_admin li:hover{
-    transform: scale(1.08)
+    cursor: pointer;
+    background-color: #1b2426;
 }
+
+.list_menu_admin li:hover a{
+    color:white;
+}
+
+
 
 #search_result{
     display: none;
