@@ -66,7 +66,7 @@
 
 
 
-    /*page blog*/
+    /*page blog max-device-width-767px*/
 
     #posts{
         
@@ -86,7 +86,7 @@
     }
 
 
-    /*Page article*/
+    /*Page article max-device-width-767px*/
 
     .menu_comment{
         display: block !important;
@@ -135,8 +135,65 @@
     #comments{
         width:95% !important;
     }
+
+
+    /*menu_admin_blog max-device-width-767px*/
+
+    .admin{
+        flex-direction: column;
+    }
+
+    .navbar_admin{
+        position: relative;
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: flex-end;
+        height: 5rem;
+    }
+
+
+    #list_menu_admin li{
+        text-align: center;
+    }   
+    
+
+    #menu_admin_mobile{
+        align-self: center;
+        font-size: 2rem;
+        margin-right: 1rem;
+    }
+
+    .menu_admin_mobile{
+        z-index: 40;
+        height: auto;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        margin-top: 4rem;
+        border-left: var(--borderBlack);
+        border-right: var(--borderBlack);
+        border-bottom: var(--borderBlack);
+    }
+
     
 }
+
+
+
+    .navbar_admin{
+        border: var(--borderBlack);
+    }
+
+    
+
+  
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1024px){
+
+
+    
+}
+
 
 @media only screen and (max-device-width: 1024px){
 
@@ -151,6 +208,9 @@
 }
 
 @media only screen and (min-device-width: 768px){
+
+
+    /*navbar*/
 
     #menu_mobile_navbar{
         display: none;
@@ -168,6 +228,21 @@
     .menu_navbar{
         margin-bottom: 0;
     }
+
+    /*menu_admin*/
+
+    .navbar_admin{
+        height: fit-content;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        justify-content: flex-start;
+        width:fit-content;
+    }
+
+    #menu_admin_mobile{
+        display: none;
+    }
+    
 }
 
 
@@ -850,26 +925,30 @@ label[for="photo"]{
 #prev_image_block img{
     max-width: 100%;
 }
-.list_menu_admin{
-    height: fit-content;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    background-color: #f7f7f7aa;
-    border: var(--borderBlack);
+
+/*menu_admin_blog*/
+
+#list_menu_admin{
+    background-color: #f7f7f7;
 }
 
-.list_menu_admin li{
+#list_menu_admin a{
+    display: block;
     padding: 2rem;
    
 }
 
-.list_menu_admin li:hover{
+#list_menu_admin li:hover{
     cursor: pointer;
     background-color: #1b2426;
 }
 
-.list_menu_admin li:hover a{
+#list_menu_admin li:hover a{
     color:white;
+}
+
+.navbar_admin{
+    background-color: #f7f7f7; 
 }
 
 

@@ -10,20 +10,29 @@
     <meta name="description" content=""/>
 {% endblock %}
 
+{% block menu_admin_mobile %}
+
+    <script defer src="{{URL}}Public/js/menu_admin_mobile.js"></script>
+
+{% endblock %}
+
 {% block content %}
 
     {% include("Nav_bar.twig") %}
 
     <main class="admin">
-
-        <ul class="list_menu_admin">
-            <li><a href="{{URL}}admin_blog/modifier_article">Modifier ou supprimer un article</a></li>
-            <li><a href="{{URL}}admin_blog/creer_article">Créer un nouvel article</a></li>
-            {% if (session.user.type_user == "admin") or (session.user.type_user == "super_admin") %}
-                <li><a href="{{URL}}admin_blog/commentaires_signales">Commentaire signalés</a></li>
-                <li><a href="{{URL}}admin_blog/utilisateur">Utilisateurs</a></li>
-            {% endif %}
-        </ul>
+        <div class="navbar_admin">
+            
+            <ul id="list_menu_admin" class="menu_admin_large_screen menu_hide">
+                <li><a href="{{URL}}admin_blog/modifier_article">Modifier ou supprimer un article</a></li>
+                <li><a href="{{URL}}admin_blog/creer_article">Créer un nouvel article</a></li>
+                {% if (session.user.type_user == "admin") or (session.user.type_user == "super_admin") %}
+                    <li><a href="{{URL}}admin_blog/commentaires_signales">Commentaire signalés</a></li>
+                    <li><a href="{{URL}}admin_blog/utilisateur">Utilisateurs</a></li>
+                {% endif %}
+            </ul>
+            <span id="menu_admin_mobile"><i class="fa fa-bars" aria-hidden="true"></i></span>
+        </div>
         
         
         <div class="panel">

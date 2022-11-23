@@ -12,6 +12,15 @@
 
 {% endblock %}
 
+
+{% block script %}
+
+    <script defer src="{{URL}}Public/js/menu_admin_mobile.js"></script>
+
+{% endblock %}
+
+
+
 {% block admin %}
 
     {% for article in articles %}
@@ -43,10 +52,5 @@
         </div>
     {% endfor %}
 
-
-{% endblock %}
-
-
-{% block script %}
 
 {% endblock %}
