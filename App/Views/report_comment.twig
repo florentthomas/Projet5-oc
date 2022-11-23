@@ -21,11 +21,13 @@
 
 {% block admin %}
 
-<noscript> 
- 
-    <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
+<div class="panel_admin">
 
-</noscript>
+    <noscript> 
+    
+        <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
+
+    </noscript>
 
     <p id="result" class="message_fixed"></p>
 
@@ -78,7 +80,7 @@
     {% endfor %}
 
 
-    
+    </div>
 
     
 {% endblock %}

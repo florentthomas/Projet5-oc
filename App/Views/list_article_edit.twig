@@ -23,13 +23,15 @@
 
 {% block admin %}
 
+<div class="panel_admin panel_list_article">
+
     {% for article in articles %}
 
         <div class="article_card">
 
             <div class="content_card">
 
-                <div><img class="image" src="{{URL_IMG_ARTICLE}}{{article.image_article}}"/></div>
+                <img class="img_article" src="{{URL_IMG_ARTICLE}}{{article.image_article}}"/>
 
                 <div class="content_card_article">
                     <h3>{{article.title}}</h3>
@@ -52,5 +54,5 @@
         </div>
     {% endfor %}
 
-
+</div>
 {% endblock %}
