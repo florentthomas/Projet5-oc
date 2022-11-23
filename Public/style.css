@@ -183,11 +183,16 @@
 
     .panel_admin{
         margin-top: 3rem;
+        margin: auto;
+    }
+
+    .btn_edit{
+        text-align: center !important;
     }
 
     .panel_list_article{
         width: 70% !important;
-        margin: auto;
+       
     }
 
     .content_card{
@@ -202,6 +207,12 @@
 
     .content_card div{
         text-align: center;
+    }
+
+    
+
+    #search_result,.list_btn_radio,.panel_admin .group_input{
+        width: 100% !important;
     }
 
     
@@ -295,7 +306,7 @@
     height: auto;
 }
 
-.content_article iframe{
+.content_article iframe, #current_img{
     max-width: 100%;
 }
 
