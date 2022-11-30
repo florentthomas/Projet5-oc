@@ -215,7 +215,86 @@
         width: 100% !important;
     }
 
+
+    /* search person API*/
+
+    .container #block_searchbar{
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    .container #block_searchbar input{
+        width: 100%;
+    }
+
+    /*page search person api 767px*/
+
+    .info_person{
+        flex-direction: column;
+    }
+
+    .info_img_person{
+        width:80% !important;
+        margin: auto;
+    }
+
+    .bio{
+        width: 100% !important;
+        margin-top: 3rem;
+        margin-left: auto !important;
+        margin-right: auto;
+    }
+
+    .movie_popular{
+        grid-template-columns: repeat(2,1fr) !important;
     
+    }
+
+    .movies{
+        width: 90% !important;
+    }
+
+    /* page search movie api 767px*/
+
+    .container_movie_info{
+        flex-direction: column-reverse;
+        margin: auto !important;
+    }
+
+    .container_synopsis {
+        margin-top: 2rem;
+        width: 100% !important;
+        text-align: justify;
+
+    }
+
+    .container_synopsis h3{
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .container_details{
+        align-self: center;
+    }
+
+    .container_casting{
+        margin-top: 2rem;
+    }
+
+    .card_person{
+        width: 60% !important;
+    }
+
+    .actors{
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-column-gap: 1rem;
+    }
+
+    .actors .card_person{
+        width: 100% !important;
+    }
 }
 
 
@@ -1197,13 +1276,10 @@ cursor: pointer;
     margin: auto;
 }
 
-.info_person p{
-    text-align: center;
-}
 
 .actors{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
     grid-row-gap: 1rem;
     margin-top: 50px;
     padding-bottom: 50px;
@@ -1254,9 +1330,9 @@ cursor: pointer;
 
 #close_video{
     position: absolute;
-    top: 10%;
-    right: 5%;
-    font-size: 3rem;
+    top: 0;
+    right: 0;
+    font-size: 2rem;
     cursor: pointer;
 }
 
@@ -1312,7 +1388,7 @@ cursor: pointer;
 
 .movie_popular{
    display: grid;
-   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+   grid-template-columns: repeat(6, 1fr);
    grid-row-gap: 1rem;
    grid-column-gap: 1rem;
    margin-top: 3rem;
