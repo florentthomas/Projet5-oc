@@ -295,6 +295,17 @@
     .actors .card_person{
         width: 100% !important;
     }
+
+
+    /*form inscription et login*/
+
+    .block_form{
+        width: 90% !important;
+    }
+
+    #card_404{
+        width: 90% !important;
+    }
 }
 
 
@@ -305,12 +316,6 @@
 
     
 
-  
-@media only screen and (min-device-width: 1024px) and (max-device-width: 1024px){
-
-
-    
-}
 
 
 @media only screen and (max-device-width: 1024px){

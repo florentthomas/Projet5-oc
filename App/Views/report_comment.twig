@@ -42,7 +42,7 @@
     {% for comment_reported in comments_reported %}
 
         <div class="comment_article_card">
-
+            Commentaire signalé par {{comment_reported.count_reported}} utilisateurs
             <div class="container_comment">
                 <div class="user">
 
@@ -60,6 +60,8 @@
                 </div>
             </div>
 
+            
+
             <span class="menu_comment"><i class="fa-solid fa-list"></i></span> 
         
             <div class="btn_comment_end">
@@ -76,9 +78,12 @@
                 </form>
                 
             </div>
-            Commentaire signalé par {{comment_reported.count_reported}} utilisateurs
+            
+            
             
         </div>
+
+        
 
     {% endfor %}
 
