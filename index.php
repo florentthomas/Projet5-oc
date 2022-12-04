@@ -107,6 +107,14 @@ $router->get("/admin_blog/creer_article","Create_articleController@index");
 
 
 
+//--------insert_image_summernote---------//
+
+$router->post("/summernote/add_image_summernote","SummernoteController@upload_image");
+
+//-------------end----------------//
+
+
+
 //-------------Admin_users---------------//
 
 $router->get("/admin_blog/utilisateur","Admin_usersController@index");

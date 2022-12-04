@@ -16,6 +16,7 @@
 
     {% include ("summernote_cdn.twig") %}
 
+    <script defer src="{{URL}}Public/js/add_image_summernote.js"></script>
     <script defer src="{{URL}}Public/js/summernote_contact_user.js"></script>
     <script defer src="{{URL}}Public/js/search_user.js"></script>
     <script defer src="{{URL}}Public/js/loading_ajax.js"></script>
@@ -89,7 +90,7 @@
             <div class="input_form">
                 <input type="text" id="subject" required name="subject" placeholder="Sujet du message"/>
             </div>
-            <textarea id="message_user" required name="message"></textarea>
+            <textarea id="message_user" required name="message" data-url="{{URL}}summernote/add_image_summernote"></textarea>
             <button class="button-blue">Envoyer le message</button>
 
         </form>

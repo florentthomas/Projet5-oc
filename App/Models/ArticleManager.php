@@ -63,6 +63,13 @@ class ArticleManager extends Manager{
                             "slug" => $slug,
                             "image_article" => $name_image));
     }
+    
+
+    public function add_image($name_image){
+        $sth=$this->bdd->prepare("INSERT INTO images_article (name_image) VALUES(:name_image)");
+
+        $sth->execute(Array("name_image" => $name_image));
+    }
 
 
     public function delete_article($id){
