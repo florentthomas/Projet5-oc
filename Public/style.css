@@ -303,6 +303,20 @@ html,body{
         width: 100% !important;
     }
 
+    .container_poster_movie{
+        width: 80% !important;
+        margin: auto;
+    }
+
+    .header_movie_info{
+        flex-direction: column;
+    }
+
+    .container_title_movie{
+        margin-top: 2rem;
+        padding-left: 0 !important;
+    }
+
 
     /*form inscription et login*/
 
