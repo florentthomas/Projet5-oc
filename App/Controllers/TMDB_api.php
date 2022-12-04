@@ -5,7 +5,7 @@ namespace App\Controllers;
 
 class TMDB_api extends Controller{
   
-    private $key_api="70c27cbd777e852dea8ad394a6841c9b";
+    private $key_api=KEY_TMDB_API;
     private $url="https://api.themoviedb.org/3/";
     private $language="fr-FR";
     private $url_img_profile="https://www.themoviedb.org/t/p/w90_and_h90_face";
@@ -225,9 +225,18 @@ class TMDB_api extends Controller{
         }
         else{
             $time_hour=explode(".",$runtime / 60);
-            $time_minute="0.".$time_hour[1];
 
-            $time_movie=$time_hour[0]."h".ceil($time_minute*60)."min";
+            if(isset($time_hour[1])){
+                $time_minute="0.".$time_hour[1];
+                $time_movie=$time_hour[0]."h".ceil($time_minute*60)."min";
+            }
+
+            else{
+                $time_movie=$time_hour[0]."h";
+            }
+            
+            
+            
         }
 
         

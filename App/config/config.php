@@ -18,6 +18,11 @@ define('EMAIL_PASSWORD', 'Tff_dke#85%fdfs,;(du');
 
 
 
+
+//key api
+
+define('KEY_TMDB_API', '70c27cbd777e852dea8ad394a6841c9b');
+
 //Config_db
 
 define('HOST','localhost');
