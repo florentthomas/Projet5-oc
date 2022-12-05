@@ -3,15 +3,12 @@ jQuery(document).ready(function($){
 
 let current_page=1;
 
-const url_current = window.location.href;
-
-const id_article = url_current.split("-").pop();
-
-const split_url = url_current.match(/(.+)\/(.+)/);
-
-const url_request=split_url[1]+"/get_comments";
 
 const loadCommentsMsg=$("#load_comments_msg");
+
+const url=$("#comments").attr("data-url");
+
+const id_article=$("#comments").attr("data-id-article");
 
 
 
@@ -26,7 +23,7 @@ $(window).scroll(function() {
         $("#comments_article").append(loadCommentsMsg);
 
         $.ajax({
-            url: url_request,
+            url: url,
             type: "POST",
             data: {
                 id_article: id_article,
