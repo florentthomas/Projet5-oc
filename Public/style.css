@@ -1066,12 +1066,12 @@ label[for="photo"]{
 #prev_image_block{
     margin-top:15px;
     text-align: center;
-    display: none;
 }
 
 
 #prev_image_block img{
     max-width: 100%;
+    margin: auto;
 }
 
 /*menu_admin_blog*/
@@ -1159,15 +1159,6 @@ label[for="photo"]{
 
 #cke_message_user{
     margin-top: 15px;
-}
-
-#delete_image{
-    display:none;
-}
-
-
-#btn_form_img{
-    display: none;
 }
 
 
@@ -1448,7 +1439,8 @@ cursor: pointer;
     line-height: 2rem;
 }
 
-#img_check{
+#controle_img_msg{
     display: block;
     margin-top: 15px;
+    text-align: center;
 }

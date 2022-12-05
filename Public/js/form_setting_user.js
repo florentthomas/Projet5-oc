@@ -150,23 +150,38 @@ jQuery(document).ready(function($){
 
     //photo de profil
 
+    let image_accepted=false;
+
+    $("#photo").change(function(){
+
+        image_accepted=img_change_event(this);
+       
+    })
+
     $('#photo_profil').submit(function(e){
+
         e.preventDefault();
 
-        const url=$(this).attr("action");
-        const dataForm=new FormData(this);
+        if(image_accepted){
+
+            const url=$(this).attr("action");
+            const dataForm=new FormData(this);
 
 
-        $.ajax({
-            url:url,
-            type:"POST",
-            processData: false, 
-            contentType: false,
-            data:dataForm,
-            dataType:"json"
+            $.ajax({
+                url:url,
+                type:"POST",
+                processData: false, 
+                contentType: false,
+                data:dataForm,
+                dataType:"json"
 
-        }).done(message_ajax)
+            }).done(message_ajax)
 
-        .fail(message_error_ajax)
+            .fail(message_error_ajax)
+
+            }
+
+        
     })
 })

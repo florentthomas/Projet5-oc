@@ -40,45 +40,61 @@ jQuery(document).ready(function($){
 
     //Changement photo
 
+    let image_accepted=false;
+
+    $("#image_article").change(function(){
+        
+        image_accepted = img_change_event(this)
+    })
+
+    
+
     $("#form_photo_article").submit(function(e){
+
         e.preventDefault();
 
-        const data=new FormData(this);
-        const url=$(this).attr("action");
-        const method=$(this).attr("method");
-       
+        if(image_accepted){
 
-        $.ajax({
-            url: url,
-            method:method,
-            processData: false, 
-            contentType: false,
-            data: data,
-            dataType: "json"
-        })
-        .done(function(response){
-            
-            message_ajax(response)
+            const data=new FormData(this);
+            const url=$(this).attr("action");
+            const method=$(this).attr("method");
+        
 
-            const img=$("#prev_image").attr("src");
+            $.ajax({
+                url: url,
+                method:method,
+                processData: false, 
+                contentType: false,
+                data: data,
+                dataType: "json"
+            })
+            .done(function(response){
+                
+                message_ajax(response)
 
-            const current_img=$("#current_img");
+                const img=$("#prev_image").attr("src");
 
-            current_img.hide();
+                const current_img=$("#current_img");
 
-            $("#prev_image_block").hide();
+                current_img.hide();
 
-            current_img.attr("src", img);
+                $("#prev_image_block").hide();
 
-            current_img.fadeIn();
+                current_img.attr("src", img);
 
-            
+                current_img.fadeIn();
 
-        })
+                
 
-        .fail(function(rq){
-            message_error_ajax(rq);
-        })
+            })
+
+            .fail(function(rq){
+                message_error_ajax(rq);
+            })
+
+        }
+
+        
     });
 
 

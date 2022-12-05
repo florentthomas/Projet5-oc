@@ -17,6 +17,8 @@
     <script defer src="{{URL}}Public/js/message_ajax.js"></script>
     <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script defer src="{{URL}}Public/js/message_error.js"></script>
+    <script defer src="{{URL}}Public/js/controle_image.js"></script>
+    <script defer src="{{URL}}Public/js/function_change_img_event.js"></script>
     <script defer src="{{URL}}Public/js/form_setting_user.js"></script>
     <script defer src="{{URL}}Public/js/preview_image.js"></script>
 {% endblock %}
@@ -107,7 +109,9 @@
                 <form action="{{URL}}setting/change_photo" id="photo_profil" method="post" enctype= "multipart/form-data">
 
                     <div class="input_form">
+
                         <label for="photo">Selectionner une photo</label>
+                        <span id="controle_img_msg"></span>
                         <input type="file" name="photo" id="photo" accept="image/png, image/jpeg, image/jpg, image/gif"/>
                     </div>
 
