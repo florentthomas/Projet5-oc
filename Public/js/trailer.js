@@ -19,7 +19,6 @@ jQuery(document).ready(function($){
 
     $("#close_video").click(function(){
 
-        console.log($("#trailer_iframe"))
 
         $("#trailer_iframe")[0].src= $("#trailer_iframe")[0].src
     

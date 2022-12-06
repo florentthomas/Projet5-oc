@@ -17,7 +17,6 @@
 
 {% block script %} 
 
-    <script defer src="https://www.youtube.com/player_api"></script>
     <script defer src="{{URL}}Public/js/trailer.js"></script>
     
 {% endblock %}
@@ -55,10 +54,9 @@
                                     <span id="trailer">Bande annonce<i class="fa-solid fa-circle-play play_trailer"></i></span>
                                     <div id="trailer_embed">
                                         <i class="fa-solid fa-circle-xmark" id="close_video"></i>
-                                        <iframe id="trailer_iframe" src="https://www.youtube.com/embed/{{data.teaser.key}}??enablejsapi=1&version=3&playerapiid=ytplayer" allowscriptaccess="always" frameborder="0" allowfullscreen></iframe>
+                                        <iframe id="trailer_iframe" src="https://www.youtube.com/embed/{{data.teaser.key}}"  frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 </div>
-                                
                                 
                             {% endif %}
 

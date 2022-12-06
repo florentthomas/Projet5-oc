@@ -153,7 +153,7 @@ $(window).scroll(function() {
         }).
 
         fail(function(req){
-            console.log(req.responseText);
+            message_error_ajax(req)
         })
         
     }

@@ -32,7 +32,7 @@ function sendfiles(file,el){
     }).
 
     fail(function(){
-        console.log("error");
+        message_error_ajax()
     })
   
   }

@@ -70,7 +70,7 @@ jQuery(document).ready(function($){
             })
 
             .fail(function(){
-                console.log("error");
+                message_error_ajax()
             })
             
         }
