@@ -1,21 +1,15 @@
 
 jQuery(document).ready(function($){
 
-   
 
-// this function gets called when API is ready to use
 
     const iframeContainer=$("#trailer_embed");
-    const bodyElt=$("body");
-    const iframeElt=$("#trailer_iframe")
-   
-    $('iframe[src*="https://www.youtube.com/embed/"]').addClass("youtube-iframe");
 
+   
     $("#trailer").click(function(e){
 
         e.preventDefault();
 
-        bodyElt.css("overflow","hidden");
         iframeContainer.show();
 
     })
@@ -25,11 +19,10 @@ jQuery(document).ready(function($){
 
     $("#close_video").click(function(){
 
-        bodyElt.css("overflow","auto");
-        $('.youtube-iframe').each(function(index) {
-            $(this).attr('src', $(this).attr('src'));
-            return false;
-        });
+        console.log($("#trailer_iframe"))
+
+        $("#trailer_iframe")[0].src= $("#trailer_iframe")[0].src
+    
         iframeContainer.hide();
 
     })
@@ -37,6 +30,3 @@ jQuery(document).ready(function($){
 
 
 })
-
-
-

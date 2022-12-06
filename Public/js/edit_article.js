@@ -120,12 +120,10 @@ jQuery(document).ready(function($){
         })
         
         .done(function(response){
-            console.log("test");
             message_ajax(response);
         })
         
         .fail(function(response){
-            console.log("fail");
             message_ajax(response.responseJSON);
 
             setTimeout(function(){
