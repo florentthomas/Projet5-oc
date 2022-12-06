@@ -19,11 +19,14 @@ jQuery(document).ready(function($){
         }).
 
             done(function(response){
+
+                if(response.attribute == "success"){
+                    const new_type_user=$("#form_type_user").find("input:checked").attr("value");
+                    $("#type_user").text("Type d'utilisateur: "+new_type_user);
+
+                }
                 
                 message_ajax(response);
-
-                const new_type_user=$("#form_type_user").find("input:checked").attr("value");
-                $("#type_user").text("Type d'utilisateur: "+new_type_user);
               
             }).
             
