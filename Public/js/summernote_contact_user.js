@@ -4,9 +4,11 @@ $(document).ready(function() {
         height: 400,
     
         callbacks: {
-            onImageUpload: function(file){
+            onImageUpload: function(files){
                 
-                sendfiles(file[0],this);
+                for(let i = 0; i < files.length; i++){
+                    sendfiles(files[i],this);
+                }  
             
             }
         }
