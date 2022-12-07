@@ -2,6 +2,8 @@ jQuery(document).ready(function($){
 
     $("#password_1").keyup(safe_password);
 
+    $("#password_1").on("paste",safe_password);
+
     $("#form_inscription").submit(function(e){
         e.preventDefault();
         

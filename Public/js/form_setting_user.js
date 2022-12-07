@@ -74,6 +74,8 @@ jQuery(document).ready(function($){
 
     $("#new_password").keyup(safe_password);
 
+    $("#new_password").on("paste",safe_password);
+
     $("#form_password").submit(function(e){
 
         e.preventDefault();
