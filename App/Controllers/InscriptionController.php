@@ -42,7 +42,7 @@ class InscriptionController extends Controller{
 
                             if(Email::sendEmail($_POST["email"],"Confirmez votre inscription",$content_email)){
 
-                                $this->UserManager->create_account($_POST["pseudo"],$_POST["email"],$password,$key,"Default.svg");
+                                $this->UserManager->create_account($_POST["pseudo"],$_POST["email"],$password,$key,"default.svg");
                                 $response=["attribute"=>"success","message"=>"Compte crée, cliquez sur le lien de confirmation sur le mail envoyé"];
                             }
 

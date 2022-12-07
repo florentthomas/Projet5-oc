@@ -299,7 +299,7 @@ class UserController extends Controller{
 
                 $this->userManager->update_user("photo",$name_photo,$current_user->id);
 
-                if($_SESSION["user"]->photo !== "Default.svg"){
+                if($_SESSION["user"]->photo !== "default.svg"){
                     unlink(PATH_IMG_AVATARS."/".$_SESSION["user"]->photo);
                 }
                 
