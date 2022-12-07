@@ -92,6 +92,13 @@ class InscriptionController extends Controller{
                 if($current_user){
 
                     if($current_user->account_confirmed == 0){
+
+                        if(isset($_SESSION["user"])){
+                            
+                            $_SESSION["user"]->account_confirmed = 1;
+
+                        }
+
                         $this->UserManager->confirm_account($current_user->id);
                         $this->view("Confirm_account");
                     }
