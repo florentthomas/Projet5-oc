@@ -12,7 +12,15 @@
 <div id="page_404">
     <div id="card_404">
         <img src="{{URL_IMG}}popcorn" alt="pop_corn"/>
-        <p>Page non trouvée</p>
+        {% if message_exception %}
+
+            <p>{{message_exception}}</p>
+
+            {% else %}
+
+                <p>Page non trouvée</p>
+
+        {% endif %}
         <a href="{{URL}}"><button class="button-blue">Accueil</button></a>
     </div>
 </div>

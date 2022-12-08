@@ -15,7 +15,6 @@ class TMDB_api extends Controller{
 
     private function request_api($url){
         
-        
         $curl=curl_init($url);
 
         curl_setopt_array($curl,Array(
@@ -29,42 +28,60 @@ class TMDB_api extends Controller{
             $data= curl_exec($curl);
 
             
-            if($data === false){
 
-                $error=curl_error($curl);
+            try{
 
-                throw new \Exception("Erreur API: ".$error);
+               
 
-            }
+                if($data === false){
 
-       
-            if(curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200){
-
-                $data= json_decode($data);
-            
-
-                if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 401){
-
-                    throw new \exception($data->status_message);
-                }
-
-                
-                else{
-
+                    $error=curl_error($curl);
+                    http_response_code(404);
+                    throw new \Exception($error);
                     
-                    throw new \exception("HTTP code: ".curl_getinfo($curl, CURLINFO_HTTP_CODE));
-
+    
+                }
+    
+           
+                if(curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200){
+    
+                    $data= json_decode($data);
+                
+    
+                    if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 401){
+                        http_response_code(401);
+                        throw new \exception($data->status_message);
+                    }
+    
+                    
+                    else{
+                        http_response_code(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                        throw new \exception($data->status_message);
+                        
+                    }
+    
+                }
+    
+                if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200){
+    
+                    $data= json_decode($data);
+    
+                    return $data;
+    
                 }
 
             }
 
-            if(curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200){
-
-                $data= json_decode($data);
-
-                return $data;
-
+            catch(\Exception $e){
+            
+                $message=$e->getMessage();
+                $this->view("404",array("message_exception" => $message));
+                die();
+                
             }
+
+            
+            
             
            
             
@@ -171,8 +188,8 @@ class TMDB_api extends Controller{
 
         }
         else{
-            header("HTTP/1.1 404 Not Found");
-            $this->view("404");
+            http_response_code(404);
+            $this->view("404",array());
         }
     }
 

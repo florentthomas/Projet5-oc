@@ -115,9 +115,12 @@ class InscriptionController extends Controller{
 
         catch(\Exception $e){
             
+            
             $message=$e->getMessage();
-            header('HTTP/1.0 404 Not Found');
-            $this->view("Exception",array("message_exception" => $message));   
+            http_response_code(404);
+            $this->view("404",array("message_exception" => $message));
+            die();
+            
         }
     }
 
