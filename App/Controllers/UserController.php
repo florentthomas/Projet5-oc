@@ -143,36 +143,47 @@ class UserController extends Controller{
 
     public function confirm_email($key){
 
+    
+        try{
 
-        $key=$key[1];
+            $key=$key[1];
 
       
-        if(is_numeric($key)){
+            if(is_numeric($key)){
 
-            $user=$this->userManager->get_user("key_confirm",$key);
+                $user=$this->userManager->get_user("key_confirm",$key);
 
-            if($user ==! false){
+                if($user ==! false){
 
-                if($user->account_confirmed == 0){
-                    $this->userManager->confirm_account($user->id);
-                    $this->view("Confirm_email");
+                    if($user->account_confirmed == 0){
+                        $this->userManager->confirm_account($user->id);
+                        $this->view("Confirm_email");
+                    }
+
+                    else{
+                        header("Location:".URL);
+                    }
+
                 }
-
                 else{
-                    header("Location:".URL);
-                }
-
+                    throw new \Exception("Le profil n'a pas été trouvé");
+                }  
             }
             else{
-                throw new \Exception("Le profil n'a pas été trouvé");
-            }  
-        }
-        else{
-            throw new \Exception("Clé non valide");
-        }
+                throw new \Exception("Clé non valide");
+            }
 
+
+        }
+        
         
 
+        catch(\Exception $e){
+            http_response_code(404);
+            $message=$e->getMessage();
+            $this->view("404",array("message_exception" => $message));
+            die();
+        }
        
     }
 
@@ -239,38 +250,46 @@ class UserController extends Controller{
 
     public function confirm_delete_account($params){
 
+        try{
 
-        $key=$params[1];
+            $key=$params[1];
+            
+            if(is_numeric($key)){
+
+                $user=$this->userManager->get_user("key_confirm",$key);
 
 
-        
-        if(is_numeric($key)){
+                if($user ==! false){
 
-            $user=$this->userManager->get_user("key_confirm",$key);
+                    if($user->photo !== "default.svg"){
+                        unlink(PATH_IMG_AVATARS."/".$user->photo);
+                    }
 
+                    $this->userManager->delete_account($user->id);
 
-            if($user ==! false){
+                    if(isset($_SESSION["user"])){
+                        unset($_SESSION["user"]);
+                        session_destroy();
+                    }
 
-                if($user->photo !== "default.svg"){
-                    unlink(PATH_IMG_AVATARS."/".$user->photo);
+                    $this->view("delete_account");
                 }
-
-                $this->userManager->delete_account($user->id);
-
-                if(isset($_SESSION["user"])){
-                    unset($_SESSION["user"]);
-                    session_destroy();
+                else{
+                    throw new \Exception("Le profil n'a pas été trouvé");
                 }
-
-                $this->view("delete_account");
             }
+
             else{
-                throw new \Exception("Le profil n'a pas été trouvé");
+                throw new \Exception("Clé non valide");
             }
+
         }
 
-        else{
-            throw new \Exception("Clé non valide");
+        catch(\Exception $e){
+            http_response_code(404);
+            $message=$e->getMessage();
+            $this->view("404",array("message_exception" => $message));
+            die();
         }
 
         
@@ -373,30 +392,39 @@ class UserController extends Controller{
 
 
     public function reset_password($params){
+
+        try{
      
-        $key=$params[1];
+            $key=$params[1];
 
-        if(is_numeric($key)){
+            if(is_numeric($key)){
 
-            if(isset($_SESSION["user"])){
-                header("Location:".URL);
-                exit();
+                if(isset($_SESSION["user"])){
+                    header("Location:".URL);
+                    exit();
+                }
+
+                $user=$this->userManager->get_user("key_confirm",$key);
+
+
+                if($user ==! false){
+
+                    $this->view("reset_password",array("key_account" =>$key));
+                }
+                else{
+                    throw new \Exception("Le profil n'a pas été trouvé");
+                }
             }
 
-            $user=$this->userManager->get_user("key_confirm",$key);
-
-
-            if($user ==! false){
-
-                $this->view("reset_password",array("key_account" =>$key));
-            }
             else{
-                throw new \Exception("Le profil n'a pas été trouvé");
+                throw new \Exception("Clé non valide");
             }
         }
-
-        else{
-            throw new \Exception("Clé non valide");
+        catch(\Exception $e){
+            http_response_code(404);
+            $message=$e->getMessage();
+            $this->view("404",array("message_exception" => $message));
+            die();
         }
     }
 

@@ -28,15 +28,23 @@ class BlogController extends Controller{
                 exit();
             }
 
-            if(!filter_var($_GET["page"], FILTER_VALIDATE_INT)){
-                throw new \Exception("numéro de page invalide");
+            try{
+               
+                $current_page= (int) $_GET["page"];
+    
+                if($current_page <= 0 || $current_page > $pages){
+                    throw new \Exception("numéro de page invalide");
+                }
             }
 
-            $current_page= (int) $_GET["page"];
-
-            if($current_page <= 0 || $current_page > $pages){
-                throw new \Exception("numéro de page invalide");
+            catch(\Exception $e){
+                $message=$e->getMessage();
+                http_response_code(404);
+                $this->view("404",array("message_exception" => $message));
+                die();
             }
+
+            
         }
 
         else{
