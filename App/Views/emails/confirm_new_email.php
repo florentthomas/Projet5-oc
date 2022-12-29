@@ -108,7 +108,7 @@
 															<th class="column" width="118" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
 																<table width="100%" border="0" cellspacing="0" cellpadding="0">
 																	<tr>
-																		<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="<?=URL_IMG?>logo.png" width="118" height="16" mc:edit="image_1" style="max-width:118px;" border="0" alt="" /></td>
+																		<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="<?=URL_IMG?>logo.png" width="50" height="50" mc:edit="image_1"  border="0" alt="" /></td>
 																	</tr>
 																</table>
 															</th>
@@ -179,7 +179,7 @@
 																		<th class="column-top" width="110" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
 																			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 																				<tr>
-																					<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="<?=URL_IMG?>logo.png" width="105" height="17" mc:edit="image_11" style="max-width:105px;" border="0" alt="" /></td>
+																					<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="<?=URL_IMG?>logo.png" width="50" height="50" mc:edit="image_11" border="0" alt="" /></td>
 																				</tr>
 																			</table>
 																		</th>

@@ -355,7 +355,7 @@ class UserController extends Controller{
     
                     $content_email=Email::generate_email("reset_password",array("key_account"=>$current_user->key_confirm, "name" => $current_user->pseudo));
     
-                    if(Email::sendEmail($current_user->email,"Réinitialiser le mot de passe",$content_email)){
+                    if(Email::sendEmail($current_user->email,mb_encode_mimeheader("Réinitialiser le mot de passe"),$content_email)){
                         $_SESSION["flash"]["response"]=["attribute"=>"success","message"=>"Email envoyé"];
                     }
     

@@ -146,7 +146,7 @@ class Admin_usersController extends Controller{
 
                 $content_email=Email::generate_email("contact_user",Array("content" => $_POST["message"],"title" => $_POST["subject"]),$_POST["subject"]);
 
-                if(Email::sendEmail($email_user,$_POST["subject"],$content_email)){
+                if(Email::sendEmail($email_user,mb_encode_mimeheader($_POST["subject"]),$content_email)){
                     $response=["attribute" => "success" , "message" => "Message envoyé", "email" => $email_user];
                 }
 
