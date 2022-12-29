@@ -24,9 +24,16 @@ class ArticleController extends Controller{
         if($article){
 
             $data=$this->getComments($id_article);
+            $comments=null;
+            $users=null;
 
-            $comments=$data["comments"];
-            $users=$data["users"];
+            if($data != null){
+                $comments=$data["comments"];
+                $users=$data["users"];
+            }
+
+            
+            
     
             
             $this->view("Article",array("article" => $article,

@@ -13,8 +13,11 @@ define('URL_IMG', URL.'Public/images/');
 
 //Email
 
-define('EMAIL', 'cine-film@outlook.fr');
-define('EMAIL_PASSWORD', 'Tff_dke#85%fdfs,;(du');
+// define('EMAIL', 'cine-film@outlook.fr');
+// define('EMAIL_PASSWORD', 'Tff_dke#85%fdfs,;(du');
+
+define('EMAIL', 'blog-cinema@florent-thomas.com');
+define('EMAIL_PASSWORD', '_9zjZd@5HP*@E3!eK%$');
 
 
 
