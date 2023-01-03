@@ -10,8 +10,8 @@ class CommentController extends Controller{
     public function __construct(){
 
         $this->commentManager=$this->model("CommentManager");
-        $this->userManager=$this->model("userManager");
-        $this->articleManager=$this->model("articleManager");
+        $this->userManager=$this->model("UserManager");
+        $this->articleManager=$this->model("ArticleManager");
     }
 
 
