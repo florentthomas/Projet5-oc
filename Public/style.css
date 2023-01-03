@@ -1444,3 +1444,16 @@ cursor: pointer;
     margin-top: 15px;
     text-align: center;
 }
+
+
+/*footer*/
+
+footer{
+    padding: 2rem;
+    background-color: #1b2426;
+    color:white;
+}
+
+footer p{
+    text-align: center;
+}
