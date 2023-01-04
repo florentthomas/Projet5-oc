@@ -73,8 +73,6 @@
         </article>
 
 
-        
-
         <section id="comments" data-url="{{URL}}blog/get_comments" data-id-article={{article.id}}>
 
             <div id="form_comment_article">
@@ -103,19 +101,23 @@
                     <div class="container_comment">
                         <div class="user">
 
-                            {% for user in users %}
-                                {% if comment.id_user == user.id %}
-                                    <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}"  alt=""/>
-                                    <div>{{user.pseudo}}</div>
-                                    <div>{{comment.date_comment|date("d/m/Y")}}</div>
-                                {% endif %}
-                            {% endfor %}
+
+                            {% if comment.user != false %}
+
+                                <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{comment.user.photo}}"  alt="photo de profil de {{comment.user.pseudo}}"/>
+                                <div>{{comment.user.pseudo}}</div>
+                                <div>{{comment.user.date_comment|date("d/m/Y")}}</div>
+
+                            {% endif %}
+
                         </div>
 
                         <div class="comment">
                             {{comment.comment}}
                         </div>
                     </div>
+
+
                     {% if session.user.account_confirmed == 1 %}
                     
 
@@ -146,42 +148,39 @@
                 {% if comment.children %}
                     
                     
-                    {% for children in comment.children %}
+                    {% for child in comment.children %}
                         
-                        <div class="response_comment_card" id="comment-{{children.id}}" data-id-parent="{{children.id_parent}}">
+                        <div class="response_comment_card" id="comment-{{child.id}}" data-id-parent="{{child.id_parent}}">
                             <div class="container_comment">
                                 <div class="user">
 
-                                    {% for user in users %}
-                                        {% if children.id_user == user.id %}
-                                            <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}" alt=""/>
-                                            <div>{{user.pseudo}}</div>
-                                            <div>{{children.date_comment|date("d/m/Y")}}</div>
+                                        {% if child.user != false %}
+                                            <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{child.user.photo}}" alt="photo de profil de {{child.user.pseudo}}"/>
+                                            <div>{{child.user.pseudo}}</div>
+                                            <div>{{child.date_comment|date("d/m/Y")}}</div>
                                         {% endif %}
-                                    {% endfor %}
-
+                          
                                 </div>
-                                <div class="comment"> {{children.comment}}</div>
+                                <div class="comment"> {{child.comment}}</div>
                             </div>
                             {% if session.user.account_confirmed == 1 %}
 
                                 
-
                                 <span class="menu_comment"><i class="fa-solid fa-list"></i></span> 
                                 
                                 <div class="btn_comment_end">
 
                                     <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
                                         <button class="button-red">Signaler</button>
-                                        <input type="hidden" name="comment_id" value="{{children.id}}"/>
+                                        <input type="hidden" name="comment_id" value="{{child.id}}"/>
                                     </form>
 
                                 
 
-                                    {% if session.user.id == children.id_user %}
+                                    {% if session.user.id == comment.id_user %}
                                         <form class="delete_comment" action="{{URL}}blog/delete_comment" method="post"> 
                                             <button class="button-red">Supprimer</button>
-                                            <input type="hidden" name="comment_id" value="{{children.id}}"/>
+                                            <input type="hidden" name="comment_id" value="{{child.id}}"/>
                                         </form>
                                     {% endif %}
 

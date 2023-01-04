@@ -25,11 +25,10 @@ class ArticleController extends Controller{
 
             $data=$this->getComments($id_article);
             $comments=null;
-            $users=null;
 
             if($data != null){
                 $comments=$data["comments"];
-                $users=$data["users"];
+                
             }
 
             
@@ -37,8 +36,7 @@ class ArticleController extends Controller{
     
             
             $this->view("Article",array("article" => $article,
-                                        "comments" => $comments,
-                                        "users" => $users));
+                                        "comments" => $comments));
 
         }
         
@@ -53,9 +51,7 @@ class ArticleController extends Controller{
 
     public function getComments($id_article=null){
 
-        
         $current_page=1;
-
 
         if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
                
@@ -78,130 +74,72 @@ class ArticleController extends Controller{
 
         $offset= $comments_per_page * ($current_page - 1);
 
+        
+        $comments=$this->commentManager->getCommentsPagination($id_article, $comments_per_page,$offset);
+        
 
-        // récupère les 10 premiers commentaires sans les reponses aux commentaires
-        $comments_to_show=$this->commentManager->getCommentsPagination($id_article, $comments_per_page,$offset);
+        foreach ($comments as $comment){
 
-        // récupère tous les commentaires de l'article
-        $all_comments_article=$this->commentManager->getCommentsByArticle($id_article);
+            $comment->user=$this->userManager->get_user("id",$comment->id_user);
+
+            $children=$this->commentManager->getCommentsChildren($comment->id);
+
+            foreach($children as $child){
+
+                $child->user=$this->userManager->get_user("id",$child->id_user);
+            }
+
+            $comment->children=$children;
+
+        }
 
         
         
 
-        $users=[];
-        $users_id=[];
-        $comments=[];
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
 
-        if($comments_to_show != null && $all_comments_article != null){
 
-            
+            foreach($comments as $index => $comment){
 
-            
-            foreach($comments_to_show as $comment_to_show){
+                $comment->date_comment= date("d/m/Y", strtotime($comment->date_comment));
 
-                foreach($all_comments_article as $comment){
+                if($comment->user != false){
+                    $comment->user->photo=URL_IMG_AVATARS.$comment->user->photo;
+                }
 
-                    if($comment->id_parent == $comment_to_show->id){
-
-                        //stock tous les commentaires enfants des 10 premiers commentaires parents recupérés plus tôt
-
-                        $children=$this->commentManager->getCommentsChildren($comment_to_show->id);
-
+                
+                if(isset($comment->children) && $comment->children != null ){
                     
+                    foreach($comment->children as $child){
 
-                        
-                        $comment_to_show->children=$children;
-                        
+                        $child->date_comment=date("d/m/Y", strtotime($child->date_comment));
+                        $child->user->photo=URL_IMG_AVATARS.$child->user->photo;
                     }
-
-                    $users_id[]=$comment_to_show->id_user;
-
-                }
-
-                
-                $comments[]=$comment_to_show;
-
-            }
-
-            if(isset($children) && $children != null){
-
-                foreach($children as $child){
-
-                    $users_id[]=$child->id_user;
                 }
 
             }
 
             
 
-            
-            $users_id=array_unique($users_id);
-
-            foreach($users_id as $user_id){
-
-                $user=$this->userManager->get_user("id",$user_id);
-
-                if($user != false){
-                    $users[]=$user;
-                }
-                
+            if(isset($_SESSION["user"]) && $_SESSION["user"]->account_confirmed == 1 ){
+                $account_confirmed= true;
+                $current_user=$_SESSION["user"]->id;
             }
-
-            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
-
-                if($users != null){
-                    foreach($users as $user){
-                        $user->photo=URL_IMG_AVATARS.$user->photo;
-                    }
-
-                }
-
-                
-                foreach($comments as $comment){
-
-                    $comment->date_comment= date("d/m/Y", strtotime($comment->date_comment));
-
-                    if(isset($comment->children)){
-                      
-                        foreach($comment->children as $childs){
-
-                            // var_dump($childs);
-                            $childs->date_comment=date("d/m/Y", strtotime($childs->date_comment));
-                        }
-                    }
-
-                }
-
-                if(isset($_SESSION["user"]) && $_SESSION["user"]->account_confirmed == 1 ){
-                    $account_confirmed= true;
-                    $current_user=$_SESSION["user"]->id;
-                }
-                else{
-                    $account_confirmed= false;
-                    $current_user=false;
-                }
-
-                $response=["comments" => $comments, "users" => $users, "account_confirmed" => $account_confirmed, "current_user" => $current_user];
-
-                echo json_encode($response);
-            }
-
             else{
-                return Array("users" => $users , "comments" => $comments);
+                $account_confirmed= false;
+                $current_user=false;
             }
+
+            $response=["comments" => $comments, "account_confirmed" => $account_confirmed, "current_user" => $current_user];
+
+            echo json_encode($response);
         }
 
         else{
-
-
-            
-            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
-
-                $response=[null];
-
-                echo json_encode($response);
-            }
+            return Array("comments" => $comments);
         }
+        
+
     }
     
 
