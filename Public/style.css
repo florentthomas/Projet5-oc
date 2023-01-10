@@ -20,6 +20,10 @@ html,body{
     font-size: 16px;
 }
 
+body{
+    position: relative;
+    min-height: 100vh;
+}
 
 
 @media only screen and (max-device-width : 767px) {
@@ -423,6 +427,7 @@ html,body{
 .wrapper{
     background-color: var(--bgColor_wrapper);
     min-height:100vh;
+    padding-bottom: 5rem;
 }
 
 
@@ -430,6 +435,7 @@ html,body{
     min-height:100vh;
     width:70%;
     padding-top: 70px;
+    padding-bottom: 5rem;
     margin: auto;
     background-color: var(--bgColor_container);
 }
@@ -525,6 +531,7 @@ textarea:focus,input:focus{
 
 header{
     color: white;
+    position: relative;
 }
 
 #header-wrapper{
@@ -628,6 +635,7 @@ nav{
 #blog{
     background-color: #f2f2f2;
     padding:3rem;
+    padding-bottom: 7rem;
 }
 
 #posts{
@@ -985,6 +993,7 @@ article{
     display: flex;
     justify-content: space-between;
     padding-top: 65px;
+    padding-bottom: 8rem;
 }
 
 .panel_admin{
@@ -1452,6 +1461,9 @@ footer{
     padding: 2rem;
     background-color: #1b2426;
     color:white;
+    position: absolute;
+    bottom: 0;
+    width:100%;
 }
 
 footer p{
