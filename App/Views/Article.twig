@@ -16,12 +16,14 @@
     <script defer src="{{URL}}Public/js/comments_article/form-comment.js"></script>
     <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script defer src="{{URL}}Public/js/message_ajax.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/template_comment_child.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/menu_mobile.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/card_comment_parent.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/card_comment_child.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/create_elt_user_comment.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/form_report_comment.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/card_comment/form_delete_comment.js"></script>
+    <script defer src="{{URL}}Public/js/comments_article/template_comment_parent.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/add_comment.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/report_comment.js"></script>
     <script defer src="{{URL}}Public/js/comments_article/download_comments.js"></script>
@@ -108,6 +110,11 @@
                                 <div>{{comment.user.pseudo}}</div>
                                 <div>{{comment.user.date_comment|date("d/m/Y")}}</div>
 
+                            {% else %}
+
+                                <div>Profil supprimé</div>
+                                <div>{{comment.user.date_comment|date("d/m/Y")}}</div>
+
                             {% endif %}
 
                         </div>
@@ -150,13 +157,17 @@
                     
                     {% for child in comment.children %}
                         
-                        <div class="response_comment_card" id="comment-{{child.id}}" data-id-parent="{{child.id_parent}}">
+                        <div class="response_comment_card" id="comment-{{child.id}}">
                             <div class="container_comment">
                                 <div class="user">
 
                                         {% if child.user != false %}
                                             <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{child.user.photo}}" alt="photo de profil de {{child.user.pseudo}}"/>
                                             <div>{{child.user.pseudo}}</div>
+                                            <div>{{child.date_comment|date("d/m/Y")}}</div>
+
+                                        {% else %}
+                                            <div>Profil supprimé</div>
                                             <div>{{child.date_comment|date("d/m/Y")}}</div>
                                         {% endif %}
                           
@@ -177,7 +188,7 @@
 
                                 
 
-                                    {% if session.user.id == comment.id_user %}
+                                    {% if session.user.id == child.id_user %}
                                         <form class="delete_comment" action="{{URL}}blog/delete_comment" method="post"> 
                                             <button class="button-red">Supprimer</button>
                                             <input type="hidden" name="comment_id" value="{{child.id}}"/>
@@ -203,5 +214,79 @@
         
     </div>
 </div>
+
+<template id="comment-parent">
+
+    <div class="comment_article_card" id="">
+        <div class="container_comment">
+            <div class="user">
+
+                <img class="photo_profil" src=""  alt=""/>
+                <div class="pseudo"></div>
+                <div class="date_comment"></div>
+            </div>
+
+            <div class="comment"></div>
+        </div>
+        
+
+        <span class="menu_comment"><i class="fa-solid fa-list"></i></span> 
+
+        <div class="btn_comment_end">
+            
+            <button class="btn_response button-blue" data-id="">Répondre</button>
+
+            <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
+                <button class="button-red">Signaler</button>
+                <input type="hidden" class="report_comment_input" name="comment_id" value=""/>
+            </form>
+
+            <form class="delete_comment" action="{{URL}}blog/delete_comment" method="post"> 
+                <button class="button-red">Supprimer</button>
+                <input type="hidden" class="delete_comment_input" name="comment_id" value=""/>
+            </form>
+        </div>
+    </div>
+
+</template>
+
+
+<template id="comment-child">
+    <div class="response_comment_card" id="">
+        <div class="container_comment">
+            <div class="user">
+
+                    
+                <img class="photo_profil" src="" alt=""/>
+                <div class="pseudo"></div>
+                <div class="date_comment"></div>
+                    
+        
+            </div>
+            <div class="comment"></div>
+        </div>
+        
+        <span class="menu_comment"><i class="fa-solid fa-list"></i></span> 
+        
+        <div class="btn_comment_end">
+
+            <form class="report_comment" action="{{URL}}blog/report_comment" method="post"> 
+                <button class="button-red">Signaler</button>
+                <input type="hidden"  class="report_comment_input" name="comment_id" value=""/>
+            </form>
+
+        
+
+            
+            <form class="delete_comment" action="{{URL}}blog/delete_comment" method="post"> 
+                <button class="button-red">Supprimer</button>
+                <input type="hidden" name="comment_id" class="delete_comment_input" value=""/>
+            </form>
+        
+
+        </div>
+    </div>
+</template>
+
 {% endblock %}
 

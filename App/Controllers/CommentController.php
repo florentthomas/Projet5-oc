@@ -266,9 +266,13 @@ class CommentController extends Controller{
                     $comment=$this->commentManager->get_comment($id_comment);
 
                     $comment->date_comment= date("d/m/Y", strtotime($comment->date_comment));
-                    
 
-                    $response=["attribute" => "success","message" => "Commentaire ajouté", "comment" => $comment ,"user" => $user];
+                    $comment->user=$user;
+
+                    $current_user=$user["id"];
+
+            
+                    $response=["attribute" => "success","message" => "Commentaire ajouté", "comment" => $comment, "current_user" => $current_user];
 
                 }
                 

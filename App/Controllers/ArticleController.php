@@ -74,7 +74,7 @@ class ArticleController extends Controller{
 
         $offset= $comments_per_page * ($current_page - 1);
 
-        
+
         $comments=$this->commentManager->getCommentsPagination($id_article, $comments_per_page,$offset);
         
 
@@ -113,7 +113,11 @@ class ArticleController extends Controller{
                     foreach($comment->children as $child){
 
                         $child->date_comment=date("d/m/Y", strtotime($child->date_comment));
-                        $child->user->photo=URL_IMG_AVATARS.$child->user->photo;
+
+                        if($child->user != false){
+                            $child->user->photo=URL_IMG_AVATARS.$child->user->photo;
+                        }
+                        
                     }
                 }
 

@@ -19,68 +19,21 @@ jQuery(document).ready(function($){
             .done(function(response){
 
 
-                const comment=response.comment;
-                const user = response.user;
+                const comment=response.comment
+                const current_user=response.current_user
+                const account_confirmed=true
 
                 if(response.attribute == "success"){
 
-                    // create card user
-
-                    const cardUSer=createUserCard(user,comment);
-
-
-                    //btn response, report and delete 
-
-                    const btnDiv=$("<div></div>").addClass("btn_comment_end");
-
-    
-                    const form_report_comment=create_form_report_comment(comment);
-
-                    const form_delete_comment=create_form_delete_comment(comment);
-
-
-                    const menu_sandwich=$("<i></i>").addClass("fa-solid fa-list menu_comment");
-                    
-                    btnDiv.append(form_report_comment,form_delete_comment);
-                 
-                    
-                
-
-                    if(id_parent == 0){
-                      
-
-                         //button response
-
-                        const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", comment.id).html("Répondre");
-                        $(btnDiv).prepend(btnEltReponse);
-
-
-                    
-                        card_comment_parent=create_card_comment_parent(comment);
-
-                        card_comment_parent.find(".container_comment").prepend(cardUSer)
-
-                        const menu_sandwich=create_menu_hamburger();
-
-                        card_comment_parent.append(menu_sandwich,btnDiv);
-
-                        $("#comments_article").prepend(card_comment_parent);
-
-                        
+                    if(comment.id_parent == 0){
+                        $("#comments_article").prepend(comment_parent_template(comment,account_confirmed,current_user))
                     }
 
-                    else{
-                        const card_comment_child=create_card_comment_child(comment);
-                      
-                        card_comment_child.find(".container_comment").prepend(cardUSer);
-
-                        const menu_sandwich=create_menu_hamburger();
-
-                        $(card_comment_child).append(menu_sandwich,btnDiv);
-                        
-                        $("#comment-"+id_parent).after(card_comment_child);
+                    else if (comment.id_parent > 0) {
+                        $("#comment-"+comment.id_parent).after(comment_child_template(comment,account_confirmed,current_user))
                     }
 
+                    
 
                     $("#comment_area").val("");
                     $("#form_comment_article").append($("#form_comment"));

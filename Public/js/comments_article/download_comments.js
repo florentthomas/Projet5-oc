@@ -1,5 +1,8 @@
 jQuery(document).ready(function($){
 
+    
+
+ 
 
 let current_page=1;
 
@@ -47,104 +50,28 @@ $(window).scroll(function() {
             current_user=response.current_user;
 
             
-            if(comments != undefined){
-
-                comments.forEach(commentElt => {
-
-                    const card_comment_parent=create_card_comment_parent(commentElt);
-
-                    
-                    users.forEach(user =>{
-
-                        if(user.id == commentElt.id_user){
-
-                            const userDiv=createUserCard(user,commentElt);
-                            $(card_comment_parent).find(".container_comment").prepend(userDiv);
-                            
-                        }
-                    })
+            if(comments.length != 0){
 
 
-                    if(account_confirmed != false){
+                comments.forEach(comment => {
 
-                       //insert buttons response and report comment if user's account is valid
+                  
 
-                        const btnDiv=$("<div></div>").addClass("btn_comment_end").append(create_form_report_comment(commentElt));
-                    
+                    $("#comments_article").append(comment_parent_template(comment,account_confirmed,current_user))
 
-                        //button response
-                        const btnEltReponse=$("<button></button>").addClass("btn_response button-blue").attr("data-id", commentElt.id).html("Répondre");
-                      
-                        $(btnDiv).prepend(btnEltReponse);
+                    if(comment.children !== undefined && comment.children.length != 0){
 
-                        const menu_sandwich=create_menu_hamburger()
-                        
-                        $(card_comment_parent).append(menu_sandwich,btnDiv);
+                 
+                        comment.children.forEach(comment_child =>{
 
+                            $("#comments_article").append(comment_child_template(comment_child,account_confirmed,current_user))
 
+                        })    
 
-                        //button delete comment
-
-                        if(current_user == commentElt.id_user){
-
-                            $(btnDiv).append(create_form_delete_comment(commentElt));
-
-                        }
-                       
-                        
                     }
-
-                    $("#comments_article").append(card_comment_parent);
-
-
-                    //comments child
-
-
-                    if(commentElt.children){
-
-                        commentElt.children.forEach(commentChild =>{
-                            
-                            const card_comment_child=create_card_comment_child(commentChild);
-
-
-                            users.forEach(user=>{
-
-                                if(commentChild.id_user == user.id){
-
-                                    card_comment_child.find(".container_comment").prepend(createUserCard(user,commentChild));
-                                    
-                                }
-                            })
-
-
-                            if(account_confirmed != false){
-     
-     
-                                const btnDiv=$("<div></div>").addClass("btn_comment_end");
-                           
-                                $(btnDiv).append(create_form_report_comment(commentChild));
-                               
-
-                                if(current_user == commentChild.id_user){
-
-                                    $(btnDiv).append(create_form_delete_comment(commentChild));
-
-                                }
-                            
-                                
-    
-                                const menu_sandwich=create_menu_hamburger();
-                                
-                                $(card_comment_child).append(menu_sandwich,btnDiv);
-                                 
-                            }
-
-                            $("#comments_article").append(card_comment_child);
-
-                        })
-                    }
-                    
+                   
                 });
+
 
             }else{
                 loadCommentsMsg.text("Aucun commentaire à charger");
