@@ -21,12 +21,9 @@ abstract class Controller{
         
 
         $twig = new \Twig\Environment($loader, [
-            'cache' => false,
-            'debug' => true,
+            'cache' => PATH_ROOT."/vendor/twig/tmp"
         ]);
         
-       
-        $twig->addExtension(new \Twig\Extension\DebugExtension());
 
 
         $twig->addExtension(new MarkdownExtension());
