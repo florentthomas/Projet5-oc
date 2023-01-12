@@ -358,12 +358,11 @@ class TMDB_api extends Controller{
 
         
 
-   
-     
+       
         
 
 
-        if($result_person_info->profile_path === null || $result_person_info->profile_path === ""){
+        if(!isset($result_person_info->profile_path) && $result_person_info->profile_path === null || $result_person_info->profile_path === ""){
             $profile_path=URL_IMG_AVATARS."default.svg";
         }
         else{
@@ -392,32 +391,56 @@ class TMDB_api extends Controller{
         ];
 
 
-        function date_compare($a, $b){
-            $t1 = strtotime($a->release_date);
-            $t2 = strtotime($b->release_date);
-            return $t1 - $t2;
-        }  
+   
+        $all_movies=[];
 
-
-        //recupere les films selon le poste occupé et trie par date  
+        
         foreach($result_person_movies->crew as $movie){
 
-            if($movie->job === "Director"){
-
-                $data["movies"]["director"][]=$movie;
-                usort($data["movies"]["director"], 'App\Controllers\date_compare');
-             
+            //recuperation de tous les films indexés par sa popularité 
+            if(isset($movie->vote_count) && strlen($movie->vote_count) != 0){
+                $all_movies[$movie->vote_count]=$movie;
             }
 
-            if($movie->job === "Executive Producer" || $movie->job === "Producer" ){
-                $data["movies"]["production"][]=$movie;
-                usort($data["movies"]["production"], 'App\Controllers\date_compare');
 
+            //recuperation de tous les films selon le poste occupé, indexés par la date afin de trier le tableau par la date des films
+            if($movie->job === "Director"){
+
+                
+                if(isset($movie->release_date) && strlen($movie->release_date) != 0){
+                    $data["movies"]["director"][strtotime($movie->release_date)]=$movie;
+                }
+
+                else{
+                    $data["movies"]["director"][]=$movie;
+                }
+            }
+
+
+            if($movie->job === "Executive Producer" || $movie->job === "Producer" ){
+
+                if(isset($movie->release_date) && strlen($movie->release_date) != 0){
+                    $data["movies"]["production"][strtotime($movie->release_date)]=$movie;
+                }
+
+                else{
+                    $data["movies"]["production"][]=$movie;
+                }
             }
         }
 
+
+
+
         foreach($result_person_movies->cast as $movie){
+
+
+            if(isset($movie->vote_count) && strlen($movie->vote_count) != 0){
+                $all_movies[$movie->vote_count]=$movie;
+            }
            
+
+
             if($movie->character === "Self" || $movie->character === "Himself" || $movie->character === "Herself" ){
 
                 if($data["info_person"]["gender"] === "male"){
@@ -428,76 +451,61 @@ class TMDB_api extends Controller{
                 }
                 
             }
-            $data["movies"]["acting"][]=$movie;
-            usort($data["movies"]["acting"], 'App\Controllers\date_compare');
+
+            
+            if(isset($movie->release_date) && strlen($movie->release_date) != 0){
+                $data["movies"]["acting"][strtotime($movie->release_date)]=$movie;
+            }
+
+            else{
+                $data["movies"]["acting"][]=$movie;
+            }
+
         }
 
+        
 
-
+    
 
         if(array_key_exists("movies", $data) && $data["movies"] !== null){
 
-            //trie tous les films du tableau par ordre de popularité
-
-            $extract= function($obj){
-                return $obj->id;
-            };
-
-            $movies_popular = array();
-            $all_movies= array();
            
-            foreach($data["movies"] as $key => $movies){
+            //Boucle pour trier les films par date
+            foreach($data["movies"] as $key => $movie){
 
-        
-                foreach($movies as $sub_key => $sub_movies){
-                   
-                 
-                    $id_movie=$sub_movies->id;
+                ksort($data["movies"][$key]);
+            }
 
-                    //Supprime les doublons
-                   
-                    if(in_array($id_movie, array_map($extract,$all_movies)) === false){
+            if(!empty($all_movies)){
 
-                        
-                        $all_movies[]=$sub_movies;
+                krsort($all_movies);
+
+                foreach($all_movies as $key => $movie){
+
+
+                    //ajout de l'url de l'affiche du film
+                    if(!isset($movie->poster_path) && $movie->poster_path === null || $movie->poster_path === "" ){
+
+                        $all_movies[$i]->poster_path= URL_IMG."no_image.svg";
                     }
-      
-                    
+
+                    else{
+                        $movie->poster_path=$this->url_image."".$movie->poster_path;
+                    }
+
+                    //ajout des 10 films les plus populaires
+
+                    $data["popular_movies"][]=$movie;
+
+                 
+                    if(count($data["popular_movies"]) == 10 ){
+                        break;
+                    }
                 }
 
             }
-
-            foreach($all_movies as $movie){
-                $movies_popular[] = $movie->vote_count;
-            }
-
-
-            array_multisort($movies_popular, SORT_DESC, $all_movies);
-         
-            //recuperation des 10 films les plus populaires
-
-            for($i=0; $i < count($all_movies); $i++){
-    
-                if($all_movies[$i]->poster_path === null || $all_movies[$i]->poster_path === "" ){
-                    $all_movies[$i]->poster_path= URL_IMG."no_image.svg";
-                }
-                else{
-                    $all_movies[$i]->poster_path=$this->url_image."".$all_movies[$i]->poster_path;
-                }
-    
-                $data["popular_movies"][]=$all_movies[$i];
-            
-                if($i == 9){
-                    break;
-                }
-    
-            }
-
-           
 
         }
-        
-
         
         $this->view("result_person_api", Array("data" => $data));
 
