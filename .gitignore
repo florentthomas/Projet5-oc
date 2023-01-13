@@ -1,2 +1,3 @@
 App/config/config.php
 Public/images
+vendor/twig/tmp
