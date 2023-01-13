@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
             if(response.attribute == "success"){
                 comment.fadeOut();
             
-                let responses= $("[data-id-parent="+id_comment+"]");
+                let responses= $("[data-parent-id="+id_comment+"]");
 
                 responses.fadeOut();
 
