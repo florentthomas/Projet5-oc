@@ -151,7 +151,7 @@
                     
                     {% for child in comment.children %}
                         
-                        <div class="response_comment_card" id="comment-{{child.id}}">
+                        <div class="response_comment_card" id="comment-{{child.id}}" data-parent-id="{{child.id_parent}}">
                             <div class="container_comment">
                                 <div class="user">
 
@@ -246,7 +246,7 @@
 
 
 <template id="comment-child">
-    <div class="response_comment_card" id="">
+    <div class="response_comment_card" id="" data-parent-id="">
         <div class="container_comment">
             <div class="user">
 

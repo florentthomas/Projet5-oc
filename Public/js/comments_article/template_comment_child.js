@@ -29,8 +29,9 @@ function comment_child_template(comment_child,account_confirmed = true,current_u
 
         comment_article_card_elt.setAttribute("id", "comment-"+comment_child.id)
 
+        comment_article_card_elt.setAttribute("data-parent-id", comment_child.id_parent)
 
-
+      
         if(comment_child.user != false){
             photo_profil_elt.setAttribute("alt" , "Photo de profil de "+comment_child.user.pseudo)
             photo_profil_elt.setAttribute("src" , comment_child.user.photo)
