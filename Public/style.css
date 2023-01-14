@@ -10,8 +10,6 @@
 *{
     padding:0;
     margin:0;
-    list-style-type: none;
-    text-decoration: none;
     font-family: sans-serif;
     box-sizing: border-box;
 }
@@ -601,6 +599,10 @@ nav{
     color: white;
 }
 
+nav ul{
+    list-style-type: none;
+}
+
 
         
 
@@ -616,6 +618,7 @@ nav{
     align-self: center;
     cursor: pointer;
     color: white;
+    text-decoration: none;
 }
 
 .link_blog{
@@ -706,6 +709,11 @@ nav{
 
 article p{
     line-height: 1.7rem;
+}
+
+
+article a{
+    text-decoration: none;
 }
 
 #posts .title_post{
@@ -1088,17 +1096,20 @@ label[for="photo"]{
 
 #list_menu_admin{
     background-color: #f7f7f7;
+    list-style-type: none;
 }
 
 #list_menu_admin a{
     display: block;
     padding: 2rem;
+    text-decoration: none;
    
 }
 
 #list_menu_admin li:hover{
     cursor: pointer;
     background-color: #1b2426;
+    
 }
 
 #list_menu_admin li:hover a{
@@ -1229,6 +1240,7 @@ cursor: pointer;
 .name_result a{
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
 }
 
 
@@ -1291,6 +1303,11 @@ cursor: pointer;
     padding: 5px;
     background-color:white;
     box-shadow: 1px 2px 20px black ;
+   
+}
+
+.card_info a{
+    text-decoration: none;
 }
 
 .card_person{
@@ -1422,6 +1439,7 @@ cursor: pointer;
    flex-wrap: wrap;
    justify-content: center;
    margin-top: 3rem;
+   text-decoration: none;
 }
 
 .card_movie{
@@ -1450,6 +1468,10 @@ cursor: pointer;
 .list_movies{
     margin-top: 50px;
     line-height: 2rem;
+}
+
+.list_movies a{
+    text-decoration: none;
 }
 
 #controle_img_msg{
