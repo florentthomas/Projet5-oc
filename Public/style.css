@@ -1103,13 +1103,11 @@ label[for="photo"]{
     display: block;
     padding: 2rem;
     text-decoration: none;
-   
 }
 
 #list_menu_admin li:hover{
     cursor: pointer;
     background-color: #1b2426;
-    
 }
 
 #list_menu_admin li:hover a{
