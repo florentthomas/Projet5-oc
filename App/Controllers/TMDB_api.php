@@ -486,7 +486,7 @@ class TMDB_api extends Controller{
                     //ajout de l'url de l'affiche du film
                     if(!isset($movie->poster_path) && $movie->poster_path === null || $movie->poster_path === "" ){
 
-                        $all_movies[$i]->poster_path= URL_IMG."no_image.svg";
+                        $movie->poster_path= URL_IMG."no_image.svg";
                     }
 
                     else{
