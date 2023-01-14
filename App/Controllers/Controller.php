@@ -21,7 +21,8 @@ abstract class Controller{
         
 
         $twig = new \Twig\Environment($loader, [
-            'cache' => PATH_ROOT."/vendor/twig/tmp"
+            // 'cache' => PATH_ROOT."/vendor/twig/tmp"
+            "cache" => false
         ]);
         
 

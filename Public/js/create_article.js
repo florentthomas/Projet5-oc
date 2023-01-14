@@ -16,7 +16,7 @@ jQuery(document).ready(function($){
 
     $("#create_article").submit(function(e){
 
-        const content=$(this).find("#article").summernote("code");
+        const content=$(this).find("#textaera_summernote").summernote("code");
         const result_elt=$("#result");
         
         

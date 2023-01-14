@@ -23,7 +23,7 @@ jQuery(document).ready(function($){
         done(function(response){
 
             $("#subject").val("");
-            $("#message_user").summernote('reset')
+            $("#textaera_summernote").summernote('reset')
             message_ajax(response);
             
         }).
