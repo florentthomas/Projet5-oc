@@ -448,6 +448,13 @@ body{
 
 #pagination a{
     margin: auto;
+    border:0;
+    border-radius: 2rem;
+    padding: 0.5rem 2rem;
+    cursor:pointer;
+    color:white;
+    background-color: var(--color_blue_btn);
+    text-decoration: none;
 }
 
 
@@ -701,7 +708,7 @@ nav ul{
     position: relative;
 }
 
-#posts h1{
+#posts h2{
     padding:1rem;
     text-align: center;
     text-transform: uppercase;

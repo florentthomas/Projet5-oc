@@ -55,7 +55,7 @@
                         <span>🤵🏻 {{article.author}}</span>
                         <span>🗓️ {{article.date_create|date("d/m/Y")}}</span>
                     </div>
-                    <h1>{{article.title}}</h1>
+                    <h2>{{article.title}}</h2>
                     <p>{{article.description_article}}</p>
                 </a>
             </article>
@@ -68,13 +68,13 @@
 
             {% if current_page >= 2 %}
 
-                <a href="{{URL}}?page={{current_page - 1}}#blog"><button class="button-blue">Page précédente</button></a>
+                <a href="{{URL}}?page={{current_page - 1}}#blog">Page précédente</a>
 
             {% endif %}
 
             {% if current_page < pages_total %}
 
-                <a href="{{URL}}?page={{current_page + 1}}#blog"><button class="button-blue">Page suivante</button></a>
+                <a href="{{URL}}?page={{current_page + 1}}#blog">Page suivante</a>
 
             {% endif %}
 
