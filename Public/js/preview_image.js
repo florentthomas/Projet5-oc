@@ -6,6 +6,7 @@ function readURL(input) {
         var reader = new FileReader();
         
         reader.onload = function (e) {
+            $('#prev_image').show();
             $('#prev_image').attr('src', e.target.result);
         }
         

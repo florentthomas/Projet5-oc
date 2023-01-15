@@ -31,7 +31,7 @@
 
             <div class="content_card">
 
-                <img class="img_article" src="{{URL_IMG_ARTICLE}}{{article.image_article}}"/>
+                <img class="img_article" src="{{URL_IMG_ARTICLE}}{{article.image_article}}" alt="image presentation de l'article"/>
 
                 <div class="content_card_article">
                     <h3>{{article.title}}</h3>
@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="btn_edit">
-                <a href="{{URL}}admin_blog/edit/{{article.id}}">
-                    <button class="button-blue">Modifier</button>
+                <a href="{{URL}}admin_blog/edit/{{article.id}}" class="link_blue">
+                    Modifier
                 </a>
             </div>
         </div>

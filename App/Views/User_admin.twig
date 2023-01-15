@@ -13,6 +13,9 @@
 {% endblock %}
 
 {% block script %}
+    <noscript> 
+        <meta http-equiv="refresh" content="0; url={{URL}}no_script"/>
+    </noscript>
 
     {% include ("summernote_cdn.twig") %}
 
@@ -32,11 +35,7 @@
 
 <div class="panel_admin">
 
-    <noscript> 
     
-        <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
-
-    </noscript>
 
     <p id="result" class="message_fixed"></p>
 
@@ -58,7 +57,7 @@
     
 
     <div id="user_info">
-        <img src="" id="photo_user"/>
+        <img src="" id="photo_user" alt="photo de profil"/>
         <div id="pseudo"></div>
         <div id="date_inscription"></div>
         <div id="type_user"></div>

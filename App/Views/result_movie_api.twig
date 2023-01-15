@@ -37,11 +37,11 @@
 
                     <div class="header_movie_info">
 
-                        <div class="container_poster_movie"><img class="poster_movie" src="{{data.info_movie.poster}}" alt="affiche {{data.info_movie.title}}"/></div>
+                        <div class="container_poster_movie"><img class="poster_movie" src="{{data.info_movie.poster}}" alt="affiche du film {{data.info_movie.title}}"/></div>
                         <div class="container_title_movie">
                             <h2 class="title_movie">{{data.info_movie.title}}</h2>
                             {% for genre in data.info_movie.genres %}
-                                &#9679{{genre.name}}
+                                <i class="fa-solid fa-circle"></i>{{genre.name}}
                             {% endfor %}
 
                             {{data.info_movie.date |date("d/m/Y")}}
@@ -90,7 +90,7 @@
                         <li><span class="text-bold">Budget:</span> {{data.info_movie.budget}}</li>
                         <li><span class="text-bold">Productions:</span>
                             {% for prod in data.info_movie.production_compagnies %}
-                                &#9679{{prod.name}}
+                                <i class="fa-solid fa-circle"></i> {{prod.name}}
                             {% endfor %}
                         </li>
                     </ul>
@@ -107,7 +107,7 @@
                     
                     <div class="card_person card_info">
                         <div>
-                            <a href="{{URL}}rechercher/person/{{data.casting.director.id}}"><img src="{{data.casting.director.profile_path}}" alt="{{data.casting.director.name}}"/></a>
+                            <a href="{{URL}}rechercher/person/{{data.casting.director.id}}"><img src="{{data.casting.director.profile_path}}" alt="photo de {{data.casting.director.name}}"/></a>
                         </div>
 
                         <div class="character">
@@ -123,7 +123,7 @@
 
                         <div class="card_person card_info">
                             <div>
-                                <a href="{{URL}}rechercher/person/{{actor.id}}"><img src="{{actor.profile_path}}" alt="{{actor.name}}"/></a>
+                                <a href="{{URL}}rechercher/person/{{actor.id}}"><img src="{{actor.profile_path}}" alt="photo de {{actor.name}}"/></a>
                             </div>
 
                             <div class="character">

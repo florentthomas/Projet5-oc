@@ -446,7 +446,7 @@ body{
     margin-top: 5%;
 }
 
-#pagination a{
+#pagination a, .link_blue{
     margin: auto;
     border:0;
     border-radius: 2rem;
@@ -781,6 +781,9 @@ article a{
     background-color: white;
 }
 
+#card_404 p{
+    margin-bottom: 1rem;
+}
 
 /*Page article*/
 
@@ -836,7 +839,6 @@ article{
     max-width: 100%;
     max-width: -moz-available;          
     max-width: -webkit-fill-available;  
-    max-width: fill-available;
     margin: auto;
     padding: 1rem;
     border:var(--borderBlack);
@@ -852,7 +854,7 @@ article{
 .photo_profil{
     width: 70px;
     height:70px;
-    clip-path: circle();
+    clip-path: circle(50% at center center);
 }
 
 
@@ -1062,6 +1064,7 @@ label[for="photo"]{
 
 .btn_edit{
     text-align: end;
+    padding: 0.5rem;
 }
 
 
@@ -1097,6 +1100,7 @@ label[for="photo"]{
 #prev_image_block img{
     max-width: 100%;
     margin: auto;
+    display: none;
 }
 
 /*menu_admin_blog*/
@@ -1485,6 +1489,10 @@ cursor: pointer;
     text-align: center;
 }
 
+.fa-circle{
+    vertical-align: middle;
+    font-size: 0.25rem;
+}
 
 /*footer*/
 

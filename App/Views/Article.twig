@@ -12,6 +12,9 @@
 {% endblock %}
 
 {% block script %}
+    <noscript> 
+        <meta http-equiv="refresh" content="0; url={{URL}}no_script"/>
+    </noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script defer src="{{URL}}Public/js/comments_article/form-comment.js"></script>
     <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
@@ -28,12 +31,6 @@
 
 
 {% block content %}
-
-<noscript> 
- 
-    <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
-
-</noscript>
 
 <div class="wrapper">
 

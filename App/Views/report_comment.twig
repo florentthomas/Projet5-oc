@@ -11,7 +11,9 @@
 {% endblock %}
 
 {% block script %}
-
+    <noscript> 
+        <meta http-equiv="refresh" content="0; url={{URL}}no_script"/>
+    </noscript>
     <script defer src="{{URL}}Public/js/message_ajax.js"></script>
     <script defer src="{{URL}}Public/js/message_error_ajax.js"></script>
     <script defer src="{{URL}}Public/js/comments_reported.js"></script>
@@ -23,12 +25,6 @@
 {% block admin %}
 
 <div class="panel_admin">
-
-    <noscript> 
-    
-        <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
-
-    </noscript>
 
     <p id="result" class="message_fixed"></p>
 
@@ -48,7 +44,7 @@
 
                     {% for user in users %}
                         {% if comment_reported.id_user == user.id %}
-                            <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}"  alt=""/>
+                            <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{user.photo}}"  alt="photo de profil"/>
                             <div>{{user.pseudo}}</div>
                             <div>{{comment_reported.date_comment|date("d/m/y")}}</div>
                         {% endif %}

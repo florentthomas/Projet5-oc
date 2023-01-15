@@ -13,7 +13,9 @@
 {% endblock %}
 
 {% block script %}
-
+    <noscript> 
+        <meta http-equiv="refresh" content="0; url={{URL}}no_script"/>
+    </noscript>
     {% include ("summernote_cdn.twig") %}
     <script defer src="{{URL}}Public/js/message_ajax.js"></script>
     <script defer src="{{URL}}Public/js/add_image_summernote.js"></script>
@@ -31,11 +33,7 @@
 
  <div class="panel_admin">
 
-    <noscript> 
     
-        <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
-
-    </noscript>
 
     <h1>Rédiger un article</h1>
 
@@ -65,7 +63,7 @@
                 <input type="file" name="image_article" id="image_article" accept="image/png, image/jpeg, image/jpg, image/gif"/>
 
                 <div id="prev_image_block">
-                    <img src="" id="prev_image"/>
+                    <img src="" id="prev_image" alt="previsualisation de l'image de l'article"/>
                 </div>
 
             </div>

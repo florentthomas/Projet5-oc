@@ -12,6 +12,11 @@
 
 {% block script %}
 
+    <noscript> 
+    
+        <meta http-equiv="refresh" content="0; url={{URL}}no_script"/>
+
+    </noscript>
     
     {% include ("summernote_cdn.twig") %}
 
@@ -38,11 +43,6 @@
 
 <div class="panel_admin">
 
-    <noscript> 
-    
-        <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
-
-    </noscript>
 
     <p id="result" class="message_fixed"></p>
 
@@ -87,7 +87,7 @@
             <div class="btn_form">
                 <p>image actuelle</p>
         
-                <img src= "{{URL_IMG_ARTICLE}}{{article.image_article}}" alt="" id="current_img"/>
+                <img src= "{{URL_IMG_ARTICLE}}{{article.image_article}}" alt="image actuelle" id="current_img"/>
            
                 <div class="btn_form">
                     <label for="image_article">Selectionner une nouvelle image</label>
@@ -98,7 +98,7 @@
             <span id="controle_img_msg"></span>
             <div id="prev_image_block">
 
-                <img src="" id="prev_image"/>
+                <img src="" id="prev_image" alt="prévisualisation de l'image de l'article"/>
                 <div class="btn_form">
                     <button class="button-blue" id="btn_form_img" type="submit">Changer l'image</button>
                     <button class="button-red"  id="delete_image">Supprimer l'image</button>

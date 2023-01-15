@@ -12,6 +12,9 @@
 {% endblock %}
 
 {% block script %}
+    <noscript> 
+        <meta http-equiv="refresh" content="0; url={{URL}}no_script"/>
+    </noscript>
     <script defer src="{{URL}}Public/js/loading_ajax.js"></script>
     <script defer src="{{URL}}Public/js/safe_password.js"></script>
     <script defer src="{{URL}}Public/js/message_ajax.js"></script>
@@ -26,12 +29,6 @@
 
 
 {% block content %}
-
-<noscript> 
- 
-    <meta http-equiv="refresh" content="0;url={{URL}}no_script"/>
-
-</noscript>
 
     
     <div class="wrapper">
@@ -117,7 +114,7 @@
 
                     <div id="prev_image_block">
 
-                        <img src="" id="prev_image"/>
+                        <img src="" id="prev_image" alt="previsualisation de la photo de profil"/>
 
                     </div>
 
