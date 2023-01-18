@@ -20,7 +20,16 @@ class Edit_articleController extends Controller{
             
             $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
-            if($current_user->type_user === "admin" || $current_user->type_user === "super_admin" || $current_user->type_user === "editor"){
+            if($current_user == false){
+
+                unset($_SESSION["user"]);
+                session_destroy();
+
+                header("Location:".URL);
+                exit();
+            }
+
+            if($current_user != false && ($current_user->type_user === "admin" || $current_user->type_user === "super_admin" || $current_user->type_user === "editor")){
 
                 $articles=$this->articleManager->get_all_articles();
 
@@ -39,6 +48,41 @@ class Edit_articleController extends Controller{
         
     }
 
+    private function is_allowed(){
+
+        if(isset($_SESSION["user"])){
+
+            $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+
+            if($current_user == false){
+                
+                unset($_SESSION["user"]);
+                session_destroy();
+                header("403 Forbidden", false , 403);
+                $response=["attribute" => "error", "message" => "Vous n'êtes plus connecté", "redirect" => URL];
+                echo json_encode ($response);
+                exit();
+            }
+
+      
+
+            if($current_user->type_user !== "admin" && $current_user->type_user !== "editor" && $current_user->type_user !== "super_admin"){
+
+                header("403 Forbidden", false , 403);
+                $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];
+                echo json_encode ($response);
+                exit();
+            }
+
+            
+        
+        }
+
+    }
+
+
+
 
     public function panel_edit_article($params){
 
@@ -47,6 +91,15 @@ class Edit_articleController extends Controller{
         if(isset($_SESSION["user"])){
             
             $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
+
+            if($current_user == false){
+                
+                unset($_SESSION["user"]);
+                session_destroy();
+
+                header("Location:".URL);
+                exit();
+            }
 
             if($current_user->type_user === "admin" || $current_user->type_user === "super_admin" || $current_user->type_user === "editor"){
 
@@ -76,23 +129,7 @@ class Edit_articleController extends Controller{
         
     }
 
-    private function is_allowed(){
-
-   
-        $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
-
-        
-        if($current_user->type_user !== "admin" && $current_user->type_user !== "editor" && $current_user->type_user !== "super_admin"){
-
-            header("403 Forbidden", false , 403);
-            $response=["attribute" => "error", "message" => "Vous n'êtes pas autorisé à faire cette action", "redirect" => URL];
-            echo json_encode ($response);
-            exit();
-
-        }
-        
-
-    }
+    
 
 
     public function change_title(){

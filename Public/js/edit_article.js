@@ -25,9 +25,11 @@ jQuery(document).ready(function($){
         
         .done(function(response){
             message_ajax(response);
+            
         })
         
         .fail(function(response){
+
             message_ajax(response.responseJSON);
 
             setTimeout(function(){

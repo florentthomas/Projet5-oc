@@ -17,6 +17,17 @@ class Admin_usersController extends Controller{
    
         $current_user=$this->userManager->get_user("id",$_SESSION["user"]->id);
 
+
+        if($current_user == false){
+                
+            unset($_SESSION["user"]);
+            session_destroy();
+            header("403 Forbidden", false , 403);
+            $response=["attribute" => "error", "message" => "Vous n'êtes plus connecté", "redirect" => URL];
+            echo json_encode ($response);
+            exit();
+        }
+
         
         if($current_user->type_user !== "admin" && $current_user->type_user !== "super_admin"){
 
@@ -63,6 +74,7 @@ class Admin_usersController extends Controller{
 
             foreach($result as $user){
                 $user->photo=URL_IMG_AVATARS.$user->photo;
+                $user->pseudo=htmlspecialchars($user->pseudo, ENT_HTML5);
                 $user->date_inscription=date("d/m/Y", strtotime($user->date_inscription));
             }
 
