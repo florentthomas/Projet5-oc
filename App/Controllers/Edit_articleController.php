@@ -285,7 +285,7 @@ class Edit_articleController extends Controller{
             if($article != null){
 
                 $this->articleManager->delete_article($_POST["id_article"]);
-                $this->commentManager->delete_comments_by_article($_POST["id_article"]);
+                
                 $response=["attribute" => "success", "message" => "L'article a été supprimé", "redirect" => URL."admin_blog/modifier_article"];
                 
             }

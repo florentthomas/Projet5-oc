@@ -65,13 +65,6 @@ class ArticleManager extends Manager{
     }
     
 
-    public function add_image($name_image){
-        $sth=$this->bdd->prepare("INSERT INTO images_article (name_image) VALUES(:name_image)");
-
-        $sth->execute(Array("name_image" => $name_image));
-    }
-
-
     public function delete_article($id){
 
         $sth=$this->bdd->prepare("DELETE FROM articles WHERE id = :id");
