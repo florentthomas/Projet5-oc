@@ -19,7 +19,6 @@ jQuery(document).ready(function($){
             }).
 
             done(function(response){
-
                 message_ajax(response);   
             }).
 

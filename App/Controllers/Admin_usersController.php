@@ -97,40 +97,50 @@ class Admin_usersController extends Controller{
 
             $user=$this->userManager->get_user("id",$_POST['id_user']);
 
-            if($user->type_user !== "super_admin"){
+            if($user != false){
 
-                if($type_user === "user" || $type_user === "editor" || $type_user === "admin"){
+                if($user->type_user !== "super_admin"){
 
-                    if($user !== false){
+                    if($type_user === "user" || $type_user === "editor" || $type_user === "admin"){
     
-                        $request_update_user=$this->userManager->update_user("type_user",$type_user,$_POST["id_user"]);
-                        
-                        if($request_update_user){
-    
-                            $response=["attribute" => "success", "message" => "Changement effectué"];
+                        if($user !== false){
+        
+                            $request_update_user=$this->userManager->update_user("type_user",$type_user,$_POST["id_user"]);
+                            
+                            if($request_update_user){
+        
+                                $response=["attribute" => "success", "message" => "Changement effectué"];
+                            }
+        
+                            else{
+                                $response=["attribute" => "error", "message" => "Une erreur est survenue lors de l'execution de la requête"];
+                            }
+        
+                            
                         }
-    
+        
                         else{
-                            $response=["attribute" => "error", "message" => "Une erreur est survenue lors de l'execution de la requête"];
+                            $response=["attribute"=>"error","message" => "L'utilisateur n'existe pas"];
                         }
-    
-                        
                     }
-    
+        
                     else{
-                        $response=["attribute"=>"error","message" => "L'utilisateur n'existe pas"];
+                        $response=["attribute"=> "error", "message" => "Type utilisateur non conforme"];
                     }
-                }
+    
+                } 
     
                 else{
-                    $response=["attribute"=> "error", "message" => "Type utilisateur non conforme"];
+                    $response=["attribute"=> "error", "message" => "Vous ne pouvez pas modifier son statut"];
                 }
 
-            } 
+            }
 
             else{
-                $response=["attribute"=> "error", "message" => "Vous ne pouvez pas modifier son statut"];
+                $response=["attribute"=> "error", "message" => "Cet utilisateur n'existe pas"];
             }
+
+            
 
         }
 
@@ -190,7 +200,7 @@ class Admin_usersController extends Controller{
 
         if(isset($_POST["id_user"])){
             $user=$this->userManager->get_user("id",$_POST['id_user']);
-
+            // var_dump($user);
             if($user != false){
 
                 if($user->type_user !== "super_admin"){
