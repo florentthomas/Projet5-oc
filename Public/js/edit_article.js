@@ -47,6 +47,7 @@ jQuery(document).ready(function($){
     $("#image_article").change(function(){
         
         image_accepted = img_change_event(this)
+        
     })
 
     
@@ -98,6 +99,14 @@ jQuery(document).ready(function($){
 
         
     });
+
+    //Supression image 
+
+    $("#delete_image").click(function(e){
+        e.preventDefault()
+        $("#controle_img_msg").hide()
+        $("#prev_image_block").hide()
+    })
 
 
 

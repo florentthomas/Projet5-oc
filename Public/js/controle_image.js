@@ -4,6 +4,8 @@ function controle_image(img){
 
     const messageElt=$("#controle_img_msg");
 
+    messageElt.show()
+
     const image= img;
 
     const image_size= image.size / 1024;

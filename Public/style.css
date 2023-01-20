@@ -1094,13 +1094,13 @@ label[for="photo"]{
 #prev_image_block{
     margin-top:15px;
     text-align: center;
+    display: none;
 }
 
 
 #prev_image_block img{
     max-width: 100%;
     margin: auto;
-    display: none;
 }
 
 /*menu_admin_blog*/
