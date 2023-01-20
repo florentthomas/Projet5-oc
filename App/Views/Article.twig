@@ -99,12 +99,12 @@
 
                                 <img class="photo_profil" src="{{URL_IMG_AVATARS}}{{comment.user.photo}}"  alt="photo de profil de {{comment.user.pseudo}}"/>
                                 <div>{{comment.user.pseudo}}</div>
-                                <div>{{comment.user.date_comment|date("d/m/Y")}}</div>
+                                <div>{{comment.date_comment|date("d/m/Y")}}</div>
 
                             {% else %}
 
                                 <div>Profil supprimé</div>
-                                <div>{{comment.user.date_comment|date("d/m/Y")}}</div>
+                                <div>{{comment.date_comment|date("d/m/Y")}}</div>
 
                             {% endif %}
 
