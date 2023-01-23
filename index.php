@@ -11,6 +11,11 @@ use App\Router\Router;
 $router=new Router($_GET['url']);
 
 
+if(!isset($_GET["url"])){
+    
+    header("Location:".URL);
+}
+
 $router->get("/","BlogController@index");
 
 //-------no_script-----------//
@@ -167,5 +172,3 @@ $router->get("admin_blog/commentaires_signales","CommentController@index");
 
 
 $router->run();
-
-
