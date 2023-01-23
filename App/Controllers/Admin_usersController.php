@@ -200,7 +200,7 @@ class Admin_usersController extends Controller{
 
         if(isset($_POST["id_user"])){
             $user=$this->userManager->get_user("id",$_POST['id_user']);
-            // var_dump($user);
+            
             if($user != false){
 
                 if($user->type_user !== "super_admin"){
