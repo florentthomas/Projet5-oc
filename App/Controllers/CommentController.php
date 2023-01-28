@@ -261,7 +261,7 @@ class CommentController extends Controller{
                         exit();
                     }
 
-                    $comment=htmlspecialchars(trim($_POST["comment"])); 
+                    $comment=trim($_POST["comment"]); 
 
                     $user=Array("id" => $_SESSION["user"]->id,
                                 "photo" => URL_IMG_AVATARS.$_SESSION["user"]->photo,
